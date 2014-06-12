@@ -122,6 +122,8 @@ log4j = {
 
 
 // Added by the Spring Security Core plugin:
+//grails.plugin.springsecurity.useBasicAuth = false
+//grails.plugin.springsecurity.basic.realmName = "Ralph's Bait and Tackle"
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.org.pmms.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.org.pmms.UserRole'
 grails.plugin.springsecurity.authority.className = 'uk.org.pmms.Role'
@@ -135,6 +137,13 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
+	'/transfer/**':					  ['permitAll']
 
 ]
 
+grails.opencmis.alfresco.scope='-default-'
+grails.opencmis.alfresco.apiurl='http://alfresco.pmms.org.uk/alfresco'
+grails.opencmis.alfresco.cmisurl='cmis/versions/1.1/atom'
+grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-default-/public/cmis/versions/1.1/atom'
+grails.opencmis.alfresco.user='user'
+grails.opencmis.alfresco.password='bitnami'

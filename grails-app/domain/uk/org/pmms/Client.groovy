@@ -4,12 +4,17 @@ class Client {
 	static searchable = true
 	String name
 	String clientId
+	Address address
 	Date yearStart
 	Date yearEnd
 	String accountName
 	Integer accountNo
+	String registrationNo
+	Date registrationDate
 	
-	static hasMany = [units : Property]
+	String repoFolderId
+	
+	static hasMany = [units : Property, directors: Person]
 	
     static constraints = {
 		name blank: false, nullable: false, maxSize: 50
@@ -18,6 +23,9 @@ class Client {
 		yearEnd nullable: false
 		accountName nullable: false, maxSize: 50
 		accountNo nullable: false, unique: true, minSize: 8, maxSize: 16
+		registrationNo nullable: true, blank: true
+		registrationDate nullable: true, blank: true
+		repoFolderId display: false, nullable: true, blank: true
     }
 	
 	String toString(){

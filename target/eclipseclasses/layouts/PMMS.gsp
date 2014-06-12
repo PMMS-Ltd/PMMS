@@ -17,9 +17,9 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 
-        <div class="navbar-header">
+        <div class="navbar-header" style="margin-left:15px;">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -28,11 +28,45 @@
           </button>
           <a class="navbar-brand" href="#">PMMS</a>
         </div>
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" style="margin-right:15px;">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/PMMS">Home</a></li>
-            <li><g:link controller="Client" action="index">Clients</g:link></li>
-            <li><g:link controller="Property" action="index">Properties</g:link></li>
+            <li><a href="/PMMS">Dashboard</a></li>
+            <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
+	          <ul class="dropdown-menu">
+	            <li><g:link controller="Client" action="index"><span class="fa fa-users fa-lg"></span>&nbsp; Clients</g:link></li>
+            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg"></span>&nbsp; All Properties</g:link></li>
+            	<li><g:link controller="Transfer" action="index"><span class="fa fa-exchange fa-lg"></span>&nbsp; Transfers</g:link></li>
+	            <li class="divider"></li>
+	            <li><a href="#">Separated link</a></li>
+	          </ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts<b class="caret"></b></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="#"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</a></li>
+	            <li><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
+	            <li><a href="#"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</a></li>
+	            <li><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
+	            <li><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
+	          </ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance<b class="caret"></b></a>
+	          <ul class="dropdown-menu">
+	          	<li><a href="#"><span class="fa fa-plus fa-fw fa-lg"></span>&nbsp; New Job</a></li>
+	          	<li class="divider"></li>
+	            <li><a href="#"><span class="fa-stack fa-lg">
+					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
+					  <i class="fa fa-check fa-stack-1x text-success"></i>
+					</span> Open Jobs</a></li>
+	            <li><a href="#"><span class="fa-stack fa-lg">
+					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
+					  <i class="fa fa-ban fa-stack-1x text-danger"></i>
+					</span> Closed Jobs</a></li>
+	            <li><a href="#"><span class="fa fa-puzzle-piece fa-fw fa-lg"></span>&nbsp; Contracts</a></li>
+	          </ul>
+	        </li>
           </ul>
 		  <sec:ifNotLoggedIn>
 		  <g:form class="navbar-form navbar-right" role="form" url="PMMS/j_spring_security_check" method="POST">
@@ -42,12 +76,13 @@
             <div class="form-group">
               <input type="password" placeholder="Password" class="form-control" name='j_password' id='password'>
             </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
+            <button type="submit" class="btn btn-success btn-sm"><span class="fa fa-sign-in"></span>  Sign in</button>
           </g:form>
 		  </sec:ifNotLoggedIn>
 		  <sec:ifLoggedIn>
 		  <g:form class="navbar-form navbar-right" role="form" url="[controller:'logout', action:'index']" method="POST" >
-              <button type="submit" class="btn btn-danger">Logout</button>
+		  		Signed in as: <sec:loggedInUserInfo field="username"/>
+              <button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-sign-out"></span> Logout</button>
 		  </g:form>
 		  </sec:ifLoggedIn>
         </div><!--/.nav-collapse -->

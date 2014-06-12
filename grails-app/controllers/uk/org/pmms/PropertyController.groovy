@@ -10,6 +10,7 @@ import grails.plugin.springsecurity.annotation.Secured
 
 class PropertyController {
 	def scaffold = true
+	def CMISService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
@@ -24,7 +25,7 @@ class PropertyController {
     def create() {
         respond new Property(params)
     }
-
+	@Secured(['ROLE_USER'])
     @Transactional
     def save(Property propertyInstance) {
         if (propertyInstance == null) {
@@ -36,7 +37,25 @@ class PropertyController {
             respond propertyInstance.errors, view:'create'
             return
         }
-
+		//Create alfresco folder
+		def folderID = createPropertyFolder(propertyInstance)
+		if (!folderID.startsWith('Error') ){
+			propertyInstance.repoFolderId = folderID
+		}
+		
+		def address = new Address()
+		println "saving...." + params
+		address.unitNo = params.address.unitNo
+		address.address1 = params.address.address1
+		address.address2 = params.address.address2
+		address.town = params.address.town
+		address.county = params.address.county
+		address.postCode = params.address.postCode
+		address.country = params.address.country
+		address.save flush:true
+		
+		propertyInstance.address = address
+		
         propertyInstance.save flush:true
 
         request.withFormat {
@@ -104,4 +123,16 @@ class PropertyController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	
+	protected String createPropertyFolder(Property propertyInstance) {
+		def clientFolderID = propertyInstance.client.repoFolderId
+		if (clientFolderID){
+			def folderId = CMISService.createFolder(propertyInstance.propertyId, clientFolderID, '')
+			if (folderId){
+				return folderId
+			}
+		}else{
+			return "Error: could not find parent folder Id"
+		}
+	}
 }

@@ -8,7 +8,7 @@ import grails.plugin.springsecurity.annotation.Secured
 
 @Transactional(readOnly = true)
 class ClientController {
-
+	def CMISService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
@@ -17,13 +17,15 @@ class ClientController {
     }
 	@Secured(['ROLE_USER'])
     def show(Client clientInstance) {
-        respond clientInstance
+		String query = "select cmis:name, cmis:objectId, cmis:contentStreamLength, cmis:contentStreamMimeType from cmis:document where in_folder('" + clientInstance.repoFolderId + "')"
+		
+        [client: clientInstance, files: CMISService.getQueryResults(query, 10, 0)]
     }
 	@Secured(['ROLE_ADMIN'])
     def create() {
         respond new Client(params)
     }
-
+	@Secured(['ROLE_USER'])
     @Transactional
     def save(Client clientInstance) {
         if (clientInstance == null) {
@@ -35,9 +37,27 @@ class ClientController {
             respond clientInstance.errors, view:'create'
             return
         }
-
-        clientInstance.save flush:true
-
+		
+		//Create Alfresco Folder
+		
+		def folderId = CMISService.createFolder(clientInstance.clientId, '95c63d57-e1e2-47f9-8ef3-37a248059bf0', clientInstance.name)
+		if (folderId){
+			clientInstance.repoFolderId = folderId
+		}
+		
+		def address = new Address()
+		address.unitNo = params.address.unitNo
+		address.address1 = params.address.address1
+		address.address2 = params.address.address2
+		address.town = params.address.town
+		address.county = params.address.county
+		address.postCode = params.address.postCode
+		address.country = params.address.country
+		address.save flush:true
+		
+		clientInstance.address = address
+		clientInstance.save flush:true
+		
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'client.label', default: 'Client'), clientInstance.id])

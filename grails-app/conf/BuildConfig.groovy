@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
 		//mavenRepo "http://m2repo.spockframework.org/ext/"
 		mavenRepo "http://repo.spring.io/milestone/"
 		mavenRepo "http://repo.grails.org/grails/core"
+		mavenRepo "http://maven.alfresco.com/nexus/content/groups/public/"
 		
     }
 
@@ -56,6 +57,27 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
          runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+		 
+		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-commons-api:0.10.0', {
+			 excludes 'slf4j-api'
+		 }
+		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-commons-impl:0.10.0', {
+			 excludes 'slf4j-api'
+		 }
+		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-client-api:0.10.0', {
+			 excludes 'slf4j-api'
+		 }
+		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-client-impl:0.10.0', {
+			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
+		 }
+		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-client-bindings:0.10.0', {
+			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
+		 }
+		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-server-support:0.10.0', {
+			 excludes 'servlet-api', 'slf4j-api'
+		 }
+		 // Alfresco CMIS extension
+		 compile 'org.alfresco.cmis.client:alfresco-opencmis-extension:0.7'
     }
 
     plugins {
