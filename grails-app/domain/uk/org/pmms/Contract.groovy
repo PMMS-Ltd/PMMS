@@ -6,8 +6,9 @@ class Contract {
 	Date endDate
 	Supplier contractor
 	SupplierType contractType
+	Client client
 	
-	static belongsTo = [client: Client]
+	static belongsTo = [Client, Supplier]
 
     static constraints = {
 		startDate blank: true

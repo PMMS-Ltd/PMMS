@@ -26,19 +26,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">PMMS</a>
+          <a class="navbar-brand" href="${request.contextPath}">PMMS</a>
         </div>
         <div class="collapse navbar-collapse" style="margin-right:15px;">
           <ul class="nav navbar-nav">
-            <li><a href="/PMMS">Dashboard</a></li>
+            <li><a href="${request.contextPath}">Dashboard</a></li>
             <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
-	            <li><g:link controller="Client" action="index"><span class="fa fa-users fa-lg"></span>&nbsp; Clients</g:link></li>
-            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg"></span>&nbsp; All Properties</g:link></li>
-            	<li><g:link controller="Transfer" action="index"><span class="fa fa-exchange fa-lg"></span>&nbsp; Transfers</g:link></li>
+	            <li><g:link controller="Client" action="index"><span class="fa fa-users fa-lg fa-fw pull-left"></span>&nbsp; Clients</g:link></li>
+            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg fa-fw pull-left"></span>&nbsp; All Properties</g:link></li>
+            	<li><g:link controller="Transfer" action="index"><span class="fa fa-exchange fa-lg fa-fw pull-left"></span>&nbsp; Transfers</g:link></li>
 	            <li class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
+	            <li><g:link controller="Person" action="index"><span class="fa fa-book fa-fw fa-lg pull-left"></span>&nbsp; Contacts</g:link></li>
+	            <li><g:link controller="Supplier" action="index"><span class="fa fa-truck fa-fw fa-lg pull-left"></span>&nbsp; Suppliers</g:link></li>
 	          </ul>
 	        </li>
 	        <li class="dropdown">
@@ -60,30 +61,54 @@
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-check fa-stack-1x text-success"></i>
 					</span> Open Jobs</a></li>
-	            <li><a href="#"><span class="fa-stack fa-lg">
+	            <li><a href="#"><span class="fa-stack fa-lg fa-fw pull-left">
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-ban fa-stack-1x text-danger"></i>
 					</span> Closed Jobs</a></li>
-	            <li><a href="#"><span class="fa fa-puzzle-piece fa-fw fa-lg"></span>&nbsp; Contracts</a></li>
+	            <li><a href="#"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span>&nbsp; Contracts</a></li>
 	          </ul>
 	        </li>
           </ul>
 		  <sec:ifNotLoggedIn>
-		  <g:form class="navbar-form navbar-right" role="form" url="PMMS/j_spring_security_check" method="POST">
-            <div class="form-group">
-              <input type="text" placeholder="Username" class="form-control" name='j_username' id='username'>
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control" name='j_password' id='password'>
-            </div>
-            <button type="submit" class="btn btn-success btn-sm"><span class="fa fa-sign-in"></span>  Sign in</button>
-          </g:form>
+		  <ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <strong class="caret"></strong></a>
+			  <div class="dropdown-menu" style="padding: 15px; width: 275px;">
+				<g:form class="form" role="form" url="PMMS/j_spring_security_check" method="POST">
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<input type="text" placeholder="Username" class="form-control" name='j_username' id='username'>
+					</div>
+					</div>
+					<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<input type="password" placeholder="Password" class="form-control" name='j_password' id='password'>
+					</div>
+					</div>
+					<button type="submit" class="btn btn-success btn-sm"><span class="fa fa-sign-in"></span>  Sign in</button>
+					<g:link class="btn btn-primary btn-sm"><span class="fa fa-question"></span>  Reset Password</g:link>
+				</g:form>
+			  </div>
 		  </sec:ifNotLoggedIn>
 		  <sec:ifLoggedIn>
-		  <g:form class="navbar-form navbar-right" role="form" url="[controller:'logout', action:'index']" method="POST" >
-		  		Signed in as: <sec:loggedInUserInfo field="username"/>
-              <button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-sign-out"></span> Logout</button>
-		  </g:form>
+			<ul class="nav navbar-nav navbar-right">
+			<li>
+			  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg fa-fw"></i>
+				<sec:loggedInUserInfo field="username"/> <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu" role="menu">
+				<li class="text-right"><a href="#">Action</a></li>
+				<li class="divider"></li>
+				<li class="text-center">
+				<g:form controller="logout" action="index">
+					<button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-sign-out fa-fw fa-lg"></span> Logout</button>
+				</g:form>
+				</li>
+			  </ul>
+			  </li>
+			  </ul>
 		  </sec:ifLoggedIn>
         </div><!--/.nav-collapse -->
      
@@ -94,6 +119,12 @@
 		
 	</div>	
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+		<g:javascript>
+			// Fix input element click problem
+		$('.dropdown input, .dropdown label').click(function(e) {
+			e.stopPropagation();
+		});
+		</g:javascript>
 		<r:layoutResources />
 	</body>
 </html>

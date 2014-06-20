@@ -7,4 +7,8 @@ class SupplierType {
     static constraints = {
 		typeParent blank: true, nullable: true
     }
+	
+	String toString(){
+		return type
+	}
 }

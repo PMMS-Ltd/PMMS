@@ -3,8 +3,12 @@ package uk.org.pmms
 
 
 import static org.springframework.http.HttpStatus.*
+
+import org.junit.After;
+
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
+import grails.converters.JSON
 
 @Transactional(readOnly = true)
 
@@ -23,7 +27,7 @@ class PropertyController {
     }
 	@Secured(['ROLE_ADMIN'])
     def create() {
-        respond new Property(params)
+        	respond new Property(params)
     }
 	@Secured(['ROLE_USER'])
     @Transactional
@@ -42,19 +46,6 @@ class PropertyController {
 		if (!folderID.startsWith('Error') ){
 			propertyInstance.repoFolderId = folderID
 		}
-		
-		def address = new Address()
-		println "saving...." + params
-		address.unitNo = params.address.unitNo
-		address.address1 = params.address.address1
-		address.address2 = params.address.address2
-		address.town = params.address.town
-		address.county = params.address.county
-		address.postCode = params.address.postCode
-		address.country = params.address.country
-		address.save flush:true
-		
-		propertyInstance.address = address
 		
         propertyInstance.save flush:true
 
@@ -134,5 +125,9 @@ class PropertyController {
 		}else{
 			return "Error: could not find parent folder Id"
 		}
+	}
+	@Secured(['ROLE_USER'])
+	def search() {
+		render Property.search(params.q) as JSON
 	}
 }

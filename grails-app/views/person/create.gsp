@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-person" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
+		<div class="row">
+			<div id="create-client" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">
+				<h1 class="page-title"><g:message code="default.create.label" args="[entityName]" /></h1>
+				<g:if test="${flash.message}">
+				<div class="alert">${flash.message}</div>
+				</g:if>
+				<g:hasErrors bean="${personInstance}">
+				
+					<g:eachError bean="${personInstance}" var="error">
+					<div class="alert alert-danger alert-dismissable" <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>>
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<g:message error="${error}"/>
+					</div>
+					</g:eachError>
+				
+				</g:hasErrors>
+			</div>
+			<div class="visible-xs">
+				<h3 class="page-title"><g:message code="default.create.label" args="[entityName]" /></h3>
+			</div>
 		</div>
-		<div id="create-person" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${personInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${personInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			<g:form url="[resource:personInstance, action:'save']" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+		<div class="row">
+		<div class="col-lg-6 col-md-8 col-sm-10 hidden-xs">
+			<g:form url="[resource:personInstance, action:'save']" class="form">
+				<g:render template="form"/>
+				<fieldset>
+					<g:submitButton name="create" class="btn btn-success" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
+		</div>
+		
+		</div>
+		<div class="visible-xs">
+		<g:form url="[resource:personInstance, action:'save']" class="form" >
+			<div class="row">
+				<g:render template="form-small"/>
+			</div>
+			<div class="row">
+					<fieldset>
+						<g:submitButton name="create" class="btn btn-sm btn-success" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					</fieldset>
+			</div>
+		</g:form>
+		</div>
 		</div>
 	</body>
 </html>

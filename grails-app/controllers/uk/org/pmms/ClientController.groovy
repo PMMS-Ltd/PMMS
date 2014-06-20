@@ -45,17 +45,6 @@ class ClientController {
 			clientInstance.repoFolderId = folderId
 		}
 		
-		def address = new Address()
-		address.unitNo = params.address.unitNo
-		address.address1 = params.address.address1
-		address.address2 = params.address.address2
-		address.town = params.address.town
-		address.county = params.address.county
-		address.postCode = params.address.postCode
-		address.country = params.address.country
-		address.save flush:true
-		
-		clientInstance.address = address
 		clientInstance.save flush:true
 		
         request.withFormat {

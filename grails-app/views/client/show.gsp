@@ -10,27 +10,34 @@
 </head>
 <body>
 
-	<div class="page-header">
-		<h1>
-			<g:fieldValue bean="${client}" field="name" />
-		</h1>
-	</div>
-	<div class="btn-toolbar" role="toolbar">
+
+		<h1 class="page-header"><g:fieldValue bean="${client}" field="name" />
 		<div class="btn-group">
-			<g:link class="btn btn-primary" action="edit" resource="${client}">
-				<g:message code="default.button.edit.label" default="Edit" />
-			</g:link>
-		</div>
-		<div class="btn-group">
-			<sec:ifAnyGranted roles="ROLE_ADMIN">
-				<g:actionSubmit class="btn btn-danger" action="delete"
-					value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-			</sec:ifAnyGranted>
-		</div>
-	</div>
+  <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </a>
+  
+  <ul class="dropdown-menu" role="menu">
+  
+    <li><g:link
+     action="edit" resource="${client}">
+				<i class="fa fa-edit fa-lg"></i> <g:message code="default.button.edit.label" default="Edit" /></g:link></li>
+    <li class="divider"></li>
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <li style="padding-left:20px;">
+    <g:form action="delete" method="DELETE" id="${client.id}">
+    	<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"><i class="fa fa-trash-o fa-fw"></i> <g:message code="default.button.delete.label" default="Delete"/></button>
+      </g:form>	
+    </li>
+    </sec:ifAnyGranted>
+  </ul>
+
+</div></h1>
+	<div class="clearfix"></div>
 	<g:if test="${flash.message}">
-		<div class="message" role="status">
+		<div class="alert alert-warning col-xs-4 pull-right alert-dismissable" role="status">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			${flash.message}
 		</div>
 	</g:if>
@@ -139,40 +146,33 @@
 	</div>
 	<div class="row" style="margin-top: 5px;">
 		<div class="col-md-6 col-sm-12 col-xs-12">
-				<h3>Properties</h3>
+				<h3>Properties 
+				<sec:ifAnyGranted roles="ROLE_ADMIN">
+					<g:link class="btn btn-success btn-xs" action="create" controller="Property" params="['client': client.id, 'address': client.address.id]"><i class="fa fa-plus"></i> Add Property</g:link>
+				</sec:ifAnyGranted>
+			</h3>
 				<g:if test="${client?.units}">
 				<table class="table table-condensed">
 					<thead>
 						<tr>
-							<td>Property Id</td>
-							<td>Unit No</td>
-							<td>Address</td>
-							<td>Town</td>
-							<td>County</td>
-							<td>Post Code</td>
+							<th>Property Id</th>
+							<th>Address</th>
+							<th>Owner</th>
+							
 						</tr>
 					</thead>
 					<tbody>
-						<g:each in="${client.units}" var="u">
+						<g:each in="${client.units.sort{it.propertyId}}" var="u">
 							<tr>
 								<td><g:link controller="property" action="show"
 										id="${u.id}">
 										${u?.encodeAsHTML()}
 									</g:link></td>
-								<td class="text-center">
-									${u?.address.unitNo}
+								<td >
+									${u?.address}
 								</td>
 								<td>
-									${u?.address.address1}
-								</td>
-								<td>
-									${u?.address.town}
-								</td>
-								<td>
-									${u?.address.county}
-								</td>
-								<td>
-									${u?.address.postCode}
+									${u?.owner}
 								</td>
 							</tr>
 						</g:each>

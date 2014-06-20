@@ -1,6 +1,7 @@
 package uk.org.pmms
 
 class Person {
+	static searchable = true
 	String salutation
 	String firstName
 	String lastName
@@ -26,7 +27,8 @@ class Person {
 		firstName nullable: true
 		initial nullable: true
 		lastName nullable: false
-			
+		
+		
 		email1 email : true, nullable: true
 		email1Type nullable: true
 		email2 email : true, nullable: true
