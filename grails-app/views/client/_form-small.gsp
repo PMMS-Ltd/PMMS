@@ -38,23 +38,23 @@
 
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accountName', 'has-error')} required">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'accounts[0].name', 'has-error')} required">
 	<label for="accountName" class="control-label ">
 		<g:message code="client.accountName.label" default="Account Name" />
 		<span class="required-indicator">*</span>
 	</label>
 
-	<g:textField class="form-control input-sm" name="accountName" maxlength="50" required="" value="${clientInstance?.accountName}"/>
+	<g:textField class="form-control input-sm" name="accountName" maxlength="50" required="" value="${clientInstance?.accounts[0].name}"/>
 
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accountNo', 'has-error')} required">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'accounts[0].accNo', 'has-error')} required">
 	<label for="accountNo" class="control-label ">
 		<g:message code="client.accountNo.label" default="Account No" />
 		<span class="required-indicator">*</span>
 	</label>
 
-	<g:field class="form-control input-sm" name="accountNo" type="number" value="${clientInstance.accountNo}" required=""/>
+	<g:field class="form-control input-sm" name="accountNo" type="number" value="${clientInstance.accounts[0].accNo}" required=""/>
 
 </div>
 <div class="form-group ${hasErrors(bean: clientInstance, field: 'address.unitNo', 'has-error')} ">

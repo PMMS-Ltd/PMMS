@@ -9,12 +9,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><g:layoutTitle default="Grails"/></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
-		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
-		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
+		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"></link>
+		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}"></link>
+		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"></link>
 		<g:layoutHead/>
-		<g:javascript library="application"/>		
+		<g:javascript library="application"/>
 		<r:layoutResources />
+		
 	</head>
 	<body>
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -45,11 +46,15 @@
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</a></li>
+	            <li><g:link controller="Invoice" action="index"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</g:link></li>
 	            <li><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
 	            <li><a href="#"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</a></li>
 	            <li><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
 	            <li><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
+	            <sec:ifAnyGranted roles="ROLE_ADMIN">
+					<li class="divider"/>
+					<li><g:link controller="Transaction" action="index"><span class="fa fa-cubes fa-lg fa-fw pull-left"></span>&nbsp; Transactions</g:link></li>
+				</sec:ifAnyGranted>
 	          </ul>
 	        </li>
 	        <li class="dropdown">

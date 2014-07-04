@@ -9,6 +9,7 @@
 		<div class="col-md-2">
 			<div style="margin-left:10px;">
 			<h3>Application Status</h3>
+			<g:pdfLink url="/Pdf/demo4.gsp" filename="sample.pdf">sample.pdf</g:pdfLink>
 			<ul>
 				<li>App version: <g:meta name="app.version"/></li>
 				<li>Grails version: <g:meta name="app.grails.version"/></li>

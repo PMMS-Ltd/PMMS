@@ -38,27 +38,15 @@ class PersonController {
             return
         }
 		
-		/*def address = new Address()
-		address.unitNo = params.address.unitNo
-		address.address1 = params.address.address1
-		address.address2 = params.address.address2
-		address.town = params.address.town
-		address.county = params.address.county
-		address.postCode = params.address.postCode
-		address.country = params.address.country
-		address.save flush:true
-				
-		personInstance.address = address*/
+		
         personInstance.save flush:true
-		//personInstance.save()*/
-		//def person = new Person(params)
-		//personInstance.save()
+		
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'person.label', default: 'Person'), personInstance.id])
                 redirect personInstance
-				//render "Saved"
+				
             }
             '*' { respond personInstance, [status: CREATED] }
         }
@@ -125,5 +113,8 @@ class PersonController {
 	}
 	def searchJSON() {
 		render Person.search(params.q) as JSON
+	}
+	def showJSON(Person personInstance) {
+		render personInstance as JSON
 	}
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>

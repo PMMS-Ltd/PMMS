@@ -5,6 +5,7 @@ package uk.org.pmms
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
+import grails.converters.JSON
 
 @Transactional(readOnly = true)
 class ClientController {
@@ -21,6 +22,10 @@ class ClientController {
 		
         [client: clientInstance, files: CMISService.getQueryResults(query, 10, 0)]
     }
+	@Secured(['ROLE_USER'])
+	def showJSON(Client clientInstance) {
+		render clientInstance as JSON
+	}
 	@Secured(['ROLE_ADMIN'])
     def create() {
         respond new Client(params)
@@ -59,6 +64,10 @@ class ClientController {
     def edit(Client clientInstance) {
         respond clientInstance
     }
+	@Secured(['ROLE_USER'])
+	def editDirectors(Client clientInstance) {
+		respond clientInstance
+	}
 	@Secured(['ROLE_USER'])
     @Transactional
     def update(Client clientInstance) {
@@ -111,4 +120,32 @@ class ClientController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	@Secured(['ROLE_ADMIN'])
+	@Transactional
+	def addDirector (Client clientInstance) {
+		
+		def director = Person.get(params.person)
+		
+		clientInstance.addToDirectors(director)
+		
+		clientInstance.save flush:true
+		
+		//render client as JSON
+		redirect (action: "editDirectors", id: clientInstance.id)
+		
+	}
+	@Secured(['ROLE_ADMIN'])
+	@Transactional
+	def removeDirector (Client clientInstance) {
+		
+		def director = Person.get(params.person)
+		
+		clientInstance.removeFromDirectors(director)
+		
+		clientInstance.save flush:true
+		
+		//render client as JSON
+		redirect (action: "editDirectors", id: clientInstance.id)
+		
+	}
 }

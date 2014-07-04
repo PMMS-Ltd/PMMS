@@ -41,10 +41,11 @@
 			${flash.message}
 		</div>
 	</g:if>
-	<div class="row" style="min-height: 300px;">
-		<div class="col-md-2 col-sm-4 col-xs-6" style="height: 100%;">
-
-			<h3>Details</h3>
+	<div class="row">
+		<div class="col-lg-3 col-sm-4 col-xs-6">
+		  <div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-cog fa-fw"></i> Details</div>
+			<div class="panel-body">
 			<dl class="dl-horizontal pull-left">
 				<dt>
 					<g:message code="client.clientId.label" default="Client Id" />
@@ -78,18 +79,19 @@
 						minIntegerDigits="8" />
 				</dd>
 			</dl>
-
+		  </div>
+		  </div>
 		</div>
-
-		<div class="col-md-2 col-sm-4 col-xs-6" style="height: 100%;">
-
-			<h3>Insurance</h3>
-			<form class="form-horizontal form-condensed pull-left" role="form">
+		<div class="col-lg-3 col-sm-4 col-xs-6">
+			 <div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-shield fa-fw"></i> Insurance</div>
+			<div class="panel-body">
+			<form class="form-horizontal" role="form">
 				<g:if test="${client?.clientId}">
 					<div class="form-group">
-						<label for="clientId" class="col-sm-5 control-label"><g:message
+						<label for="clientId" class="col-xs-4 control-label"><g:message
 								code="client.clientId.label" default="Underwriter" /></label>
-						<div class="col-sm-7">
+						<div class="col-sm-8">
 							<p class="form-control-static">
 								<g:fieldValue bean="${client}" field="clientId" />
 							</p>
@@ -98,9 +100,9 @@
 				</g:if>
 				<g:if test="${client?.yearStart}">
 					<div class="form-group">
-						<label for="clientId" class="col-sm-5 control-label"><g:message
+						<label for="clientId" class="col-xs-4 control-label"><g:message
 								code="client.yearStart.label" default="Broker" /></label>
-						<div class="col-sm-7">
+						<div class="col-sm-8">
 							<p class="form-control-static">
 								<g:formatDate format="dd-MM-yyyy" date="${client?.yearStart}" />
 							</p>
@@ -109,9 +111,9 @@
 				</g:if>
 				<g:if test="${client?.yearEnd}">
 					<div class="form-group">
-						<label for="clientId" class="col-sm-5 control-label"><g:message
+						<label for="clientId" class="col-xs-4 control-label"><g:message
 								code="client.yearEnd.label" default="Renewal Date" /></label>
-						<div class="col-sm-7">
+						<div class="col-sm-8">
 							<p class="form-control-static">
 								<g:formatDate format="dd-MM-yyyy" date="${client?.yearEnd}" />
 							</p>
@@ -120,9 +122,9 @@
 				</g:if>
 				<g:if test="${client?.accountName}">
 					<div class="form-group">
-						<label for="clientId" class="col-sm-5 control-label"><g:message
+						<label for="clientId" class="col-xs-4 control-label"><g:message
 								code="client.accountName.label" default="Policy No." /></label>
-						<div class="col-sm-7">
+						<div class="col-sm-8">
 							<p class="form-control-static">
 								<g:fieldValue bean="${client}" field="accountName" />
 							</p>
@@ -131,9 +133,9 @@
 				</g:if>
 				<g:if test="${client?.accountNo}">
 					<div class="form-group">
-						<label for="clientId" class="col-sm-5 control-label"><g:message
+						<label for="clientId" class="col-xs-4 control-label"><g:message
 								code="client.accountNo.label" default="Account No" /></label>
-						<div class="col-sm-7">
+						<div class="col-sm-8">
 							<p class="form-control-static">
 								<g:formatNumber number="${client.accountNo}" format="########"
 									minIntegerDigits="8" />
@@ -143,19 +145,88 @@
 				</g:if>
 			</form>
 		</div>
+		</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-map-marker fa-fw"></i> Location
+				</div>
+				<div class="panel-body">
+					<p class="text-center"><small>${client.address }</small></p>
+					<img src="http://maps.googleapis.com/maps/api/staticmap?center=${client.address}&amp;zoom=16&amp;size=400x200&amp;sensor=false&amp;scale=1&amp;maptype=roadmap&amp;markers=color:red%7C${client.address}">
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-file-o fa-fw"></i> Recent Files
+			</div>
+			<div class="panel-body">
+				<g:if test="${files.size() > 0}">
+				<table class="table table-condensed table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Size</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+					<tbody>
+						<g:each var="file" in="${files}" status="i">
+							<tr>
+								<td><a class="btn btn-xs btn-success"
+									href="${grailsApplication.config.grails.opencmis.alfresco.atomurl}/content/?id=${file.'cmis:objectId' }">
+										<i class="fa fa-download"></i>
+								</a> ${file.'cmis:name' }</td>
+								<td>
+									${file.'cmis:contentStreamLength' }
+								</td>
+								<td
+									style="max-width: 150px; text-overflow: ellipsis; overflow: hidden;">
+									${file.'cmis:contentStreamMimeType' }
+								</td>
+							</tr>
+						</g:each>
+					</tbody>
+				</table>
+			</g:if>
+			<g:else>
+				<span class="text-muted">No Files to display</span>
+			</g:else>
+			</div>
+		</div>
+		</div>
 	</div>
+	<hr />
 	<div class="row" style="margin-top: 5px;">
-		<div class="col-md-6 col-sm-12 col-xs-12">
-				<h3>Properties 
-				<sec:ifAnyGranted roles="ROLE_ADMIN">
-					<g:link class="btn btn-success btn-xs" action="create" controller="Property" params="['client': client.id, 'address': client.address.id]"><i class="fa fa-plus"></i> Add Property</g:link>
+		<div class="col-lg-6 col-sm-12 col-xs-12">
+		 <div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-building-o fa-fw"></i> Properties 
+				
+				<div class="dropdown pull-right">
+							<a href="#" class="dropdown-toggle btn btn-default btn-xs" data-toggle="dropdown"> <i
+								class="caret"></i>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<!--<li>View All</li>-->
+								<sec:ifAnyGranted roles="ROLE_ADMIN">
+								
+					<li><g:link action="create" controller="Property" params="['client': client.id, 'address': client.address.id]"><i class="fa fa-plus text-success"></i> Add Property</g:link></li>
 				</sec:ifAnyGranted>
-			</h3>
+
+							</ul>
+						</div>
+			</div>
+			<div class="panel-body">
+				
 				<g:if test="${client?.units}">
 				<table class="table table-condensed">
 					<thead>
 						<tr>
-							<th>Property Id</th>
+							<th>Property ID</th>
+							<th>Type</th>
 							<th>Address</th>
 							<th>Owner</th>
 							
@@ -168,7 +239,8 @@
 										id="${u.id}">
 										${u?.encodeAsHTML()}
 									</g:link></td>
-								<td >
+								<td>${u.propertyType}</td>
+								<td>
 									${u?.address}
 								</td>
 								<td>
@@ -183,54 +255,7 @@
 				<h4>No Properties to display</h4>
 				</g:else>
 		</div>
-		
-		<div class="col-md-6">
-			<h3>
-				Files
-				<!-- <button class="btn btn-info btn-xs" data-toggle="modal"
-					data-target="#uploadFile">
-					<span class="fa fa-upload"></span> Upload
-				</button>-->
-			</h3>
-			<g:if test="${files.size() > 0}">
-				<table class="table table-condensed table-striped">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Actions</th>
-							<th>Size</th>
-							<th>Type</th>
-						</tr>
-					</thead>
-					<tbody>
-						<g:each var="file" in="${files}" status="i">
-							<tr>
-								<td><a class="btn btn-xs btn-success"
-									href="${grailsApplication.config.grails.opencmis.alfresco.atomurl}/content/?id=${file.'cmis:objectId' }">
-										<i class="fa fa-download"></i>
-								</a> ${file.'cmis:name' }</td>
-								<td><!-- <a class="btn btn-xs btn-default" href="#"> <i
-										class="fa fa-pencil fa-lg"></i>
-								</a>
-									<button class="btn btn-xs btn-danger" data-toggle="modal"
-										data-target="#confirmDelete${i}">
-										<i class="fa fa-trash-o fa-lg"></i>
-									</button>--></td>
-								<td>
-									${file.'cmis:contentStreamLength' }
-								</td>
-								<td
-									style="max-width: 150px; text-overflow: ellipsis; overflow: hidden;">
-									${file.'cmis:contentStreamMimeType' }
-								</td>
-							</tr>
-						</g:each>
-					</tbody>
-				</table>
-			</g:if>
-			<g:else>
-				<h4>No Files to display</h4>
-			</g:else>
+		</div>
 		</div>
 	</div>
 </body>

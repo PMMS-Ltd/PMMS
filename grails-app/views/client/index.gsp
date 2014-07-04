@@ -46,10 +46,6 @@
 						<g:sortableColumn property="yearStart" title="${message(code: 'client.yearStart.label', default: 'Year Start')}" />
 					
 						<g:sortableColumn property="yearEnd" title="${message(code: 'client.yearEnd.label', default: 'Year End')}" />
-					
-						<!--<g:sortableColumn property="accountName" title="${message(code: 'client.accountName.label', default: 'Account Name')}" />
-					
-						<g:sortableColumn property="accountNo" title="${message(code: 'client.accountNo.label', default: 'Account No')}" />-->
 						
 						<th>Properties</th>
 					
@@ -69,10 +65,6 @@
 						<td class="col-xs-1"><g:formatDate format="dd-MM-yyyy" date="${clientInstance.yearStart}" /></td>
 					
 						<td class="col-xs-1"><g:formatDate format="dd-MM-yyyy" date="${clientInstance.yearEnd}" /></td>
-					
-						<!-- <td>${fieldValue(bean: clientInstance, field: "accountName")}</td>
-					
-						<td><g:formatNumber number="${clientInstance.accountNo}" format="########" minIntegerDigits="8" /></td>-->
 						
 						<td class="col-xs-1 text-center"><span class="badge">${clientInstance.units.size() }</span></td>
 					</tr>

@@ -56,6 +56,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
          runtime 'mysql:mysql-connector-java:5.1.27'
+		 runtime 'org.springframework:spring-test:3.1.0.RELEASE'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 		 
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-commons-api:0.10.0', {
@@ -78,6 +79,7 @@ grails.project.dependency.resolution = {
 		 }
 		 // Alfresco CMIS extension
 		 compile 'org.alfresco.cmis.client:alfresco-opencmis-extension:0.7'
+		 compile 'org.xhtmlrenderer:flying-saucer-pdf:9.0.6'
     }
 
     plugins {
@@ -87,6 +89,9 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.0.3"
         compile ':cache:1.1.2'
+		compile (":rendering:1.0.0") {
+			excludes "flying-saucer-pdf"
+		}
 		//compile ":excel-import:1.0.0"
 		compile ":spring-security-core:2.0-RC2"
 		//compile ":spring-security-ui:1.0-RC1"

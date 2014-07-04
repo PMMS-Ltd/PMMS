@@ -77,14 +77,18 @@
 								class="caret"></i>
 							</a>
 							<ul class="dropdown-menu" role="menu">
-								<li role="presentation"><g:link class="edit" action="edit"
-										resource="${supplierInstance}">
-										<i class="fa fa-pencil-square-o fa-fw"></i> Edit</g:link></li>
+								<li role="presentation">
+									<g:link action="editDirectors" resource="${supplierInstance}">
+										<i class="fa fa-pencil-square-o fa-fw"></i> Edit
+									</g:link>
+									
+								</li>
 
 							</ul>
 						</div>
+						<a href="#" class="btn btn-xs btn-success close-icon hidden" style="margin-top: 15px;"><i class="fa fa-fw fa-plus"></i> Add Contact</a>
 					</div>
-					<div class="panel-body" style="max-height:284px; overflow-y: scroll;">
+					<div class="panel-body" style="min-height: 233px; max-height:284px; overflow-y: auto;">
 						<ul class="list-group">
 
 							<g:if test="${supplierInstance?.employees}">
@@ -95,7 +99,7 @@
 											<div class="col-xs-1">
 												<i class="fa fa-user fa-3x"></i>
 											</div>
-											<div class="col-xs-10 vcard">
+											<div class="col-xs-9 vcard">
 												<h4 class="list-group-item-heading fn n">
 													<span class="family-name">${e.lastName }</span>,
 													<span class="given-name">${e.firstName }</span>
@@ -113,10 +117,15 @@
 													<strong>@</strong> &nbsp;<a class="email" href="mailto:${e.email1 }">${e.email1 }</a>
 												</p>
 											</div>
+											<div class="col-xs-2 hidden close-icon">
+												<a href="#"><i class="fa fa-times fa-lg fa-fw pull-right text-danger"></i></a>
+											</div>
 										</div>
 									</li>
 								</g:each>
-
+								
+									<a href="#" class="btn btn-sm btn-success close-icon hidden pull-right" style="margin-top: 15px;"><i class="fa fa-fw fa-plus"></i> Add Contact</a>
+								
 							</g:if>
 
 						</ul>
@@ -260,5 +269,8 @@
 			</div>
 		</div>
 	</div>
+	<g:javascript>
+		$('.editBtn').click(function(){$('.close-icon').toggleClass('hidden')});
+	</g:javascript>
 </body>
 </html>

@@ -4,10 +4,7 @@
 	<div class="form-inline col-xs-12" style="margin-bottom: 15px;">
 		<div
 			class="form-group ${hasErrors(bean: propertyInstance, field: 'client', 'has-error')} col-lg-4 required">
-			<label for="client" class="control-label"> <span
-				class="fa fa-asterisk fa-fw text-danger"></span> <g:message
-					code="property.client.label" default="Client" />
-			</label>
+			<label for="client" class="control-label"> <span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="property.client.label" default="Client" /></label>
 			<g:select id="client" name="client.id"
 				from="${uk.org.pmms.Client.list()}" optionKey="id" required=""
 				value="${propertyInstance?.client?.id}" class="form-control" />

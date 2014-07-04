@@ -13,4 +13,8 @@ class Supplier {
 		accountNo blank: true, nullable: true
 		sortCode blank: true, nullable: true
     }
+	
+	String toString(){
+		return name
+	}
 }

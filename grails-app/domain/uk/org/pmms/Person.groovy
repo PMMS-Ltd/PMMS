@@ -33,8 +33,8 @@ class Person {
 		email1Type nullable: true
 		email2 email : true, nullable: true
 		email2Type nullable: true
-		phone1 nullable: false
-		phone1Type nullable: false
+		phone1 nullable: true
+		phone1Type nullable: true
 		phone2 nullable: true
 		phone2Type nullable: true
 		phone3 nullable: true

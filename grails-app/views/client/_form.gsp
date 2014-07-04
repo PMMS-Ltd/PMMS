@@ -39,21 +39,21 @@
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accountName', 'has-error')} required">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'accounts[0].name', 'has-error')} required">
 	<label for="accountName" class="control-label col-xs-4 col-lg-3">
-		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accountName.label" default="Account Name" />
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accounts.name.label" default="Account Name" />
 	</label>
 	<div class="col-xs-8">
-	<g:textField class="form-control" name="accountName" maxlength="50" required="" value="${clientInstance?.accountName}"/>
+	<g:textField class="form-control" name="accountName" maxlength="50" required="" value="${clientInstance?.accounts[0].name}"/>
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accountNo', 'has-error')} required">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'accounts[0].accNo', 'has-error')} required">
 	<label for="accountNo" class="control-label col-xs-4 col-lg-3">
-		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accountNo.label" default="Account No" />
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accounts.accNo.label" default="Account No" />
 	</label>
 	<div class="col-xs-8 col-lg-3">
-	<g:textField class="form-control" name="accountNo" value="${clientInstance.accountNo}" required=""/>
+	<g:textField class="form-control" name="accountNo" value="${clientInstance.accounts[0].accNo}" required=""/>
 	</div>
 </div>
 </div>
