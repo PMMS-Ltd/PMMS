@@ -130,4 +130,12 @@ class PropertyController {
 	def search() {
 		render Property.search(params.q) as JSON
 	}
+	@Secured(['ROLE_USER'])
+	def getPropsByClient() {
+		if (params.id){
+			def props = Property.findAllByClient(Client.get(params.id))
+			render (template: 'propsByClient', collection: props)
+			//render props as JSON
+		}
+	}
 }

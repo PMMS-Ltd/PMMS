@@ -37,8 +37,10 @@ class SupplierController {
         }
 
         if (supplierInstance.hasErrors()) {
-            respond supplierInstance.errors, view:'create'
-            return
+			
+            //respond supplierInstance.errors, view:'create'
+            //return
+			render supplierInstance.errors as JSON
         }
 
         supplierInstance.save flush:true
@@ -107,4 +109,8 @@ class SupplierController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	def search() {
+		render (template: "supplierSearch", model: ['results': Supplier.search('*'+params.q+'*')])
+		//render Person.search('*'+params.q+'*') as JSON
+	}
 }

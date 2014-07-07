@@ -65,19 +65,21 @@
 				<dd>
 					<g:formatDate format="dd-MM-yyyy" date="${client?.yearEnd}" />
 				</dd>
+				<g:each in="${client.accounts }" var="acc">
 				<dt>
 					<g:message code="client.accounts.name.label" default="Account Name" />
 				</dt>
 				<dd>
-					${client.accounts[0].name}
+					${acc.name}
 				</dd>
 				<dt>
 					<g:message code="client.accounts.accNo.label" default="Account No" />
 				</dt>
 				<dd>
-					<g:formatNumber number="${client.accounts[0].accNo}" format="########"
+					<g:formatNumber number="${acc.accNo}" format="########"
 						minIntegerDigits="8" />
 				</dd>
+				</g:each>
 			</dl>
 		  </div>
 		  </div>
@@ -262,10 +264,10 @@
 								<g:each in="${client.directors}" var="e">
 									<li class="list-group-item">
 										<div class="row">
-											<div class="col-xs-1">
+											<div class="col-xs-2">
 												<i class="fa fa-user fa-3x"></i>
 											</div>
-											<div class="col-xs-9 vcard">
+											<div class="col-xs-10 vcard">
 												<h4 class="list-group-item-heading fn n">
 													<span class="family-name">${e.lastName }</span>,
 													<span class="given-name">${e.firstName }</span>

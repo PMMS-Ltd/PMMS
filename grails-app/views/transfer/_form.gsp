@@ -1,12 +1,67 @@
 <%@ page import="uk.org.pmms.Transfer" %>
 
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'completionDate', 'has-error')} ">
-	<label for="completionDate" class="control-label col-xs-4">
-		<g:message code="transfer.completionDate.label" default="Completion Date" />
-		
+<div class="form-group">
+	<label for="client" class="control-label col-xs-4">Client</label>
+	<div class="col-xs-4">
+		<g:select id="client" name="client" from="${uk.org.pmms.Client.list(order: 'asc', sort: 'clientId')}" value="${transferInstance?.prop?.client}" noSelection="${['':'']}" value="${transferInstance?.prop?.client}" optionKey="id" required="" class="form-control" onChange="${remoteFunction(action:'getPropsByClient', controller: 'property', update:'prop', params: '\'id=\' + this.value') }"/>
+	</div>
+</div>
+
+<div class="form-group ${hasErrors(bean: transferInstance, field: 'prop', 'has-error')} required">
+	<label for="prop" class="control-label col-xs-4">
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="transfer.prop.label" default="Property ID" />
+	</label>
+	<div class="col-xs-4">
+		<g:select id="prop" name="prop.id" class="form-control" from="" value="${transferInstance?.prop}"></g:select>
+
+	</div>
+</div>
+
+<div class="form-group ${hasErrors(bean: transferInstance, field: 'vSolicitor', 'has-error')} required">
+	<label for="vSolicitor" class="control-label col-xs-4">
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="transfer.vSolicitor.label" default="V Solicitor" />
 	</label>
 	<div class="col-xs-8">
-		<g:datePicker name="completionDate" precision="day"  value="${transferInstance?.completionDate}" default="none" noSelection="['': '']" />
+		<a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#vSolSearch" id="selectVSol"><i class="fa fa-fw fa-search"></i> Select Solicitor</a>
+		<a href="createSolicitor" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addVSolicitor" id="addVSol"><i class="fa fa-fw fa-plus"></i> Add New</a>
+		
+		<input type="hidden" id="vSolId" name="vSolicitor.id" value="${transferInstance?.vSolicitor?.id }"></input>
+	
+	<div class="form-horizontal ${transferInstance.vSolicitor? '':'hidden' }" id="vSolDetails">
+		<div class="form-group" id="name">
+			<label for="nameField" class="control-label col-xs-3">Name</label>
+			<p class="form-control-static col-xs-9" id="nameField">${transferInstance?.vSolicitor?.name }</p>
+		</div>
+		<div class="form-group" id="address">
+			<label for="addressField" class="control-label col-xs-3">Address</label>
+			<p class="form-control-static col-xs-9" id="addressField">${transferInstance?.vSolicitor?.address?.address1 }<br />${transferInstance?.vSolicitor?.address?.address2 }</p>
+		</div>
+		<div class="form-group" id="town">
+			<label for="townField" class="control-label col-xs-3">Town</label>
+			<p class="form-control-static col-xs-9" id="townField">${transferInstance?.vSolicitor?.address?.town }</p>
+		</div>
+		<div class="form-group" id="county">
+			<label for="countyField" class="control-label col-xs-3">County</label>
+			<p class="form-control-static col-xs-9" id="countyField"${transferInstance?.vSolicitor?.address?.county }></p>
+		</div>
+		<div class="form-group" id="postcode">
+			<label for="postcodeField" class="control-label col-xs-3">Post Code</label>
+			<p class="form-control-static col-xs-9" id="postcodeField">${transferInstance?.vSolicitor?.address?.postCode }</p>
+		</div>
+		<div class="form-group" id="country">
+			<label for="countryField" class="control-label col-xs-3">Country</label>
+			<p class="form-control-static col-xs-9" id="countryField">${transferInstance?.vSolicitor?.address?.country }</p>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div class="form-group ${hasErrors(bean: transferInstance, field: 'vSolictorRef', 'has-error')} required">
+	<label for="vSolictorRef" class="control-label col-xs-4">
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="transfer.vSolictorRef.label" default="V Solictor Ref" />
+	</label>
+	<div class="col-xs-6">
+		<g:textField class="form-control" name="vSolictorRef" required="" value="${transferInstance?.vSolictorRef}"/>
 
 	</div>
 </div>
@@ -17,74 +72,10 @@
 		
 	</label>
 	<div class="col-xs-8">
-		<g:datePicker name="feeReceived" precision="day"  value="${transferInstance?.feeReceived}" default="none" noSelection="['': '']" />
-
+		<div class="checkbox">
+        <label>
+          <input type="checkbox" name="receivedFee" id="receivedFee" ${transferInstance?.feeReceived ? 'checked' : '' }>
+        </label>
+      </div>
 	</div>
 </div>
-
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'copypackSent', 'has-error')} ">
-	<label for="copypackSent" class="control-label col-xs-4">
-		<g:message code="transfer.copypackSent.label" default="Copypack Sent" />
-		
-	</label>
-	<div class="col-xs-8">
-		<g:datePicker name="copypackSent" precision="day"  value="${transferInstance?.copypackSent}" default="none" noSelection="['': '']" />
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'newOwner', 'has-error')} ">
-	<label for="newOwner" class="control-label col-xs-4">
-		<g:message code="transfer.newOwner.label" default="New Owner" />
-		
-	</label>
-	<div class="col-xs-8">
-		<g:select id="newOwner" name="newOwner.id" from="${uk.org.pmms.Person.list()}" optionKey="id" value="${transferInstance?.newOwner?.id}" class="many-to-one form-control" noSelection="['null': '']"/>
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'prop', 'has-error')} required">
-	<label for="prop" class="control-label col-xs-4">
-		<g:message code="transfer.prop.label" default="Prop" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="col-xs-8">
-		<g:select id="prop" name="prop.id" from="${uk.org.pmms.Property.list()}" optionKey="id" required="" value="${transferInstance?.prop?.id}" class="many-to-one form-control"/>
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'status', 'has-error')} required">
-	<label for="status" class="control-label col-xs-4">
-		<g:message code="transfer.status.label" default="Status" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="col-xs-8">
-		<g:textField class="form-control" name="status" required="" value="${transferInstance?.status}"/>
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'vSolicitor', 'has-error')} required">
-	<label for="vSolicitor" class="control-label col-xs-4">
-		<g:message code="transfer.vSolicitor.label" default="V Solicitor" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="col-xs-8">
-		<g:textField class="form-control" name="vSolicitor" required="" value="${transferInstance?.vSolicitor}"/>
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'vSolictorRef', 'has-error')} required">
-	<label for="vSolictorRef" class="control-label col-xs-4">
-		<g:message code="transfer.vSolictorRef.label" default="V Solictor Ref" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="col-xs-8">
-		<g:textField class="form-control" name="vSolictorRef" required="" value="${transferInstance?.vSolictorRef}"/>
-
-	</div>
-</div>
-

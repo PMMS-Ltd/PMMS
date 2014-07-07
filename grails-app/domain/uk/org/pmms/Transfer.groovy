@@ -5,7 +5,7 @@ class Transfer {
 	Property prop
 	Date dateInformed = new Date();
 	String status = "New"
-	String vSolicitor
+	Supplier vSolicitor
 	String vSolictorRef
 	Date completionDate
 	Person newOwner

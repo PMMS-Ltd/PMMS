@@ -38,24 +38,25 @@
 	<g:datePicker class="form-control" name="yearEnd" precision="day"  value="${clientInstance?.yearEnd}"  />
 	</div>
 </div>
-
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accounts[0].name', 'has-error')} required">
+<g:each in="${clientInstance.accounts }" var="acc">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'acc.name', 'has-error')} required">
 	<label for="accountName" class="control-label col-xs-4 col-lg-3">
 		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accounts.name.label" default="Account Name" />
 	</label>
 	<div class="col-xs-8">
-	<g:textField class="form-control" name="accountName" maxlength="50" required="" value="${clientInstance?.accounts[0].name}"/>
+	<g:textField class="form-control" name="accountName" maxlength="50" required="" value="${acc.name}"/>
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accounts[0].accNo', 'has-error')} required">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'acc.accNo', 'has-error')} required">
 	<label for="accountNo" class="control-label col-xs-4 col-lg-3">
 		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accounts.accNo.label" default="Account No" />
 	</label>
 	<div class="col-xs-8 col-lg-3">
-	<g:textField class="form-control" name="accountNo" value="${clientInstance.accounts[0].accNo}" required=""/>
+	<g:textField class="form-control" name="accountNo" value="${acc.accNo}" required=""/>
 	</div>
 </div>
+</g:each>
 </div>
 <div class="col-sm-6">
 <div class="form-group ${hasErrors(bean: clientInstance, field: 'address.unitNo', 'has-error')} ">

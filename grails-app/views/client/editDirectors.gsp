@@ -29,16 +29,16 @@
 			</ul>
 		</g:hasErrors>
 		</div>
-		<div class="col-lg-8 col-md-10 col-sm-12 hidden-xs">
+		<div class="col-lg-10 col-md-10 col-sm-12 hidden-xs">
 			<g:form url="[resource: clientInstance, action:'update']"
 				class="form form-horizontal" method="PUT">
 				<div class="row">
 					<g:render template="directors" />
 				</div>
 				<div class="row">
-					<fieldset>
-						<g:actionSubmit class="btn btn-sm btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					</fieldset>
+					
+						<g:link action="show" id="${clientInstance.id }" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-arrow-left"></i> Back</g:link>
+					
 				</div>
 			</g:form>
 		</div>

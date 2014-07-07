@@ -45,7 +45,7 @@ class ClientController {
 		
 		//Create Alfresco Folder
 		
-		def folderId = CMISService.createFolder(clientInstance.clientId, '95c63d57-e1e2-47f9-8ef3-37a248059bf0', clientInstance.name)
+		def folderId = CMISService.createFolder(clientInstance.clientId, 'd37bb4fe-adc5-4e94-8955-6297eafdf51c', clientInstance.name)
 		if (folderId){
 			clientInstance.repoFolderId = folderId
 		}

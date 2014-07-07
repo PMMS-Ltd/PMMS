@@ -95,7 +95,6 @@
  
  
  });
-
 </g:javascript>
 	</body>
 </html>

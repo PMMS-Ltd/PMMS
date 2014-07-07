@@ -38,9 +38,11 @@ class TransferController {
             respond transferInstance.errors, view:'create'
             return
         }
-
+		if (params.receivedFee == 'on'){
+			transferInstance.feeReceived = new Date()
+		}
         transferInstance.save flush:true
-		CMISService.createFolder((String) transferInstance.id, '0279bee2-e5cd-43d9-b4aa-49c65ae77905', '')
+		CMISService.createFolder((String) transferInstance.id, 'd37bb4fe-adc5-4e94-8955-6297eafdf51c', '')
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'transfer.label', default: 'Transfer'), transferInstance.id])
@@ -65,7 +67,9 @@ class TransferController {
             respond transferInstance.errors, view:'edit'
             return
         }
-
+		if (params.receivedFee == 'on'){
+			transferInstance.feeReceived = new Date()
+		}
         transferInstance.save flush:true
 
         request.withFormat {
@@ -111,5 +115,8 @@ class TransferController {
 		//render (records: data, queryRecordCount: data.size(), totalRecordCount: data.size())
 		
 		render (contentType: 'text/json') {['records': data, 'queryRecordCount': data.size(), 'totalRecordCount': data.size()]}
+	}
+	def createSolicitor(){
+        respond new Transfer(params)
 	}
 }

@@ -23,4 +23,5 @@ class Property {
 	String toString(){
 		return propertyId
 	}
+	
 }
