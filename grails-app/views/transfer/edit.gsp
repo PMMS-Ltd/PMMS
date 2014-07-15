@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-8 col-sm-10 hidden-xs">
-		<g:form url="[resource:transferInstance, action:'update']" class="form form-horizontal" >
+		<g:form url="[resource:transferInstance, action:'update']" class="form form-horizontal" method="PUT" >
 			<div class="row">
 				<g:render template="form"/>
 			</div>
@@ -41,7 +41,7 @@
 		</g:form>
 		</div>
 		<div class="visible-xs">
-		<g:form url="[resource:transferInstance, action:'update']" class="form" >
+		<g:form url="[resource:transferInstance, action:'update']" class="form" method="PUT" >
 			<div class="row">
 				<g:render template="form-small"/>
 			</div>

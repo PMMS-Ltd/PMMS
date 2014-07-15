@@ -8,23 +8,28 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-	<div class="col-lg-8 col-xs-12">
+	<div class="col-lg-5 col-xs-12">
 		<div class="row">
-			<div class="col-xs-6">
-			  <h1>
-			      <img src="http://pmmsorg.users37.interdns.co.uk/wordpress/wp-content/uploads/2013/08/Logo.png">
-			  </h1>
+			<div class="col-xs-8">
+				<img
+					src="http://pmmsorg.users37.interdns.co.uk/wordpress/wp-content/uploads/2013/08/Logo.png"
+					width="100%" />
 			</div>
-			<div class="col-xs-6 text-right">
-			  <h1>INVOICE</h1>
-			  <h1><small>Invoice #<g:formatNumber number="${invoiceInstance?.id}" type="number"/></small></h1>
+			<div class="col-xs-4 text-right">
+				<h1>INVOICE<br/>
+				
+					<small>#<g:formatNumber
+							number="${invoiceInstance?.id}" minIntegerDigits="6"/></small>
+				</h1>
+				<h3>
+					<small><g:formatDate date="${new Date()}" format="dd/MM/yyyy"/></small>
+				</h3>
 			</div>
-			<hr>
 		</div>
 		<div class="row">
-        <div class="col-xs-4">
+        <div class="col-xs-5">
           <div class="panel panel-default">
-                  <div class="panel-heading"><h4>From</h4></div>
+                  <div class="panel-heading"><h3 class="panel-title">From</h3></div>
                   <div class="panel-body">
                     <p class="text-left">
                     	<strong>PMMS Ltd.</strong><br />
@@ -37,10 +42,10 @@
                   </div>
                 </div>
         </div>
-        <div class="col-xs-4 col-xs-offset-4 text-right">
+        <div class="col-xs-5 pull-right text-right">
           <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h4>To</h4>
+                    <h3 class="panel-title">To</h3>
                   </div>
                   <div class="panel-body">
                     <p>
@@ -56,7 +61,7 @@
         </div>
       </div> <!-- / end client details section -->
       
-      <table class="table table-bordered" style="margin-top: 25px;">
+      <table class="table table-bordered col-xs-12" style="margin-top: 25px;">
         <thead>
           <tr>
             <th class="text-center"><strong>Description</strong></th>
@@ -78,7 +83,7 @@
       </table>
       
       <div class="row">
-		  <div class="col-xs-2 col-xs-offset-10">
+		  <div class="col-xs-3 pull-right">
 		  	<div class="form-horizontal">
 		  		<div class="form-group">
 		  			<label class="control-label col-xs-7">Sub Total:</label>
@@ -103,7 +108,7 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
-		<g:pdfLink url="/invoice/show/${invoiceInstance?.id}" filename="invoice${invoiceInstance?.id}.pdf" icon="true"/>
+		<g:link action="showPdf" id="${invoiceInstance.id }" class="btn btn-success btn-sm"><i class="fa fa-fw fa-file-pdf-o"></i> PDF</g:link>
 	</div>
 	</body>
 </html>

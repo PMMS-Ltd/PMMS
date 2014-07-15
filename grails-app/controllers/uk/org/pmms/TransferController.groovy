@@ -41,8 +41,23 @@ class TransferController {
 		if (params.receivedFee == 'on'){
 			transferInstance.feeReceived = new Date()
 		}
+		if (params.vSolicitorId == null){
+			def sols = new Supplier()
+			sols.properties = params.vSolicitor
+			sols.save flush:true
+			transferInstance.vSolicitor = sols
+		}
+		
         transferInstance.save flush:true
-		CMISService.createFolder((String) transferInstance.id, 'd37bb4fe-adc5-4e94-8955-6297eafdf51c', '')
+		
+		
+		def folderId = CMISService.createFolder((String) transferInstance.id, grailsApplication.config.grails.alfresco.repo.transferfolder, '')
+		if (folderId){
+			transferInstance.repoFolderId = folderId
+			transferInstance.save flush:true
+		}
+				
+		//render transferInstance as JSON
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'transfer.label', default: 'Transfer'), transferInstance.id])
@@ -117,6 +132,6 @@ class TransferController {
 		render (contentType: 'text/json') {['records': data, 'queryRecordCount': data.size(), 'totalRecordCount': data.size()]}
 	}
 	def createSolicitor(){
-        respond new Transfer(params)
+      respond new Supplier(params)
 	}
 }

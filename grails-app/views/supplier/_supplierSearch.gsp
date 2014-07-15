@@ -1,3 +1,4 @@
+<g:if test="${results.hits}">
 <g:each var="hit" in="${results.hits}">
 <a href="#" class="list-group-item">
 <h4 class="list-group-item-heading">${hit.data.name }</h4>
@@ -10,3 +11,7 @@
 <input type="hidden" name="country" id="country" value="${hit.data.address.country}"/>
 </a>
 </g:each>
+</g:if>
+<g:else>
+<h4 class="text-muted">No Results Found</h4>
+</g:else>

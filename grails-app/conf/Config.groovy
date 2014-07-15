@@ -92,6 +92,8 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
     }
     production {
         grails.logging.jul.usebridge = false
@@ -149,3 +151,5 @@ grails.opencmis.alfresco.cmisurl='cmis/versions/1.1/atom'
 grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-default-/public/cmis/versions/1.1/atom'
 grails.opencmis.alfresco.user='user'
 grails.opencmis.alfresco.password='bitnami'
+
+

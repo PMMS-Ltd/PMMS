@@ -14,9 +14,8 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"></link>
 		<g:layoutHead/>
 		<g:javascript library="application"/>
-		<r:layoutResources />
-		
-		
+		<r:require modules="flot, jquery"/>
+		<r:layoutResources />		
 	</head>
 	<body>
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +70,7 @@
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-ban fa-stack-1x text-danger"></i>
 					</span> Closed Jobs</a></li>
-	            <li><a href="#"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span>&nbsp; Contracts</a></li>
+	            <li><g:link controller="contract"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span>&nbsp; Contracts</g:link></li>
 	          </ul>
 	        </li>
           </ul>
@@ -119,7 +118,7 @@
         </div><!--/.nav-collapse -->
      
     </div>
-	<div style="padding-bottom: 10px; margin: 60px 25px 10px 25px;">
+	<div class="container">
 		
 			<g:layoutBody/>
 		

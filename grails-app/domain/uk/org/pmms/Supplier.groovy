@@ -6,6 +6,7 @@ class Supplier {
 	Address address
 	String accountNo
 	String sortCode
+	SortedSet workTypes
 
 	static hasMany = [employees: Person, workTypes: SupplierType, contracts: Contract]
     static constraints = {

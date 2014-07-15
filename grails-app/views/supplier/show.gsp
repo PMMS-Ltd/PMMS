@@ -209,7 +209,7 @@
 											${c.contractType}
 										</td>
 										<td>
-											${c.endDate}
+											<g:formatDate date="${c.endDate}" format="dd/MM/yyyy"/>
 										</td>
 									</tr>
 								</g:each>

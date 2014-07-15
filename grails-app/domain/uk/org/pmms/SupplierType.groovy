@@ -1,6 +1,6 @@
 package uk.org.pmms
 
-class SupplierType {
+class SupplierType implements Comparable {
 	String type
 	Integer typeParent
 
@@ -10,5 +10,9 @@ class SupplierType {
 	
 	String toString(){
 		return type
+	}
+	
+	int compareTo(obj){
+		type.compareTo(obj.type)
 	}
 }

@@ -9,6 +9,7 @@ class Client {
 	Date yearEnd
 	String registrationNo
 	Date registrationDate
+	SortedSet units
 	
 	String repoFolderId
 	

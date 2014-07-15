@@ -113,4 +113,9 @@ class SupplierController {
 		render (template: "supplierSearch", model: ['results': Supplier.search('*'+params.q+'*')])
 		//render Person.search('*'+params.q+'*') as JSON
 	}
+	def getWorkTypes() {
+		if (params.id){
+			render (template: 'workTypes', collection: Supplier.get(params.id).workTypes)
+		}
+	}
 }

@@ -3,7 +3,7 @@
 <div class="form-group">
 	<label for="client" class="control-label col-xs-4">Client</label>
 	<div class="col-xs-4">
-		<g:select id="client" name="client" from="${uk.org.pmms.Client.list(order: 'asc', sort: 'clientId')}" value="${transferInstance?.prop?.client}" noSelection="${['':'']}" value="${transferInstance?.prop?.client}" optionKey="id" required="" class="form-control" onChange="${remoteFunction(action:'getPropsByClient', controller: 'property', update:'prop', params: '\'id=\' + this.value') }"/>
+		<g:select id="client" name="client" from="${uk.org.pmms.Client.list(order: 'asc', sort: 'clientId')}" value="${transferInstance?.prop?.client?.id}" noSelection="${['':'']}" optionKey="id" required="" class="form-control" onChange="${remoteFunction(action:'getPropsByClient', controller: 'property', update:'prop', params: '\'id=\' + this.value') }"/>
 	</div>
 </div>
 
@@ -12,8 +12,7 @@
 		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="transfer.prop.label" default="Property ID" />
 	</label>
 	<div class="col-xs-4">
-		<g:select id="prop" name="prop.id" class="form-control" from="" value="${transferInstance?.prop}"></g:select>
-
+		<g:select id="prop" name="prop.id" class="form-control" noSelection="${['':'']}" from="${uk.org.pmms.Property.list(order: 'asc', sort: 'propertyId')}" optionKey="id" required="" value="${transferInstance?.prop?.id}"></g:select>
 	</div>
 </div>
 
@@ -23,11 +22,12 @@
 	</label>
 	<div class="col-xs-8">
 		<a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#vSolSearch" id="selectVSol"><i class="fa fa-fw fa-search"></i> Select Solicitor</a>
-		<a href="createSolicitor" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addVSolicitor" id="addVSol"><i class="fa fa-fw fa-plus"></i> Add New</a>
+		<a href="#" class="btn btn-success btn-sm" id="addVSol"><i class="fa fa-fw fa-plus"></i> Add New</a>
 		
-		<input type="hidden" id="vSolId" name="vSolicitor.id" value="${transferInstance?.vSolicitor?.id }"></input>
+		
 	
 	<div class="form-horizontal ${transferInstance.vSolicitor? '':'hidden' }" id="vSolDetails">
+	<!-- <input type="hidden" id="vSolId" name="vSolicitor.id" value="${transferInstance?.vSolicitor?.id }"></input>-->
 		<div class="form-group" id="name">
 			<label for="nameField" class="control-label col-xs-3">Name</label>
 			<p class="form-control-static col-xs-9" id="nameField">${transferInstance?.vSolicitor?.name }</p>
@@ -55,7 +55,50 @@
 	</div>
 	</div>
 </div>
-
+<div id="newVSol" class="hidden">
+	<div class="form-group">
+		<label class="control-label col-xs-4">Company Name</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" name="vSolicitor.name">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-4">Address</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" name="vSolicitor.address.address1">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-xs-6 col-xs-offset-4">
+			<input type="text" class="form-control" name="vSolicitor.address.address2">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-4">Town</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" name="vSolicitor.adress.town">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-xs-4">County</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" name="vSolicitor.address.county">
+		</div>
+	</div>
+	<div class="form-group" id="postcode">
+		<label for="postcodeField" class="control-label col-xs-4">Post Code</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" name="vSolicitor.address.postCode">
+		</div>
+	</div>
+	<div class="form-group" id="country">
+		<label for="countryField" class="control-label col-xs-4">Country</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" name="vSolicitor.address.country">
+			<input type="hidden" name="vSolicitor.workType.id" value="1">
+		</div>
+	</div>
+</div>
 <div class="form-group ${hasErrors(bean: transferInstance, field: 'vSolictorRef', 'has-error')} required">
 	<label for="vSolictorRef" class="control-label col-xs-4">
 		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="transfer.vSolictorRef.label" default="V Solictor Ref" />

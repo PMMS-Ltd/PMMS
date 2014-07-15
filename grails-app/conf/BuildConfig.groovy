@@ -97,6 +97,7 @@ grails.project.dependency.resolution = {
 		//compile ":spring-security-ui:1.0-RC1"
 		compile ":searchable:0.6.6"
 		compile ":rest-client-builder:2.0.1"
+		compile ":joda-time:1.5"
 		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.13" // or ":hibernate4:4.3.5.1"

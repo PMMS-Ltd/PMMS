@@ -103,10 +103,11 @@ class InvoiceController {
             '*'{ render status: NOT_FOUND }
         }
     }
-	def getPdf = {
-		//renderPdf(template: "demo4")
+	def showPdf = {
+		def invoice = Invoice.get(params.id);
+		renderPdf(template: 'demo4', model: [invoiceInstance: invoice], filename: invoice.id)
 	}
-	def invoicePage = {
-		render(template: "demo4")
+	def test(Invoice invoiceInstance) {
+		render (template: 'demo4', model: [invoiceInstance: invoiceInstance])
 	}
 }

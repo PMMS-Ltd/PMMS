@@ -76,17 +76,9 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="addVSolicitor" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			
-		</div>
-	</div>
-</div>
 		<g:javascript>
  $(document).on("click", ".list-group-item", function(){
  	
- 	$('#vSolId').attr("value",$(this).find('#supplierId').attr('value'));
  	$('#vSolDetails').removeClass('hidden');
  	$('#vSolDetails #name p').html($(this).find('h4').html());
  	$('#vSolDetails #address p').html($(this).find('input#address').attr('value'));
@@ -94,10 +86,15 @@
  	$('#vSolDetails #county p').html($(this).find('input#county').attr('value'));
  	$('#vSolDetails #postcode p').html($(this).find('input#postcode').attr('value'));
  	$('#vSolDetails #country p').html($(this).find('input#country').attr('value'));
+ 	 $('#vSolDetails').append('<input type="hidden" name="vSolicitor.id" value="'+$(this).find('#supplierId').attr('value')+'"/>')
  	$('#vSolSearch').modal('hide');
  	$('#selectVSol').toggle();
  
  
+ });
+ $('#addVSol').click(function(){
+ 	$('#newVSol').removeClass('hidden');
+ 	$('#addVSol').attr('disabled','disabled');
  });
 </g:javascript>
 	</body>

@@ -10,7 +10,11 @@ import grails.converters.JSON
 @Transactional(readOnly = true)
 class ClientController {
 	def CMISService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	def ArrearsService
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	
+	//def clientFolder = grailsApplication.config.grails.alfresco.repo.clientfolder
+	
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -45,10 +49,10 @@ class ClientController {
 		
 		//Create Alfresco Folder
 		
-		def folderId = CMISService.createFolder(clientInstance.clientId, 'd37bb4fe-adc5-4e94-8955-6297eafdf51c', clientInstance.name)
+		/*def folderId = CMISService.createFolder(clientInstance.clientId, clientFolder, clientInstance.name)
 		if (folderId){
 			clientInstance.repoFolderId = folderId
-		}
+		}*/
 		
 		clientInstance.save flush:true
 		
@@ -147,5 +151,10 @@ class ClientController {
 		//render client as JSON
 		redirect (action: "editDirectors", id: clientInstance.id)
 		
+	}
+	@Secured(['ROLE_USER'])
+	def finances (Client clientInstance) {
+		//respond clientInstance
+		render(view:'finances',model:[arrears : ArrearsService.arrearsByClient(clientInstance)])
 	}
 }

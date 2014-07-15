@@ -1,12 +1,15 @@
 package uk.org.pmms
+import uk.org.pmms.accounts.ServiceChargeType
 
-class Property {
+class Property implements Comparable{
 	static searchable = true
 	String propertyId
 	Address address
 	Person owner
 	String propertyType
 	String repoFolderId
+	
+	ServiceChargeType serviceChargeType
 	
 	static belongsTo = [client: Client]
 	
@@ -23,5 +26,7 @@ class Property {
 	String toString(){
 		return propertyId
 	}
-	
+	int compareTo(obj){
+		propertyId.compareTo(obj.propertyId)
+	}
 }

@@ -9,7 +9,7 @@ class Transfer {
 	String vSolictorRef
 	Date completionDate
 	Person newOwner
-	String folderId
+	String repoFolderId
 	
 	Date feeReceived
 	Date copypackSent
@@ -20,7 +20,7 @@ class Transfer {
 		feeReceived blank: true, nullable: true
 		copypackSent blank: true, nullable: true
 		newOwner blank: true, nullable: true
-		folderId blank:true, nullable: true, display: false
+		repoFolderId blank:true, nullable: true, display: false
 		dateInformed display: false
     }
 }
