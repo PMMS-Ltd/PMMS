@@ -32,7 +32,7 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<div class="col-md-8">
+			<div class="col-lg-10">
 			<table class="table">
 			<thead>
 					<tr>

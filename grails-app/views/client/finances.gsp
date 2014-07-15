@@ -21,7 +21,7 @@
 			</a>
 	
 			<ul class="dropdown-menu" role="menu">
-				<li><g:link action="show" resource="${clientInstance }">Overview</g:link></li>
+				<li><g:link action="show" resource="${clientInstance}">Overview</g:link></li>
 			</ul>
 		</div> <!-- ./btn-group -->
 		</h1>
@@ -123,7 +123,7 @@
 	</thead>
     <tbody class="text-center">
     <g:each in="${arrears}" var="unit">
-      <tr>
+      <tr id="${unit.id }">
         <td><input type="checkbox"></td>
         <td>${unit.propertyId }</td>
         <td><g:formatNumber type="currency" number="${unit?.due }" currencyCode="GBP" currencySymbol="£"/></td>
@@ -139,76 +139,6 @@
 		<td>14/07/2014</td>
       </tr>
       </g:each>
-      <!-- <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-002</td>
-        <td>£1,000.00</td>
-        <td>£1,000.00</td>
-        <td>£0.00</td>
-        <td></td>
-        <td></td>
-		<td></td>
-      </tr>
-      <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-003</td>
-        <td>£500.00</td>
-        <td>£859.65</td>
-        <th class="success text-success text-center">£359.65</th>
-        <td></td>
-        <td></td>
-		<td></td>
-      </tr>
-       <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-004</td>
-        <td>£1,000.00</td>
-        <td>£500.00</td>
-        <th class="danger text-danger text-center">£500.00</th>
-        <td><span class="label label-warning reminder-stage" style="font-size: 0.9em;">Reminder 2</span></td>
-        <td>01/07/2014</td>
-		<td>14/07/2014</td>
-      </tr>
-       <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-005</td>
-        <td>£1,500.00</td>
-        <td>£0.00</td>
-        <th class="danger text-danger text-center">£1,500.00</th>
-        <td><span class="label label-danger reminder-stage" style="font-size: 0.9em;">Reminder 3</span></td>
-        <td>01/07/2014</td>
-		<td>14/07/2014</td>
-      </tr>
-	  <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-006</td>
-        <td>£1,000.00</td>
-        <td>£1,000.00</td>
-        <td>£0.00</td>
-        <td></td>
-        <td></td>
-		<td></td>
-      </tr>
-	  <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-007</td>
-        <td>£1,000.00</td>
-        <td>£1,000.00</td>
-        <td>£0.00</td>
-        <td></td>
-        <td></td>
-		<td></td>
-      </tr>
-	  <tr>
-        <td><input type="checkbox"></td>
-        <td>THT-LG-008</td>
-        <td>£1,000.00</td>
-        <td>£1,000.00</td>
-        <td>£0.00</td>
-        <td></td>
-        <td></td>
-		<td></td>
-      </tr>-->
     </tbody>
   </table>
   </div>
@@ -220,17 +150,8 @@
 	  <div class="panel-heading">
 		<h2 class="panel-title">Details</h3>
 	  </div>
-        <div class="panel-body">
-		  <table class="table-condensed">
-			<tbody>
-				<tr><th>Property</th><td>THT-LG-001</td></tr>
-				<tr><th>Owner</th><td>Mr J. Smith</td></tr>
-				<tr><th>Service Charge</th><td>£1,000.00</td></tr>
-				<tr><th>Ground Rent</th><td>£0.00</td></tr>
-				<tr><th>Payment Plan</th><td>Monthly</td></tr>
-			</tbody>
-		  </table>
-          <a class="btn btn-success btn-sm"><i class="fa fa-fw fa-file"></i> View Statement</a>
+        <div class="panel-body" id="financeDetails">
+		  
         </div>
       </div>
     </div>
@@ -243,6 +164,18 @@
 		var selectAllState = $("#selectAll").prop("checked");
         checkBoxes.prop("checked", selectAllState);
     });
+    
+    $("tbody tr").click(function(event){
+    	$.get(
+    		'${request.contextPath }/property/financeDetails/' + $(this).attr('id'),
+    		function(data, status, e){
+    			$('#financeDetails').html(data)
+    			//alert(data);
+    		},
+    		'html'
+    	);
+    });
+    
 });
 </r:script>
 

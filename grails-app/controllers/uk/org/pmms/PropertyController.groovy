@@ -138,4 +138,9 @@ class PropertyController {
 			//render props as JSON
 		}
 	}
+	@Secured(['ROLE_USER'])
+	def financeDetails (String id) {
+		def prop = Property.get(id)
+		render (template: 'financeDetails', model: [propertyInstance: prop])
+	}
 }

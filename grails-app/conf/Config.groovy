@@ -146,10 +146,13 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 ]
 
 grails.opencmis.alfresco.scope='-default-'
-grails.opencmis.alfresco.apiurl='http://alfresco.pmms.org.uk/alfresco'
+//grails.opencmis.alfresco.apiurl='http://alfresco.pmms.org.uk/alfresco'
+grails.opencmis.alfresco.apiurl='http://192.168.0.15/alfresco'
 grails.opencmis.alfresco.cmisurl='cmis/versions/1.1/atom'
-grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-default-/public/cmis/versions/1.1/atom'
+//grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-default-/public/cmis/versions/1.1/atom'
+grails.opencmis.alfresco.atomurl='http://192.168.0.15/alfresco/api/-default-/public/cmis/versions/1.1/atom'
 grails.opencmis.alfresco.user='user'
 grails.opencmis.alfresco.password='bitnami'
 
-
+grails.opencmis.alfresco.repo.clientfolder='e4668f45-203a-4d23-969b-246d38bfd062'
+grails.opencmis.alfresco.repo.transferfolder='e4668f45-203a-4d23-969b-246d38bfd062'

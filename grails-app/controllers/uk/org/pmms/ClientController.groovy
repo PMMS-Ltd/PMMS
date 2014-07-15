@@ -11,6 +11,7 @@ import grails.converters.JSON
 class ClientController {
 	def CMISService
 	def ArrearsService
+	def grailsApplication
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	//def clientFolder = grailsApplication.config.grails.alfresco.repo.clientfolder
@@ -49,10 +50,10 @@ class ClientController {
 		
 		//Create Alfresco Folder
 		
-		/*def folderId = CMISService.createFolder(clientInstance.clientId, clientFolder, clientInstance.name)
+		def folderId = CMISService.createFolder(clientInstance.clientId, grailsApplication.config.grails.opencmis.alfresco.repo.clientfolder, clientInstance.name)
 		if (folderId){
 			clientInstance.repoFolderId = folderId
-		}*/
+		}
 		
 		clientInstance.save flush:true
 		
@@ -155,6 +156,6 @@ class ClientController {
 	@Secured(['ROLE_USER'])
 	def finances (Client clientInstance) {
 		//respond clientInstance
-		render(view:'finances',model:[arrears : ArrearsService.arrearsByClient(clientInstance)])
+		render(view:'finances',model:[arrears : ArrearsService.arrearsByClient(clientInstance), clientInstance: clientInstance])
 	}
 }
