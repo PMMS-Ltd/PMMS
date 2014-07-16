@@ -3,7 +3,7 @@ package uk.org.pmms
 class Transfer {
 
 	Property prop
-	Date dateInformed = new Date();
+	Date dateCreated
 	String status = "New"
 	Supplier vSolicitor
 	String vSolictorRef
@@ -13,6 +13,7 @@ class Transfer {
 	
 	Date feeReceived
 	Date copypackSent
+	Date lastUpdated
 	
     static constraints = {
 		
@@ -21,6 +22,10 @@ class Transfer {
 		copypackSent blank: true, nullable: true
 		newOwner blank: true, nullable: true
 		repoFolderId blank:true, nullable: true, display: false
-		dateInformed display: false
+		dateCreated display: false
     }
+	
+	static mapping = {
+		autoTimestamp true
+	}
 }

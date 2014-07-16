@@ -14,8 +14,6 @@ class ClientController {
 	def grailsApplication
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
-	//def clientFolder = grailsApplication.config.grails.alfresco.repo.clientfolder
-	
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -25,7 +23,7 @@ class ClientController {
     def show(Client clientInstance) {
 		String query = "select cmis:name, cmis:objectId, cmis:contentStreamLength, cmis:contentStreamMimeType from cmis:document where in_folder('" + clientInstance.repoFolderId + "')"
 		
-        [client: clientInstance, files: CMISService.getQueryResults(query, 10, 0)]
+        [clientInstance: clientInstance, files: CMISService.getQueryResults(query, 10, 0)]
     }
 	@Secured(['ROLE_USER'])
 	def showJSON(Client clientInstance) {

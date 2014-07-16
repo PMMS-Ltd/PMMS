@@ -41,21 +41,26 @@ class TransferController {
 		if (params.receivedFee == 'on'){
 			transferInstance.feeReceived = new Date()
 		}
-		if (params.vSolicitorId == null){
+		if (params.vSolicitor.id == null){
 			def sols = new Supplier()
 			sols.properties = params.vSolicitor
 			sols.save flush:true
 			transferInstance.vSolicitor = sols
-		}
-		
+		}/*else {
+			transferInstance.vSolicitor = Supplier.get(params.vSolicitor.id)
+		}*/
+		println params
         transferInstance.save flush:true
 		
-		
-		def folderId = CMISService.createFolder((String) transferInstance.id, grailsApplication.config.grails.alfresco.repo.transferfolder, '')
-		if (folderId){
-			transferInstance.repoFolderId = folderId
-			transferInstance.save flush:true
+		try{
+			def folderId = CMISService.createFolder((String) transferInstance.id, (String) grailsApplication.config.grails.alfresco.repo.transferfolder, '')
+			if (folderId){
+				transferInstance.repoFolderId = folderId
+				transferInstance.save flush:true
+			}
+		}catch(e){
 		}
+		
 				
 		//render transferInstance as JSON
         request.withFormat {

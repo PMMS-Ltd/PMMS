@@ -86,7 +86,7 @@
  	$('#vSolDetails #county p').html($(this).find('input#county').attr('value'));
  	$('#vSolDetails #postcode p').html($(this).find('input#postcode').attr('value'));
  	$('#vSolDetails #country p').html($(this).find('input#country').attr('value'));
- 	 $('#vSolDetails').append('<input type="hidden" name="vSolicitor.id" value="'+$(this).find('#supplierId').attr('value')+'"/>')
+ 	$('#vSolDetails').append('<input type="hidden" name="vSolicitor.id" value="'+$(this).find('#supplierId').attr('value')+'"/>')
  	$('#vSolSearch').modal('hide');
  	$('#selectVSol').toggle();
  

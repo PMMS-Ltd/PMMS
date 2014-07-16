@@ -12,7 +12,7 @@
 
 
 	<h1 class="page-header">
-		<g:fieldValue bean="${client}" field="name" />
+		<g:fieldValue bean="${clientInstance}" field="name" />
 		<small>Overview</small>
 		<div class="btn-group">
 			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
@@ -21,23 +21,7 @@
 			</a>
 
 			<ul class="dropdown-menu" role="menu">
-				<li><g:link action="finances" resource="${client }">Finances</g:link></li>
-				<!-- <li><g:link action="edit" resource="${client}">
-						<i class="fa fa-edit fa-lg"></i>
-						<g:message code="default.button.edit.label" default="Edit" />
-					</g:link>
-				</li>
-				<li class="divider"></li>
-				<sec:ifAnyGranted roles="ROLE_ADMIN">
-					<li style="padding-left: 20px;"><g:form action="delete"
-							method="DELETE" id="${client.id}">
-							<button type="submit" class="btn btn-danger btn-sm"
-								onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">
-								<i class="fa fa-trash-o fa-fw"></i>
-								<g:message code="default.button.delete.label" default="Delete" />
-							</button>
-						</g:form></li>
-				</sec:ifAnyGranted>-->
+				<li><g:link action="finances" resource="${clientInstance }">Finances</g:link></li>
 			</ul>
 
 		</div>
@@ -130,9 +114,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-3 col-sm-4 col-xs-12">
-			<div class="panel panel-default">
+	<div class="row" style="height: 250px;">
+		<div class="col-lg-6 col-sm-8 col-xs-12" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-fw fa-cog"></i> Details
@@ -142,7 +126,7 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li role="presentation"><g:link class="edit"
-										action="edit" resource="${client}">
+										action="edit" resource="${clientInstance}">
 										<i class="fa fa-pencil-square-o fa-fw"></i> Edit
 									</g:link></li>
 
@@ -151,84 +135,90 @@
 					</h3>
 				</div>
 				<div class="panel-body">
-					<dl class="dl-horizontal pull-left">
-						<dt>
+					<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<table class="table table-condensed">
+					<tr>
+						<th class="col-xs-4">
 							<g:message code="client.clientId.label" default="Client Id" />
-						</dt>
-						<dd>
-							<g:fieldValue bean="${client}" field="clientId" />
-						</dd>
-						<dt>
+						</th>
+						<td>
+							<g:fieldValue bean="${clientInstance}" field="clientId" />
+						</td>
+					</tr>
+					<tr>
+						<th>Address</th>
+						<td>
+							${clientInstance.address }
+						
+						</td>
+					</tr>
+					<tr>
+						<th>
 							<g:message code="client.yearStart.label" default="Year Start" />
-						</dt>
-						<dd>
-							<g:formatDate format="dd-MM-yyyy" date="${client?.yearStart}" />
-						</dd>
-						<dt>
+						</th>
+						<td>
+							<g:formatDate format="dd-MM-yyyy" date="${clientInstance?.yearStart}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
 							<g:message code="client.yearEnd.label" default="Year End" />
-						</dt>
-						<dd>
-							<g:formatDate format="dd-MM-yyyy" date="${client?.yearEnd}" />
-						</dd>
-						<g:each in="${client.accounts }" var="acc">
-							<dt>
-								<g:message code="client.accounts.name.label"
-									default="Account Name" />
-							</dt>
-							<dd>
-								${acc.name}
-							</dd>
-							<dt>
-								<g:message code="client.accounts.accNo.label"
-									default="Account No" />
-							</dt>
-							<dd>
-								<g:formatNumber number="${acc.accNo}" format="########"
-									minIntegerDigits="8" />
-							</dd>
-						</g:each>
-					</dl>
+						</th>
+						<td>
+							<g:formatDate format="dd-MM-yyyy" date="${clientInstance?.yearEnd}" />
+						</td>
+					</tr>
+					</table>
+					</div>
+					<div class="col-xs-6 hidden-xs">
+					<img
+						src="http://maps.googleapis.com/maps/api/staticmap?center=${clientInstance.address}&amp;zoom=17&amp;size=400x200&amp;sensor=false&amp;scale=1&amp;maptype=roadmap&amp;markers=color:red%7C${clientInstance.address}" width="90%"/>
+					</div>
+				</div>
+				
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-sm-4 col-xs-12">
-			<div class="panel panel-default">
+		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-shield fa-fw"></i> Insurance
 					</h3>
 				</div>
 				<div class="panel-body">
+				
 					<form class="form-horizontal" role="form">
-						<g:if test="${client?.clientId}">
+						<g:if test="${clientInstance?.clientId}">
 							<div class="form-group">
 								<label for="clientId" class="col-xs-4 control-label"><g:message
 										code="client.clientId.label" default="Underwriter" /></label>
 								<div class="col-sm-8">
 									<p class="form-control-static">
-										<g:fieldValue bean="${client}" field="clientId" />
+										<g:fieldValue bean="${clientInstance}" field="clientId" />
 									</p>
 								</div>
 							</div>
 						</g:if>
-						<g:if test="${client?.yearStart}">
+						<g:if test="${clientInstance?.yearStart}">
 							<div class="form-group">
 								<label for="clientId" class="col-xs-4 control-label"><g:message
 										code="client.yearStart.label" default="Broker" /></label>
 								<div class="col-sm-8">
 									<p class="form-control-static">
-										<g:formatDate format="dd-MM-yyyy" date="${client?.yearStart}" />
+										<g:formatDate format="dd-MM-yyyy" date="${clientInstance?.yearStart}" />
 									</p>
 								</div>
 							</div>
 						</g:if>
-						<g:if test="${client?.yearEnd}">
+						<g:if test="${clientInstance?.yearEnd}">
 							<div class="form-group">
 								<label for="clientId" class="col-xs-4 control-label"><g:message
 										code="client.yearEnd.label" default="Renewal Date" /></label>
 								<div class="col-sm-8">
 									<p class="form-control-static">
-										<g:formatDate format="dd-MM-yyyy" date="${client?.yearEnd}" />
+										<g:formatDate format="dd-MM-yyyy" date="${clientInstance?.yearEnd}" />
 									</p>
 								</div>
 							</div>
@@ -237,8 +227,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 col-sm-4 col-xs-12">
-			<div class="panel panel-default">
+		<!-- <div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-map-marker fa-fw"></i> Location
@@ -247,17 +237,17 @@
 				<div class="panel-body">
 					<p class="text-center">
 						<small>
-							${client.address }
+							${clientInstance.address }
 						</small>
 					</p>
 					<img
-						src="http://maps.googleapis.com/maps/api/staticmap?center=${client.address}&amp;zoom=16&amp;size=400x200&amp;sensor=false&amp;scale=1&amp;maptype=roadmap&amp;markers=color:red%7C${client.address}"
+						src="http://maps.googleapis.com/maps/api/staticmap?center=${clientInstance.address}&amp;zoom=16&amp;size=400x200&amp;sensor=false&amp;scale=1&amp;maptype=roadmap&amp;markers=color:red%7C${clientInstance.address}"
 						height="100%" width="100%">
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-3 col-sm-4 col-xs-12">
-			<div class="panel panel-default">
+		</div>-->
+		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-file-o fa-fw"></i> Recent Files
@@ -304,7 +294,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<i class="fa fa-building-o fa-fw"></i> Properties
+						<i class="fa fa-building-o fa-fw"></i> Properties <span class="badge">${clientInstance?.units?.size() }</span>
 
 						<div class="dropdown pull-right">
 							<a href="#" class="dropdown-toggle btn btn-default btn-xs"
@@ -314,7 +304,7 @@
 								<sec:ifAnyGranted roles="ROLE_ADMIN">
 
 									<li><g:link action="create" controller="Property"
-											params="['client': client.id, 'address': client.address.id]">
+											params="['client': clientInstance.id, 'address': clientInstance.address.id]">
 											<i class="fa fa-plus text-success"></i> Add Property</g:link></li>
 								</sec:ifAnyGranted>
 
@@ -324,7 +314,7 @@
 				</div>
 				<div class="panel-body">
 
-					<g:if test="${client?.units}">
+					<g:if test="${clientInstance?.units}">
 						<table class="table table-condensed">
 							<thead>
 								<tr>
@@ -336,7 +326,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<g:each in="${client.units.sort{it.propertyId}}" var="u">
+								<g:each in="${clientInstance.units.sort{it.propertyId}}" var="u">
 									<tr>
 										<td><g:link controller="property" action="show"
 												id="${u.id}">
@@ -373,7 +363,7 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li role="presentation"><g:link class="edit"
-										action="editDirectors" resource="${client}">
+										action="editDirectors" resource="${clientInstance}">
 										<i class="fa fa-pencil-square-o fa-fw"></i> Edit
 									</g:link></li>
 
@@ -387,9 +377,9 @@
 				<div class="panel-body" style="max-height: 284px; overflow-y: auto;">
 					<ul class="list-group">
 
-						<g:if test="${client?.directors}">
+						<g:if test="${clientInstance?.directors}">
 
-							<g:each in="${client.directors}" var="e">
+							<g:each in="${clientInstance.directors}" var="e">
 								<li class="list-group-item">
 									<div class="row">
 										<div class="col-xs-2">

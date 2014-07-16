@@ -56,10 +56,15 @@
 		
 			</label>
 			<div class="col-xs-6">
-				<g:select name="workTypes" from="${uk.org.pmms.SupplierType.list()}"
+				<!--<g:select name="workTypes" from="${uk.org.pmms.SupplierType.list()}"
 					multiple="multiple" optionKey="id" size="5"
 					value="${supplierInstance?.workTypes*.id}"
-					class="many-to-many form-control" />
+					class="many-to-many form-control" />-->
+					<select class="form-control">
+						<g:each in="${uk.org.pmms.SupplierType.findByParentId(null)}">
+						<option value="${it.id }">${it.type }</option>
+						</g:each>
+					</select>
 		
 			</div>
 		</div>

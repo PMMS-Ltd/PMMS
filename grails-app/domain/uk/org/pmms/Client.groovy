@@ -1,5 +1,7 @@
 package uk.org.pmms
 
+import uk.org.pmms.accounts.BankAccount;
+
 class Client {
 	static searchable = true
 	String name

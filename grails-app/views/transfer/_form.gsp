@@ -76,7 +76,7 @@
 	<div class="form-group">
 		<label class="control-label col-xs-4">Town</label>
 		<div class="col-xs-6">
-			<input type="text" class="form-control" name="vSolicitor.adress.town">
+			<input type="text" class="form-control" name="vSolicitor.address.town">
 		</div>
 	</div>
 	<div class="form-group">
