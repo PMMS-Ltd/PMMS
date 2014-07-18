@@ -1,3 +1,4 @@
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -92,8 +93,11 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
-		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		//grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		//grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		
+		grails.alfresco.repo.clientfolder='e4668f45-203a-4d23-969b-246d38bfd062'
+		grails.alfresco.repo.transferfolder='e4668f45-203a-4d23-969b-246d38bfd062'
     }
     production {
         grails.logging.jul.usebridge = false
@@ -122,6 +126,20 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+auditLog {
+	verbose = false // verbosely log all changed values to db
+	logIds = false  // log db-ids of associated objects.
+	// Note: if you change next 2 properties, you must update your database schema!
+	//tablename = 'my_audit' // table name for audit logs.
+	largeValueColumnTypes = true // use large column db types for oldValue/newValue.
+	TRUNCATE_LENGTH = 1000
+	cacheDisabled = true
+	replacementPatterns = ["org.uk.pmms.":"", "org.uk.pmms.accounts.":""] // replace with empty string.
+	actorClosure = { request, session ->
+	   request.applicationContext.springSecurityService.principal?.username
+	}
+   }
+
 
 // Added by the Spring Security Core plugin:
 //grails.plugin.springsecurity.useBasicAuth = false
@@ -133,6 +151,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
 	'/dbdoc':						  ['permitAll'],
+	'/dbconsole':					  ['permitAll'],
 	'/searchable/**':                 ['permitAll'],
 	'/index.gsp':                     ['permitAll'],
 	'/**/js/**':                      ['permitAll'],
@@ -141,6 +160,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':                ['permitAll'],
 	'/transfer/**':					  ['permitAll'],
 	'/transaction/**':				  ['permitAll'],
+	'/auditLogEvent/**':				  ['permitAll'],
 	'/Pdf/**':				  		  ['permitAll']
 
 ]
@@ -153,3 +173,8 @@ grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-defa
 //grails.opencmis.alfresco.atomurl='http://192.168.0.15/alfresco/api/-default-/public/cmis/versions/1.1/atom'
 grails.opencmis.alfresco.user='user'
 grails.opencmis.alfresco.password='bitnami'
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
