@@ -38,7 +38,7 @@ class TransferController {
             respond transferInstance.errors, view:'create'
             return
         }
-		if (params.receivedFee == 'on'){
+		if (transferInstance.feeReceived == null && params.receivedFee == 'on'){
 			transferInstance.feeReceived = new Date()
 		}
 		if (params.vSolicitor.id == null){
@@ -87,7 +87,7 @@ class TransferController {
             respond transferInstance.errors, view:'edit'
             return
         }
-		if (params.receivedFee == 'on'){
+		if (params.receivedFee == 'on' && transferInstance.feeReceived == null){
 			transferInstance.feeReceived = new Date()
 		}
         transferInstance.save flush:true

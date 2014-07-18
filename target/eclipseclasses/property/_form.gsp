@@ -1,19 +1,16 @@
 <%@ page import="uk.org.pmms.Property"%>
 
-<div class="col-lg-4">
+<div class="col-lg-6">
 	<div class="form-inline col-xs-12" style="margin-bottom: 15px;">
 		<div
-			class="form-group ${hasErrors(bean: propertyInstance, field: 'client', 'has-error')} col-lg-4 required">
-			<label for="client" class="control-label"> <span
-				class="fa fa-asterisk fa-fw text-danger"></span> <g:message
-					code="property.client.label" default="Client" />
-			</label>
+			class="form-group ${hasErrors(bean: propertyInstance, field: 'client', 'has-error')} col-lg-3 required">
+			<label for="client" class="control-label"> <span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="property.client.label" default="Client" /></label>
 			<g:select id="client" name="client.id"
 				from="${uk.org.pmms.Client.list()}" optionKey="id" required=""
 				value="${propertyInstance?.client?.id}" class="form-control" />
 		</div>
 		<div
-			class="form-group ${hasErrors(bean: propertyInstance, field: 'propertyId', 'has-error')} col-lg-4 required">
+			class="form-group ${hasErrors(bean: propertyInstance, field: 'propertyId', 'has-error')} col-lg-3 required">
 			<label for="propertyId" class="control-label"> <span
 				class="fa fa-asterisk fa-fw text-danger"></span> <g:message
 					code="property.propertyId.label" default="Property Id" />
@@ -23,7 +20,7 @@
 				required="" value="${propertyInstance?.propertyId}" />
 		</div>
 		<div
-			class="form-group ${hasErrors(bean: propertyInstance, field: 'propertyType', 'has-error')} col-lg-4 required">
+			class="form-group ${hasErrors(bean: propertyInstance, field: 'propertyType', 'has-error')} col-lg-3 required">
 			<label for="client" class="control-label"> <span
 				class="fa fa-asterisk fa-fw text-danger"></span> <g:message
 					code="property.propertyType.label" default="Property Type" />
@@ -33,8 +30,19 @@
 				from="${propertyInstance.constraints.propertyType.inList}"
 				value="${propertyInstance?.propertyType}" class="form-control" />
 		</div>
+		<div
+			class="form-group ${hasErrors(bean: propertyInstance, field: 'serviceChargeType', 'has-error')} col-lg-3 required">
+			<label for="client" class="control-label"> <span
+				class="fa fa-asterisk fa-fw text-danger"></span> <g:message
+					code="property.serviceChargeType.label" default="Service Charge Category" />
+			</label>
+
+			<g:select id="serviceChargeType" name="serviceChargeType"
+				from="${uk.org.pmms.accounts.ServiceChargeType.findAllByClient(propertyInstance?.client)}"
+				value="${propertyInstance?.serviceChargeType}" optionKey="id" class="form-control" />
+		</div>
 	</div>
-	<div class="form-horizontal">
+	<div class="form-horizontal col-xs-8">
 		<div
 			class="form-group ${hasErrors(bean: propertyInstance, field: 'address.unitNo', 'has-error')} ">
 			<label for="address.unitNo" class="control-label col-xs-4 col-lg-3">

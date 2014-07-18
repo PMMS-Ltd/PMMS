@@ -38,25 +38,25 @@
 
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accountName', 'has-error')} required">
-	<label for="accountName" class="control-label ">
-		<g:message code="client.accountName.label" default="Account Name" />
-		<span class="required-indicator">*</span>
+<g:each in="${clientInstance.accounts }" var="acc">
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'acc.name', 'has-error')} required">
+	<label for="accountName" class="control-label col-xs-4 col-lg-3">
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accounts.name.label" default="Account Name" />
 	</label>
-
-	<g:textField class="form-control input-sm" name="accountName" maxlength="50" required="" value="${clientInstance?.accountName}"/>
-
+	<div class="col-xs-8">
+	<g:textField class="form-control" name="accountName" maxlength="50" required="" value="${acc.name}"/>
+	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: clientInstance, field: 'accountNo', 'has-error')} required">
-	<label for="accountNo" class="control-label ">
-		<g:message code="client.accountNo.label" default="Account No" />
-		<span class="required-indicator">*</span>
+<div class="form-group ${hasErrors(bean: clientInstance, field: 'acc.accNo', 'has-error')} required">
+	<label for="accountNo" class="control-label col-xs-4 col-lg-3">
+		<span class="fa fa-asterisk fa-fw text-danger"></span><g:message code="client.accounts.accNo.label" default="Account No" />
 	</label>
-
-	<g:field class="form-control input-sm" name="accountNo" type="number" value="${clientInstance.accountNo}" required=""/>
-
+	<div class="col-xs-8 col-lg-3">
+	<g:textField class="form-control" name="accountNo" value="${acc.accNo}" required=""/>
+	</div>
 </div>
+</g:each>
 <div class="form-group ${hasErrors(bean: clientInstance, field: 'address.unitNo', 'has-error')} ">
 	<label for="address.unitNo" class="control-label ">
 		<g:message code="address.unitNo.label" default="Unit No" />

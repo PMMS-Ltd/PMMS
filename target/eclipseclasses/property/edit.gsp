@@ -8,8 +8,9 @@
 	</head>
 	<body>
 		<div class="row">
+		<h1 class="page-header"><g:message code="default.edit.label" args="[entityName]" /></h1>
 			<div id="edit-property" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">
-				<h1 class="page-header"><g:message code="default.edit.label" args="[entityName]" /></h1>
+				
 				<g:if test="${flash.message}">
 				<div class="alert">${flash.message}</div>
 				</g:if>
@@ -95,7 +96,6 @@
  
  
  });
-
 </g:javascript>
 	</body>
 </html>

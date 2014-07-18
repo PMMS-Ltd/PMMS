@@ -1,7 +1,8 @@
 package uk.org.pmms
 
 class Transfer {
-
+	
+	static auditable = [ignore:['version','lastUpdated','repoFolderId']]
 	Property prop
 	Date dateCreated
 	String status = "New"

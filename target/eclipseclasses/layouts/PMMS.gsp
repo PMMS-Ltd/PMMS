@@ -14,8 +14,8 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"></link>
 		<g:layoutHead/>
 		<g:javascript library="application"/>
-		<r:layoutResources />
-		
+		<r:require modules="flot, jquery"/>
+		<r:layoutResources />		
 	</head>
 	<body>
 		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -48,7 +48,7 @@
 	          <ul class="dropdown-menu">
 	            <li><g:link controller="Invoice" action="index"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</g:link></li>
 	            <li><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
-	            <li><a href="#"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</a></li>
+	            <li><g:link controller="ServiceCharge" action="index"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</g:link></li>
 	            <li><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
 	            <li><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
 	            <sec:ifAnyGranted roles="ROLE_ADMIN">
@@ -70,7 +70,7 @@
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-ban fa-stack-1x text-danger"></i>
 					</span> Closed Jobs</a></li>
-	            <li><a href="#"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span>&nbsp; Contracts</a></li>
+	            <li><g:link controller="contract"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span>&nbsp; Contracts</g:link></li>
 	          </ul>
 	        </li>
           </ul>
@@ -118,7 +118,7 @@
         </div><!--/.nav-collapse -->
      
     </div>
-	<div style="padding-bottom: 10px; margin: 60px 25px 10px 25px;">
+	<div class="container">
 		
 			<g:layoutBody/>
 		
