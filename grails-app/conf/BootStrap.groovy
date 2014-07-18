@@ -26,7 +26,7 @@ class BootStrap {
 	  def sp4 = new SupplierType(type:'Window Cleaning', typeParent: sp.id).save()
 	  def sp5 = new SupplierType(type:'Bulk Waste Removal', typeParent: sp.id).save()
 	  
-	  def client = new Client(name:'Turnpike Hill Trust',yearStart: new Date('2014-01-01 00:00:00'), yearEnd: new Date('2014-12-31 00:00:00'), clientId: 'THT')
+	  def client = new Client(name:'Turnpike Hill Trust',yearStart: new Date(), yearEnd: new Date(), clientId: 'THT')
 	  def address = new Address(address1: 'Leyburn Gardens', town: 'Croydon', county: 'Surrey', postCode: 'CR0 5NL', country: 'GB').save()
 	  def ba = new BankAccount(accNo: 123456789, name: 'THT Clients Account', sortCode: 200557, type: 'Current').save()
 	  def ba2 = new BankAccount(accNo: 987654321, name: 'PMMS Ltd. Trading Account', sortCode: 200557, type: 'Current').save()
@@ -34,7 +34,8 @@ class BootStrap {
 	  client.addToAccounts(ba)
 	  client.save flush: true
 	  
-	  def scType = new ServiceChargeType(type: '1Bed', description: '1 Bedroom Flat', client: client, serviceCharge: 1000.00, groundRent: 0.00, monthly: true, quarterly: true, halfYearly: true, annually: true).save()
+	  def scType = new ServiceChargeType(type: '1Bed', description: '1 Bedroom Flat', client: client, monthly: false, quarterly: false, halfYearly: false, annually: true).save flush: true
+	  def serviceCharge = new ServiceCharge(serviceCharge: 690.00, groundRent: 0.00, annualAmount: 690.00, startDate: new Date(), endDate: new Date(), serviceChargeType: scType, status: 'Draft').save(failOnError: true)
 	  
 	  def property = new Property(propertyId: 'THT-LG-001', propertyType: 'Studio Flat', serviceChargeType: scType)
 	  property.address = new Address(unitNo: '1', address1: 'Leyburn Gardens', town: 'Croydon', county: 'Surrey', postCode: 'CR0 5NL', country: 'GB')

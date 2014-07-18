@@ -151,7 +151,7 @@
 		<h2 class="panel-title">Details</h3>
 	  </div>
         <div class="panel-body" id="financeDetails">
-		  
+		  <span class="text-muted">Select a property to view more details.</span>
         </div>
       </div>
     </div>

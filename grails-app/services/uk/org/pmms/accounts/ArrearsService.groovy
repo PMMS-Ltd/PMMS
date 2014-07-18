@@ -21,8 +21,9 @@ class ArrearsService {
 			emptyArr.put('id',obj.id)
 			emptyArr.put('propertyId',obj.propertyId)
 			def month = currentMonth(obj.client.yearStart)
-			def due = ((obj.serviceChargeType.serviceCharge + obj.serviceChargeType.groundRent)/12) * month
-			def received = Transaction.findAllByPropertyIdAndTypeAndDateEnteredGreaterThan(obj,7,obj.client.yearStart).amount.sum()
+			
+			def due = ((obj.serviceChargeType.charges[0].serviceCharge + obj.serviceChargeType.charges[0].groundRent)/12) * month
+			def received = Transaction.findAllByPropertyIdAndTypeAndDateEnteredGreaterThan(obj,8,obj.client.yearStart).amount.sum()
 			if (received == null)
 				received = 0.00
 			emptyArr.put('received',received)

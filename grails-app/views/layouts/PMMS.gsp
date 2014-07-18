@@ -48,7 +48,7 @@
 	          <ul class="dropdown-menu">
 	            <li><g:link controller="Invoice" action="index"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</g:link></li>
 	            <li><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
-	            <li><a href="#"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</a></li>
+	            <li><g:link controller="ServiceCharge" action="index"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</g:link></li>
 	            <li><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
 	            <li><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
 	            <sec:ifAnyGranted roles="ROLE_ADMIN">

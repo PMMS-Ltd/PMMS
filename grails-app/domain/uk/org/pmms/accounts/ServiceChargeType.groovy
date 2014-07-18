@@ -4,15 +4,16 @@ import uk.org.pmms.Client
 class ServiceChargeType {
 	String type
 	String description
-	Double serviceCharge
-	Double groundRent
 	
 	Boolean monthly
 	Boolean quarterly
 	Boolean halfYearly
 	Boolean annually
 	
+	SortedSet charges
+	
 	static belongsTo = [client: Client]
+	static hasMany = [charges : ServiceCharge]
 
     static constraints = {
     }

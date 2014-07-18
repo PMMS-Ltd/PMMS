@@ -48,7 +48,7 @@ class ClientController {
 		
 		//Create Alfresco Folder
 		
-		def folderId = CMISService.createFolder(clientInstance.clientId, grailsApplication.config.grails.opencmis.alfresco.repo.clientfolder, clientInstance.name)
+		def folderId = CMISService.createFolder(clientInstance.clientId, grailsApplication.config.grails.alfresco.repo.clientfolder, clientInstance.name)
 		if (folderId){
 			clientInstance.repoFolderId = folderId
 		}
