@@ -8,11 +8,13 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div id="show-transfer" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">
-			<h1 class="page-header"><g:message code="default.show.label" args="[entityName]" /></h1>
+	<h1 class="page-header"><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="alert alert-warning" role="status">${flash.message}</div>
 			</g:if>
+			<div class="row">
+		<div id="show-transfer" class="col-lg-6 col-md-8 col-sm-10 hidden-xs" role="main">
+			<h4>Details</h4>
 			<ol class="property-list transfer">
 			
 				<g:if test="${transferInstance?.completionDate}">
@@ -94,6 +96,33 @@
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
+		</div>
+		<div class="col-lg-6 col-md-4">
+			<h4>History</h4>
+			<ul class="list-group">
+			<g:each in="${org.codehaus.groovy.grails.plugins.orm.auditable.AuditLogEvent.findAllByPersistedObjectIdAndClassName(transferInstance.id,'Transfer',[sort: 'dateCreated',order: 'desc', max:10])}" var="event">
+			<li class="list-group-item">
+			<g:if test="${event.eventName == 'UPDATE'}">
+   				<p class="list-group-item-text"><i class="fa fa-fw fa-bolt"></i> <span class="text-success">${event.actor }</span>
+   				<g:if test="${event.oldValue == null}">
+   					set ${event.propertyName} to ${event.newValue }
+   				</g:if>
+   				<g:else>
+   					changed ${event.propertyName} from ${event.oldValue } to ${event.newValue }
+   				</g:else>
+   				 </p>
+			</g:if>
+			<g:elseif test="${event.eventName == 'INSERT'}">
+    			<p class="list-group-item-text"><i class="fa fa-fw fa-check"></i> <span class="text-success">${event.actor }</span> created ${event.className } id ${event.persistedObjectId }</p>
+			</g:elseif>
+			<g:else>
+				<p class="list-group-item-text"><i class="fa fa-fw fa-times"></i> <span class="text-success">${event.actor }</span> deleted ${event.className } id ${event.persistedObjectId }</p>
+			</g:else>
+				<p class="list-group-item-text text-right"><span class="text-muted"><g:formatDate date="${event.dateCreated }" type="datetime" style="MEDIUM" timeStyle="SHORT"/></span></p>
+			</li>
+			</g:each>
+			</ul>
+		</div>
 		</div>
 	</body>
 </html>

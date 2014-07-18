@@ -26,7 +26,7 @@ class BootStrap {
 	  def sp4 = new SupplierType(type:'Window Cleaning', typeParent: sp.id).save()
 	  def sp5 = new SupplierType(type:'Bulk Waste Removal', typeParent: sp.id).save()
 	  
-	  def client = new Client(name:'Turnpike Hill Trust',yearStart: new Date('2014-01-01 00:00:00'), yearEnd: new Date('2014-12-31 00:00:00'), clientId: 'THT')
+	  def client = new Client(name:'Turnpike Hill Trust',yearStart: new Date(), yearEnd: new Date(), clientId: 'THT')
 	  def address = new Address(address1: 'Leyburn Gardens', town: 'Croydon', county: 'Surrey', postCode: 'CR0 5NL', country: 'GB').save()
 	  def ba = new BankAccount(accNo: 123456789, name: 'THT Clients Account', sortCode: 200557, type: 'Current').save()
 	  def ba2 = new BankAccount(accNo: 987654321, name: 'PMMS Ltd. Trading Account', sortCode: 200557, type: 'Current').save()
