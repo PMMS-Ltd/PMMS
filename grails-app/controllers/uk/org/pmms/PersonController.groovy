@@ -109,12 +109,9 @@ class PersonController {
     }
 	def search() {
 		render (template: "ownerSearch", model: ['results': Person.search('*'+params.q+'*')])
-		//render Person.search('*'+params.q+'*') as JSON
 	}
-	def searchJSON() {
-		render Person.search(params.q) as JSON
-	}
-	def showJSON(Person personInstance) {
-		render personInstance as JSON
+	def personSearch() {
+		
+		render (template: "personList", model: ['personInstanceList': Person.findAllByFirstNameIlikeOrLastNameIlike('%'+params.search+'%','%'+params.search+'%')])
 	}
 }

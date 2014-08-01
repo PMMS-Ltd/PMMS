@@ -4,6 +4,7 @@ import uk.org.pmms.accounts.BankAccount;
 
 class Client {
 	static searchable = true
+	static auditable = true
 	String name
 	String clientId
 	Address address

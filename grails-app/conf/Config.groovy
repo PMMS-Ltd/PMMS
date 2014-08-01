@@ -93,15 +93,20 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-		//grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
-		//grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
-		grails.alfresco.repo.clientfolder='e4668f45-203a-4d23-969b-246d38bfd062'
-		grails.alfresco.repo.transferfolder='e4668f45-203a-4d23-969b-246d38bfd062'
+		grails.serverURL ="http://localhost:8080/PMMS"
+		
+		//grails.alfresco.repo.clientfolder='e4668f45-203a-4d23-969b-246d38bfd062'
+		//grails.alfresco.repo.transferfolder='e4668f45-203a-4d23-969b-246d38bfd062'
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		
+		grails.serverURL ="http://192.168.0.49/PMMS"
     }
 }
 
@@ -160,7 +165,9 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/favicon.ico':                ['permitAll'],
 	'/transfer/**':					  ['permitAll'],
 	'/transaction/**':				  ['permitAll'],
-	'/auditLogEvent/**':				  ['permitAll'],
+	'/auditLogEvent/**':			  ['permitAll'],
+	'/bankAccount/**':				  ['permitAll'],
+	'/importExport/**':				  ['permitAll'],
 	'/Pdf/**':				  		  ['permitAll']
 
 ]
@@ -173,8 +180,3 @@ grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-defa
 //grails.opencmis.alfresco.atomurl='http://192.168.0.15/alfresco/api/-default-/public/cmis/versions/1.1/atom'
 grails.opencmis.alfresco.user='user'
 grails.opencmis.alfresco.password='bitnami'
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/master

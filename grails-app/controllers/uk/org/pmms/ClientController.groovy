@@ -6,12 +6,14 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
+import uk.org.pmms.accounts.BankAccount
 
 @Transactional(readOnly = true)
 class ClientController {
 	def CMISService
 	def ArrearsService
 	def grailsApplication
+	def TransferService
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	@Secured(['ROLE_USER'])
@@ -25,10 +27,6 @@ class ClientController {
 		
         [clientInstance: clientInstance, files: CMISService.getQueryResults(query, 10, 0)]
     }
-	@Secured(['ROLE_USER'])
-	def showJSON(Client clientInstance) {
-		render clientInstance as JSON
-	}
 	@Secured(['ROLE_ADMIN'])
     def create() {
         respond new Client(params)
@@ -155,5 +153,30 @@ class ClientController {
 	def finances (Client clientInstance) {
 		//respond clientInstance
 		render(view:'finances',model:[arrears : ArrearsService.arrearsByClient(clientInstance), clientInstance: clientInstance])
+	}
+	
+	@Secured(['ROLE_USER'])
+	@Transactional
+	def addAccount() {
+		def ba = new BankAccount()
+		ba.properties = params.account
+		ba.sortCode = 20057
+		ba.save flush:true
+		def client = Client.get(params.clientId).addToAccounts(ba).save()
+		
+		render(template:'/bankAccount/accounts',model:[clientInstance: client])
+	}
+	@Secured(['ROLE_USER'])
+	@Transactional
+	def removeAccount() {
+
+		def client = Client.get(params.clientId).removeFromAccounts(BankAccount.get(params.id)).save()
+		
+		render(template:'/bankAccount/accounts',model:[clientInstance: client])
+	}
+	@Secured(['ROLE_USER'])
+	def clientSearch() {
+		
+		render (template: "clientList", model: ['clientInstanceList': Client.findAllByClientIdIlikeOrNameIlike('%'+params.search+'%','%'+params.search+'%')])
 	}
 }

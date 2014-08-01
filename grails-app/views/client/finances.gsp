@@ -7,12 +7,11 @@
 <g:set var="entityName"
 	value="${message(code: 'client.label', default: 'Client')}" />
 <title><g:message code="default.show.label" args="[entityName]" /></title>
+<r:require module="printArea"/>
 </head>
 <body>
-
-
-
 		<h1 class="page-header"><g:fieldValue bean="${clientInstance}" field="name" />
+		<span class="pull-right">
 		<small>Finances</small>
 		<div class="btn-group">
 			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
@@ -20,10 +19,11 @@
 				class="sr-only">Toggle Dropdown</span>
 			</a>
 	
-			<ul class="dropdown-menu" role="menu">
+			<ul class="dropdown-menu dropdown-menu-right" role="menu">
 				<li><g:link action="show" resource="${clientInstance}">Overview</g:link></li>
 			</ul>
 		</div> <!-- ./btn-group -->
+		</span>
 		</h1>
 	
 <g:if test="${flash.message}">
@@ -36,7 +36,7 @@
 </g:if>
 
  
-  <div class="row" style="height: 400px;">
+  <div class="row">
   <div class="col-xs-12">
 	<div class="row">
 	<div class="col-sm-4 col-lg-2">
@@ -87,6 +87,8 @@
 		</div>
 		</div>
 	</div>
+  </div>
+  <div class="row"  style="height: 500px;">
   <div class="col-lg-8">
   <div class="panel panel-default" style="height: 100%;">
   <div class="panel-heading">
@@ -107,7 +109,7 @@
 </div></span>
 
 </div>
-  <div class="panel-body" style="display:block; height: 352px; overflow-y:auto;">
+  <div class="panel-body" style="display:block; height: 452px; overflow-y:auto;">
   <table class="table table-striped table-condensed table-hover table-bordered" id="properties">
     <thead>
       <tr>
@@ -134,9 +136,9 @@
         <g:else test="${unit?.owed =< 0}">
         	<th class="success text-success text-center"><g:formatNumber type="currency" number="${unit?.owed}" currencyCode="GBP" currencySymbol="£"/></th>
         </g:else>
-        <td>Reminder 1</td>
-        <td>01/07/2014</td>
-		<td>14/07/2014</td>
+        <td></td>
+        <td></td>
+		<td></td>
       </tr>
       </g:each>
     </tbody>
@@ -145,7 +147,7 @@
   </div>
   </div>
 
-	<div class="col-lg-4" style="height: 100%;">
+	<div class="col-lg-4" style="height: 75%;">
       <div class="panel panel-default" style="height: 100%;">
 	  <div class="panel-heading">
 		<h2 class="panel-title">Details</h3>
@@ -158,7 +160,7 @@
   </div>
 
 <r:script>
-	$(document).ready(function() {
+$(document).ready(function() {
     $("#selectAll").click(function() {
         var checkBoxes = $("#properties tbody input[type='checkbox']");
 		var selectAllState = $("#selectAll").prop("checked");
@@ -174,9 +176,11 @@
     		},
     		'html'
     	);
-    });
-    
+    });    
 });
+$(document).on('click','#printSvc', function(){
+    	$('.modal-body').printArea({mode: 'iframe'});
+    });
 </r:script>
 
 </body>

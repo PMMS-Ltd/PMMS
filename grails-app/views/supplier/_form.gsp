@@ -56,15 +56,15 @@
 		
 			</label>
 			<div class="col-xs-6">
-				<!--<g:select name="workTypes" from="${uk.org.pmms.SupplierType.list()}"
+				<g:select name="workTypes" from="${uk.org.pmms.SupplierType.list()}"
 					multiple="multiple" optionKey="id" size="5"
 					value="${supplierInstance?.workTypes*.id}"
-					class="many-to-many form-control" />-->
-					<select class="form-control">
-						<g:each in="${uk.org.pmms.SupplierType.findByParentId(null)}">
+					class="many-to-many form-control" />
+					<!-- <select class="form-control">
+						<g:each in="${uk.org.pmms.SupplierType.findAllByTypeParent(null)}">
 						<option value="${it.id }">${it.type }</option>
 						</g:each>
-					</select>
+					</select>-->
 		
 			</div>
 		</div>
@@ -75,12 +75,12 @@
 			<div class="form-group">
 				<label class="sr-only" for="unitNo">Unit No</label> <input
 					type="text" class="form-control input-sm" id="unitNo" name="address.unitNo"
-					placeholder="Unit No" />
+					placeholder="Unit No" value="${supplierInstance?.address?.unitNo }"/>
 			</div>
 			<div class="form-group">
 				<label class="sr-only" for="postCode">Post Code</label> <input
 					type="text" class="form-control input-sm" id="postcode"
-					name="address.postCode" placeholder="PostCode" />
+					name="address.postCode" placeholder="PostCode" value="${supplierInstance?.address?.postCode }"/>
 			</div>
 			<div class="form-group">
 				<a href="#" class="btn btn-primary btn-sm"
@@ -142,6 +142,16 @@
 			<div class="col-xs-6">
 				<g:textField class="form-control" name="address.country" required=""
 					value="${supplierInstance?.address?.country}" />
+			</div>
+		</div>
+		
+		<div class="form-group ${hasErrors(bean: supplierInstance, field: 'email', 'has-error')}">
+			<label for="email" class="control-label col-xs-3">
+				<g:message code="email.label" default="Email" />
+			</label>
+			<div class="col-xs-6">
+				<g:field class="form-control" type="email" name="email"
+					value="${supplierInstance?.email}" />
 			</div>
 		</div>
 		</div>

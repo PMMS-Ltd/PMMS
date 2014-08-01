@@ -16,6 +16,7 @@ class Transfer {
 	Date copypackSent
 	Date lastUpdated
 	
+	static hasMany = [invoices: Invoice]
     static constraints = {
 		
 		completionDate blank: true, nullable: true

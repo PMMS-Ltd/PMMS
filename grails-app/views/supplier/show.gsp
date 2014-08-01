@@ -41,7 +41,7 @@
 							<g:if test="${supplierInstance?.name}">
 								<li class="list-group-item"><strong><g:message
 											code="supplier.name.label" default="Name" /></strong> - <g:fieldValue
-										bean="${supplierInstance}" field="name" /></li>
+										bean="${supplierInstance}" field="name" class="list-group-item-text"/></li>
 							</g:if>
 
 							<g:if test="${supplierInstance?.accountNo}">
@@ -62,6 +62,12 @@
 									<address class="list-group-item-text">
 										<g:fieldValue bean="${supplierInstance}" field="address" />
 									</address></li>
+							</g:if>
+							<g:if test="${supplierInstance?.email}">
+								<li class="list-group-item"><strong><g:message
+											code="supplier.email.label" default="Email" /></strong> - 
+										<g:fieldValue bean="${supplierInstance}" field="email" class="list-group-item-text"/>
+									</li>
 							</g:if>
 						</ul>
 					</div>

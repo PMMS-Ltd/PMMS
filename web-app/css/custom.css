@@ -90,3 +90,29 @@
 		margin-top: 50px;
 	}
 }
+@media (min-width: 992px){
+	.modal-lg {
+		width: 920px;
+	}	
+
+}
+.status-draft{
+	background: #95a5a6;
+	font-size: 85%;
+}
+.status-new{
+	 background: #5c97bf;
+	 font-size: 85%;
+}
+.status-applied{
+	background: #663399;
+	font-size: 85%;
+}
+.status-awaiting-approval{
+	background: #f4d03f;
+	font-size: 85%;
+}
+.status-approved{
+	background: #2ecc71;
+	font-size: 85%;
+}

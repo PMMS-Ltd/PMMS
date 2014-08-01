@@ -57,6 +57,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
          runtime 'mysql:mysql-connector-java:5.1.27'
 		 runtime 'org.springframework:spring-test:3.1.0.RELEASE'
+		 //runtime 'com.lowagie:itext:2.1.7'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 		 
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-commons-api:0.10.0', {
@@ -80,6 +81,9 @@ grails.project.dependency.resolution = {
 		 // Alfresco CMIS extension
 		 compile 'org.alfresco.cmis.client:alfresco-opencmis-extension:0.7'
 		 compile 'org.xhtmlrenderer:flying-saucer-pdf:9.0.6'
+		 //compile 'org.xhtmlrenderer:core-renderer:R8pre2'
+		 compile 'com.lowagie:itext:2.1.7'
+		 compile ('org.docx4j:docx4j:3.1.0') {excludes "slf4j-api", "xml-apis", "commons-logging"}
     }
 
     plugins {
@@ -90,7 +94,7 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.0.3"
         compile ':cache:1.1.2'
 		compile (":rendering:1.0.0") {
-			excludes "flying-saucer-pdf"
+			excludes "flying-saucer-pdf", "itext", "core-renderer-R8"
 		}
 		//compile ":excel-import:1.0.0"
 		compile ":spring-security-core:2.0-RC2"
@@ -99,6 +103,8 @@ grails.project.dependency.resolution = {
 		compile ":rest-client-builder:2.0.1"
 		compile ":joda-time:1.5"
 		compile ":audit-logging:1.0.1"
+		compile ":excel-import:1.0.0"
+		compile ":excel-export:0.2.1"
 		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.13" // or ":hibernate4:4.3.5.1"

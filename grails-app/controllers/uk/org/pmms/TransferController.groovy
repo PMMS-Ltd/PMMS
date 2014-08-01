@@ -13,10 +13,23 @@ class TransferController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	def CMISService
-	
+	def TransferService
     def index(Integer max) {
+		if (params.filter){
+			def c = Transfer.createCriteria()
+			
+			def results = c.list {
+				if(params.filter.client){
+					prop{
+						eq 'client', Client.get(params.filter.client)
+					}
+				}
+			}	
+			respond results, model:[transferInstanceCount: results.size()]
+		}else{
         params.max = Math.min(max ?: 10, 100)
         respond Transfer.list(params), model:[transferInstanceCount: Transfer.count()]
+		}
     }
 
     def show(Transfer transferInstance) {
@@ -38,19 +51,15 @@ class TransferController {
             respond transferInstance.errors, view:'create'
             return
         }
-		if (transferInstance.feeReceived == null && params.receivedFee == 'on'){
-			transferInstance.feeReceived = new Date()
-		}
+		
 		if (params.vSolicitor.id == null){
 			def sols = new Supplier()
 			sols.properties = params.vSolicitor
-			sols.save flush:true
+			sols.save(flush:true)
 			transferInstance.vSolicitor = sols
-		}/*else {
-			transferInstance.vSolicitor = Supplier.get(params.vSolicitor.id)
-		}*/
-		println params
-        transferInstance.save flush:true
+		}
+		
+        transferInstance.save(flush:true)
 		
 		try{
 			def folderId = CMISService.createFolder((String) transferInstance.id, (String) grailsApplication.config.grails.alfresco.repo.transferfolder, '')
@@ -60,7 +69,11 @@ class TransferController {
 			}
 		}catch(e){
 		}
-		
+		if (transferInstance.feeReceived == null && params.receivedFee == 'on'){
+			//transferInstance.feeReceived = new Date()
+			TransferService.createCopyPackInvoice(transferInstance)
+			
+		}
 				
 		//render transferInstance as JSON
         request.withFormat {
@@ -87,8 +100,10 @@ class TransferController {
             respond transferInstance.errors, view:'edit'
             return
         }
-		if (params.receivedFee == 'on' && transferInstance.feeReceived == null){
-			transferInstance.feeReceived = new Date()
+		if (transferInstance.feeReceived == null && params.receivedFee == 'on'){
+			//transferInstance.feeReceived = new Date()
+			TransferService.createCopyPackInvoice(transferInstance)
+			
 		}
         transferInstance.save flush:true
 

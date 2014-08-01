@@ -21,4 +21,17 @@ class ServiceChargeType {
 	String toString() {
 		return type
 	}
+	
+	def currentCharge(){
+		def today = new Date()
+		return charges.find{it.startDate <= today && it.endDate > today && it.status=='Applied'}
+	}
+	def previousCharges(){
+		def today = new Date()
+		return charges.findAll{it.endDate < today}
+	}
+	def futureCharges(){
+		def today = new Date()
+		return charges.findAll{it.startDate > today}
+	}
 }

@@ -5,7 +5,7 @@ package uk.org.pmms
 import static org.springframework.http.HttpStatus.*
 
 import org.junit.After;
-
+import uk.org.pmms.accounts.Transaction
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
@@ -43,6 +43,7 @@ class PropertyController {
         }
 		//Create alfresco folder
 		def folderID = createPropertyFolder(propertyInstance)
+		println folderID
 		if (!folderID.startsWith('Error') ){
 			propertyInstance.repoFolderId = folderID
 		}
@@ -73,7 +74,12 @@ class PropertyController {
             respond propertyInstance.errors, view:'edit'
             return
         }
-
+		if (params.createNewOwner == 'true'){
+			def newOwner = new Person();
+			newOwner.properties = params.owner
+			newOwner.save flush:true
+			propertyInstance.owner = newOwner
+		}
         propertyInstance.save flush:true
 
         request.withFormat {
@@ -115,10 +121,11 @@ class PropertyController {
         }
     }
 	
-	protected String createPropertyFolder(Property propertyInstance) {
+	def createPropertyFolder(Property propertyInstance) {
 		def clientFolderID = propertyInstance.client.repoFolderId
 		if (clientFolderID){
 			def folderId = CMISService.createFolder(propertyInstance.propertyId, clientFolderID, '')
+			println folderId
 			if (folderId){
 				return folderId
 			}
@@ -139,8 +146,20 @@ class PropertyController {
 		}
 	}
 	@Secured(['ROLE_USER'])
-	def financeDetails (String id) {
-		def prop = Property.get(id)
+	def financeDetails (Property prop) {
 		render (template: 'financeDetails', model: [propertyInstance: prop])
+	}
+	
+	@Secured(['ROLE_USER'])
+	def svcStatement (Property prop) {
+		def transactionList = Transaction.findAllByPropertyIdAndDateEnteredBetween(prop, prop.client.yearStart, prop.client.yearEnd, [sort: 'dateEntered', order: 'asc'])
+		//def transactionList = Transaction.findAllByPropertyId(prop,[sort: 'dateEntered', order: 'asc'])
+		
+		render (template:'svcStatement', model: [transactionList: transactionList, property: prop])
+	}
+	@Secured(['ROLE_USER'])
+	def svcPdf (Property prop) {
+		def transactionList = Transaction.findAllByPropertyIdAndDateEnteredBetween(prop, prop.client.yearStart, prop.client.yearEnd, [sort: 'dateEntered', order: 'asc'])
+		renderPdf(template: '/pdf/statement',  model: [transactionList: transactionList, property: prop], filename:'Statement_'+prop.propertyId)
 	}
 }

@@ -110,12 +110,27 @@ class SupplierController {
         }
     }
 	def search() {
-		render (template: "supplierSearch", model: ['results': Supplier.search('*'+params.q+'*')])
-		//render Person.search('*'+params.q+'*') as JSON
+		
+		def c = Supplier.createCriteria()
+		def results = c.list {
+				ilike("name", "%"+params.q+"%")
+				if (params.type){
+					workTypes {
+						eq 'type', params.type
+					}
+				}
+		}
+		response.withFormat {
+			"*" { render (template: "supplierSearch", model: ['results': results])}
+			json { render results as JSON }
+		}
 	}
 	def getWorkTypes() {
 		if (params.id){
 			render (template: 'workTypes', collection: Supplier.get(params.id).workTypes)
 		}
+	}
+	def supplierSearch() {
+		render (template: "supplierList", model: ['supplierInstanceList': Supplier.findAllByNameIlike('%'+params.search+'%')])
 	}
 }

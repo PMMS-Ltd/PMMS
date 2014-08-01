@@ -1,66 +1,52 @@
 
-<%@ page import="uk.org.pmms.Person" %>
+<%@ page import="uk.org.pmms.Person"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#list-person" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+<head>
+<meta name="layout" content="PMMS">
+<g:set var="entityName"
+	value="${message(code: 'person.label', default: 'Person')}" />
+<title><g:message code="default.list.label" args="[entityName]" /></title>
+</head>
+<body>
+	<h1 class="page-header">
+		Contacts
+		<div class="btn-group">
+			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
+				data-toggle="dropdown"> <span class="caret"></span> <span
+				class="sr-only">Toggle Dropdown</span>
+			</a>
+
+			<ul class="dropdown-menu" role="menu">
+
+				<sec:ifAnyGranted roles="ROLE_ADMIN">
+					<li><g:link action="create">
+							<i class="fa fa-plus fa-fw text-success"></i> Add New</g:link></li>
+				</sec:ifAnyGranted>
 			</ul>
+
 		</div>
-		<div id="list-person" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<g:sortableColumn property="salutation" title="${message(code: 'person.salutation.label', default: 'Salutation')}" />
-					
-						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" />
-					
-						<g:sortableColumn property="initial" title="${message(code: 'person.initial.label', default: 'Initial')}" />
-					
-						<g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}" />
-					
-						<g:sortableColumn property="email1" title="${message(code: 'person.email1.label', default: 'Email1')}" />
-					
-						<g:sortableColumn property="email1Type" title="${message(code: 'person.email1Type.label', default: 'Email1 Type')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${personInstanceList}" status="i" var="personInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${personInstance.id}">${fieldValue(bean: personInstance, field: "salutation")}</g:link></td>
-					
-						<td>${fieldValue(bean: personInstance, field: "firstName")}</td>
-					
-						<td>${fieldValue(bean: personInstance, field: "initial")}</td>
-					
-						<td>${fieldValue(bean: personInstance, field: "lastName")}</td>
-					
-						<td>${fieldValue(bean: personInstance, field: "email1")}</td>
-					
-						<td>${fieldValue(bean: personInstance, field: "email1Type")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${personInstanceCount ?: 0}" />
-			</div>
+	</h1>
+	<div class="row">
+		<div class="col-lg-6">
+			<g:formRemote name="personSearchForm" class="form-inline" url="[controller: 'person', action: 'personSearch']" update="list-person">
+				<div class="form-group">
+					<input type="text" class="form-control" id="contactSearch"
+						placeholder="Search..." size="85" name="search"/>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-default" update="list-person">
+						<i class="fa fa-fw fa-search"></i> Search
+					</button>
+				</div>
+			</g:formRemote>
 		</div>
-	</body>
+	</div>
+	<div class="row">
+		<div class="col-xs-12" id="list-person">
+			<g:render template="personList" model="personInstanceList: personInstanceList"/>
+		</div>
+	</div>
+
+</body>
 </html>

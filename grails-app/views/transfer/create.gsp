@@ -60,6 +60,7 @@
 			<div class="modal-body">
 				<form class="form">
 					<div class="input-group">
+						<input type="hidden" name="type" value="Solicitor"/>
 						<input type="text" name="q" class="form-control"> <span
 							class="input-group-btn">
 							<g:submitToRemote update="updateMe" class="btn btn-default"

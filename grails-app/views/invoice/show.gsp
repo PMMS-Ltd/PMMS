@@ -103,11 +103,23 @@
 		  				<p class="form-control-static text-right"><g:formatNumber number="${invoiceInstance?.total }" type="currency" currencyCode="GBP" currencySymbol="£"/></p>
 		  			</div>
 		  		</div>
+		  		<div class="form-group">
+		  			<label class="control-label col-xs-7">Received:</label>
+		  			<div class="col-xs-5">
+		  				<p class="form-control-static text-right"><g:formatNumber number="${invoiceInstance?.total - invoiceInstance?.balance }" type="currency" currencyCode="GBP" currencySymbol="£"/></p>
+		  			</div>
+		  		</div>
+		  		<div class="form-group">
+		  			<h4 class="control-label col-xs-7">Balance:</h4>
+		  			<div class="col-xs-5">
+		  				<h4 class="form-control-static text-right"><g:formatNumber number="${invoiceInstance?.balance }" type="currency" currencyCode="GBP" currencySymbol="£"/></h4>
+		  			</div>
+		  		</div>
 		  	</div>
 		  </div>
 		</div>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-lg-4 hidden-print">
 		<g:link action="showPdf" id="${invoiceInstance.id }" class="btn btn-success btn-sm"><i class="fa fa-fw fa-file-pdf-o"></i> PDF</g:link>
 	</div>
 	</body>

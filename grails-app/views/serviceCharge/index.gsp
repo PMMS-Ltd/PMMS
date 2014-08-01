@@ -37,9 +37,10 @@
 				<tbody>
 				<g:each in="${serviceChargeInstanceList}" status="i" var="serviceChargeInstance">
 					<tr class="text-center">
-						<td>${serviceChargeInstance?.serviceChargeType?.client }</td>
+						<td><g:link controller="client" action="show" id="${serviceChargeInstance?.serviceChargeType?.client.id }">${serviceChargeInstance?.serviceChargeType?.client}</g:link>
+						<g:link class="btn btn-xs btn-primary" action="listCharges" id="${serviceChargeInstance?.serviceChargeType?.client.id }"><i class="fa fa-fw fa-tasks"></i> List Charges</g:link></td>
 					
-						<td>${serviceChargeInstance?.serviceChargeType}</td>
+						<td><g:link controller="serviceChargeType" action="show" id="${serviceChargeInstance?.serviceChargeType.id }">${serviceChargeInstance?.serviceChargeType}</g:link></td>
 						
 						<td><g:formatDate date="${serviceChargeInstance.startDate}" format="dd/MM/yyyy"/></td>
 						
@@ -49,9 +50,9 @@
 						
 						<td><g:formatNumber type="currency" number="${serviceChargeInstance.groundRent}" currencyFormat="GBP" currencySymbol="£"/></td>
 					
-						<!--<td><g:link action="show" id="${serviceChargeInstance.id}">${fieldValue(bean: serviceChargeInstance, field: "annualAmount")}</g:link></td>-->
 						
-						<td>${serviceChargeInstance.status }</td>
+						
+						<td><span class="label status-${serviceChargeInstance.status.toLowerCase() }">${serviceChargeInstance.status }</span></td>
 					</tr>
 				</g:each>
 				</tbody>

@@ -1,30 +1,32 @@
 
 <%@ page import="uk.org.pmms.Client"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="layout" content="PMMS">
 <g:set var="entityName"
 	value="${message(code: 'client.label', default: 'Client')}" />
-<title><g:message code="default.show.label" args="[entityName]" /></title>
+	<g:set var="transfers" bean="transferService"/>
+<title>${clientInstance.clientId } - Overview</title>
 </head>
 <body>
 
 
 	<h1 class="page-header">
 		<g:fieldValue bean="${clientInstance}" field="name" />
+		<span class="pull-right">
 		<small>Overview</small>
 		<div class="btn-group">
 			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
 				data-toggle="dropdown"> <span class="caret"></span> <span
 				class="sr-only">Toggle Dropdown</span>
 			</a>
-
-			<ul class="dropdown-menu" role="menu">
+			<ul class="dropdown-menu dropdown-menu-right" role="menu">
 				<li><g:link action="finances" resource="${clientInstance }">Finances</g:link></li>
 			</ul>
-
 		</div>
+		</span>
 	</h1>
 	<g:if test="${flash.message}">
 		<div class="alert alert-warning col-xs-4 pull-right alert-dismissable"
@@ -103,14 +105,14 @@
 		<div class="col-sm-4 col-lg-2">
 			<div class="small-box" style="background: #95a5a6;">
 				<div class="small-box-inner">
-					<h3>1</h3>
-					<p>Requests</p>
+					<h3>${transfers.getTransfersByClient(clientInstance).size()}</h3>
+					<p>Transfers</p>
 				</div>
 				<div class="icon">
-					<i class="fa fa-question"></i>
+					<i class="fa fa-exchange"></i>
 				</div>
-				<a href="#" class="small-box-footer">More info <i
-					class="fa fa-arrow-circle-right fa-fw"></i></a>
+				<g:link controller="transfer" action="index" class="small-box-footer" params="['filter.client':clientInstance.id]">More info <i
+					class="fa fa-arrow-circle-right fa-fw"></i></g:link>
 			</div>
 		</div>
 	</div>
@@ -227,34 +229,47 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-default" style="height: 100%;">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<i class="fa fa-map-marker fa-fw"></i> Location
-					</h3>
-				</div>
-				<div class="panel-body">
-					<p class="text-center">
-						<small>
-							${clientInstance.address }
-						</small>
-					</p>
-					<img
-						src="http://maps.googleapis.com/maps/api/staticmap?center=${clientInstance.address}&amp;zoom=16&amp;size=400x200&amp;sensor=false&amp;scale=1&amp;maptype=roadmap&amp;markers=color:red%7C${clientInstance.address}"
-						height="100%" width="100%">
-				</div>
-			</div>
-		</div>-->
 		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
 			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<i class="fa fa-file-o fa-fw"></i> Recent Files
+						<!--<i class="fa fa-file-o fa-fw"></i> Recent Files-->
+						<i class="fa fa-fw fa-gbp"></i>Current Service Charge
+						<div class="dropdown pull-right">
+							<a href="#" class="dropdown-toggle btn btn-default btn-xs"
+								data-toggle="dropdown"> <i class="caret"></i>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><g:link controller="serviceCharge" action="listCharges" id="${clientInstance.id}">
+										More Info <i class="fa fa-arrow-circle-right fa-fw"></i>
+									</g:link></li>
+
+							</ul>
+						</div>
 					</h3>
 				</div>
 				<div class="panel-body">
-					<g:if test="${files.size() > 0}">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th class="text-center">Type</th>
+								<th class="text-center">Service Charge</th>
+								<th class="text-center">Ground Rent</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${uk.org.pmms.accounts.ServiceChargeType.findAllByClient(clientInstance) }" var="type">
+							<tr class="text-center">
+								<td>${type.type }</td>
+								<td><g:formatNumber type="currency" number="${type.currentCharge()?.serviceCharge }" currency="GBP" currencySymbol="£"/></td>
+								<td><g:formatNumber type="currency" number="${type.currentCharge()?.groundRent }" currency="GBP" currencySymbol="£"/></td>
+							</tr>
+							</g:each>
+						</tbody>
+					
+					
+					</table>
+					<!--<g:if test="${files.size() > 0}">
 						<table class="table table-condensed table-striped">
 							<thead>
 								<tr>
@@ -284,17 +299,17 @@
 					</g:if>
 					<g:else>
 						<span class="text-muted">No Files to display</span>
-					</g:else>
+					</g:else>-->
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row" style="margin-top: 15px;">
-		<div class="col-lg-6 col-sm-12 col-xs-12">
-			<div class="panel panel-default">
+	<div class="row" style="margin-top: 15px; margin-bottom: 20px; height: 400px;">
+		<div class="col-lg-6 col-sm-12 col-xs-12" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<i class="fa fa-building-o fa-fw"></i> Properties <span class="badge">${clientInstance?.units?.size() }</span>
+						<i class="fa fa-building-o fa-fw"></i> Properties &nbsp;<span class="badge">${clientInstance?.units?.size() }</span>
 
 						<div class="dropdown pull-right">
 							<a href="#" class="dropdown-toggle btn btn-default btn-xs"
@@ -306,21 +321,26 @@
 									<li><g:link action="create" controller="Property"
 											params="['client': clientInstance.id, 'address': clientInstance.address.id]">
 											<i class="fa fa-plus text-success"></i> Add Property</g:link></li>
+									<li><g:link action="downloadPropertyTemplate" controller="importExport" params="[clientId: clientInstance.clientId]">
+											<i class="fa fa-file-excel-o text-success"></i> Download Template</g:link></li>
+									<!-- <li><g:link action="uploadProperties" controller="importExport" params="[clientId: clientInstance.clientId]">
+											<i class="fa fa-upload text-info"></i> Import Properties</g:link></li>-->
+											<li><a href="#" id="importProps"><i class="fa fa-upload text-info"></i> Import Properties</a></li>
 								</sec:ifAnyGranted>
 
 							</ul>
 						</div>
 					</h3>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body" style="height: 352px; overflow-y: auto;">
 
 					<g:if test="${clientInstance?.units}">
-						<table class="table table-condensed">
+						<table class="table table-condensed table-striped">
 							<thead>
 								<tr>
 									<th>Property ID</th>
-									<th>Type</th>
 									<th>Address</th>
+									<th>Type</th>
 									<th>Owner</th>
 
 								</tr>
@@ -332,11 +352,9 @@
 												id="${u.id}">
 												${u?.encodeAsHTML()}
 											</g:link></td>
-										<td>
+											<td>${u.address?.unitNo } ${u.address?.address1 }</td>
+											<td>
 											${u.propertyType}
-										</td>
-										<td>
-											${u?.address}
 										</td>
 										<td>
 											${u?.owner}
@@ -356,7 +374,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span class="fa fa-user fa-fw fa-lg"></span> Directors
+						<span class="fa fa-user fa-fw"></span> Directors
 						<div class="dropdown pull-right">
 							<a href="#" class="dropdown-toggle btn btn-default btn-xs"
 								data-toggle="dropdown"> <i class="caret"></i>
@@ -440,5 +458,31 @@
 			</div>
 		</div>
 	</div>
+	<!-- Upload Properties Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <g:form action="uploadProperties" controller="importExport" method="post" enctype="multipart/form-data" class="form">
+      	<div class="modal-header">
+      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      		<h4 class="modal-title">Import properties</h4>
+      	</div>
+      	<div class="modal-body">
+				<label for="file" class="control-label">Choose a file to import:</label>
+				<input type="file" name="file" class="form-control" id="file" />
+				<input type="hidden" name="id" value="${clientInstance.id }"/>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-sm btn-info" type="submit"><i class="fa fa-fw fa-upload"></i> Upload</button>
+		</div>
+		</g:form>
+    </div>
+  </div>
+</div>
+<g:javascript>
+	$(document).on('click','#importProps',function(){
+		$('#myModal').modal('show');
+	})
+</g:javascript>
 </body>
 </html>

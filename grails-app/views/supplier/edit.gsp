@@ -30,10 +30,8 @@
 				</fieldset>
 			</g:form>
 			<g:form url="[resource:supplierInstance, action:'delete']" method="DELETE">
-				<fieldset class="buttons">
-					<g:actionSubmit class="btn btn-sm btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
+						<g:actionSubmit class="btn btn-sm btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					</g:form>
 		</div>
 	</body>
 </html>

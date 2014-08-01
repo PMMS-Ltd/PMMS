@@ -96,6 +96,11 @@
  
  
  });
+ $('#addNewOwnerBtn').click(function(){
+ 	$('#newOwnerDetails').removeClass('hidden');
+ 	$('#newOwnerDetails').append('<input type="hidden" name="createNewOwner" value="true"/>');
+ 	
+ })
 </g:javascript>
 	</body>
 </html>

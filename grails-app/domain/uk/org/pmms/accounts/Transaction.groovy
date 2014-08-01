@@ -16,14 +16,14 @@ class Transaction {
 	String invoiceNo
 	String details
 	Double amount
-	Boolean reconciled
-	Boolean paid
+	Boolean reconciled = false
+	Boolean paid = false
 	Transaction paidBy
 	String paymentType
 	BankAccount bankAccount
 	String grp
 
-	static belongsTo = [Client, Property, Supplier]
+	static belongsTo = [client: Client, propertyId: Property, supplier: Supplier]
 	
     static constraints = {
 		type range: 1..18

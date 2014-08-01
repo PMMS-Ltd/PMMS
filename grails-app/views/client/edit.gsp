@@ -42,6 +42,11 @@
 				</div>
 			</g:form>
 		</div>
+		<g:if test="${clientInstance.accounts.size() > 0 }">
+			<div class="col-lg-4" id="accountsTable">
+				<g:render template="/bankAccount/accounts" model="['clientInstance':clientInstance]"/>
+			</div>
+		</g:if>
 		<div class="visible-xs">
 			<g:form url="[controller:'client', action:'save']" class="form"  method="PUT">
 				<div class="row">

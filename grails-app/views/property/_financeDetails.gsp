@@ -12,11 +12,11 @@
 		</tr>
 		<tr>
 			<th>Service Charge</th>
-			<td><g:formatNumber type="currency" number="${propertyInstance?.serviceChargeType?.serviceCharge }" currency="GBP"/></td>
+			<td><g:formatNumber type="currency" number="${propertyInstance?.serviceChargeType?.currentCharge()?.serviceCharge }" currency="GBP" currencySymbol="£"/></td>
 		</tr>
 		<tr>
 			<th>Ground Rent</th>
-			<td><g:formatNumber type="currency" number="${propertyInstance?.serviceChargeType?.groundRent }" currency="GBP"/></td>
+			<td><g:formatNumber type="currency" number="${propertyInstance?.serviceChargeType?.currentCharge()?.groundRent }" currency="GBP" currencySymbol="£"/></td>
 		</tr>
 		<tr>
 			<th>Service Charge Type</th>
@@ -24,5 +24,10 @@
 		</tr>
 	</tbody>
 </table>
-<a class="btn btn-success btn-sm"><i class="fa fa-fw fa-file"></i>
+	<a  href="${request.contextPath }/property/svcStatement/${propertyInstance.id}" class="btn btn-success btn-sm" data-toggle="modal" data-target=".svcStatementModal"><i class="fa fa-fw fa-file"></i>
 	View Statement</a>
+	<div class="modal fade svcStatementModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"></div>
+  </div>
+</div>

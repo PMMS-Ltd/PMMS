@@ -1,58 +1,52 @@
 
-<%@ page import="uk.org.pmms.Supplier" %>
+<%@ page import="uk.org.pmms.Supplier"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'supplier.label', default: 'Supplier')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#list-supplier" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+<head>
+<meta name="layout" content="PMMS">
+<g:set var="entityName"
+	value="${message(code: 'supplier.label', default: 'supplier')}" />
+<title><g:message code="default.list.label" args="[entityName]" /></title>
+</head>
+<body>
+	<h1 class="page-header">
+		Suppliers
+		<div class="btn-group">
+			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
+				data-toggle="dropdown"> <span class="caret"></span> <span
+				class="sr-only">Toggle Dropdown</span>
+			</a>
+
+			<ul class="dropdown-menu" role="menu">
+
+				<sec:ifAnyGranted roles="ROLE_ADMIN">
+					<li><g:link action="create">
+							<i class="fa fa-plus fa-fw text-success"></i> Add New</g:link></li>
+				</sec:ifAnyGranted>
 			</ul>
+
 		</div>
-		<div id="list-supplier" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<g:sortableColumn property="name" title="${message(code: 'supplier.name.label', default: 'Name')}" />
-					
-						<g:sortableColumn property="accountNo" title="${message(code: 'supplier.accountNo.label', default: 'Account No')}" />
-					
-						<g:sortableColumn property="sortCode" title="${message(code: 'supplier.sortCode.label', default: 'Sort Code')}" />
-					
-						<th><g:message code="supplier.address.label" default="Address" /></th>
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${supplierInstanceList}" status="i" var="supplierInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${supplierInstance.id}">${fieldValue(bean: supplierInstance, field: "name")}</g:link></td>
-					
-						<td>${fieldValue(bean: supplierInstance, field: "accountNo")}</td>
-					
-						<td>${fieldValue(bean: supplierInstance, field: "sortCode")}</td>
-					
-						<td>${fieldValue(bean: supplierInstance, field: "address")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${supplierInstanceCount ?: 0}" />
-			</div>
+	</h1>
+	<div class="row">
+		<div class="col-lg-6">
+			<g:formRemote name="supplierSearchForm" class="form-inline" url="[controller: 'supplier', action: 'supplierSearch']" update="list-supplier">
+				<div class="form-group">
+					<input type="text" class="form-control" id="contactSearch"
+						placeholder="Search..." size="85" name="search"/>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-default" update="list-supplier">
+						<i class="fa fa-fw fa-search"></i> Search
+					</button>
+				</div>
+			</g:formRemote>
 		</div>
-	</body>
+	</div>
+	<div class="row">
+		<div class="col-xs-12" id="list-supplier">
+			<g:render template="supplierList" model="supplierInstanceList: supplierInstanceList"/>
+		</div>
+	</div>
+
+</body>
 </html>
