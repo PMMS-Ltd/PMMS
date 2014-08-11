@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div class="row">
-		<h1 class="page-header"><g:message code="default.edit.label" args="[entityName]" /></h1>
+		<h1 class="page-header"><g:message code="default.edit.label" args="[entityName]" /> ${propertyInstance.propertyId }</h1>
 			<div id="edit-property" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">
 				
 				<g:if test="${flash.message}">
@@ -35,10 +35,8 @@
 				<g:render template="form"/>
 			</div>
 			<div class="row">
-					<fieldset>
-						<g:submitButton name="update" class="btn btn-sm btn-success" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-						<g:link class="btn btn-sm btn-danger" action="index">Cancel</g:link>
-					</fieldset>
+				<button name="update" class="btn btn-sm btn-success"><i class="fa fa-fw fa-lg fa-refresh"></i> Update</button>
+				<g:link class="btn btn-sm btn-danger" action="index"><i class="fa fa-fw fa-lg fa-times"></i> Cancel</g:link>
 			</div>
 			</g:form>
 		</div>
@@ -48,10 +46,8 @@
 				<g:render template="form-small"/>
 			</div>
 			<div class="row">
-					<fieldset>
-						<g:submitButton name="update" class="btn btn-sm btn-success" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-						<g:link class="btn btn-sm btn-danger" action="index">Cancel</g:link>
-					</fieldset>
+				<g:submitButton name="update" class="btn btn-sm btn-success" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+				<g:link class="btn btn-sm btn-danger" action="index"> Cancel</g:link>
 			</div>
 		</g:form>
 		</div>

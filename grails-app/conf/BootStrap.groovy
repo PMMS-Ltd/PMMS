@@ -4,12 +4,13 @@ import uk.org.pmms.accounts.ServiceChargeService
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import grails.util.Environment
 
 class BootStrap {
 	def ServiceChargeService
     def init = { servletContext ->
 	
-	  
+	  if (Environment.current == Environment.DEVELOPMENT){
 	  DateFormat df = new SimpleDateFormat("yyyy-MM-dd")
 	  def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
       def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
@@ -67,7 +68,7 @@ class BootStrap {
 	  supplier.addToEmployees(person).save()
 	  property.owner = person; property.save()
 	  client.addToDirectors(person).save()
-	  
+	  }
     }
     def destroy = {
     }

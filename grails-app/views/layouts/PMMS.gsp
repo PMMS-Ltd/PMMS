@@ -36,7 +36,7 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li><g:link controller="Client" action="index"><span class="fa fa-users fa-lg fa-fw pull-left"></span>&nbsp; Clients</g:link></li>
-            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg fa-fw pull-left"></span>&nbsp; All Properties</g:link></li>
+            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg fa-fw pull-left"></span>&nbsp; Properties</g:link></li>
             	<li><g:link controller="Transfer" action="index"><span class="fa fa-exchange fa-lg fa-fw pull-left"></span>&nbsp; Transfers</g:link></li>
 	            <li class="divider"></li>
 	            <li><g:link controller="Person" action="index"><span class="fa fa-book fa-fw fa-lg pull-left"></span>&nbsp; Contacts</g:link></li>

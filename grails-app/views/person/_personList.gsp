@@ -1,5 +1,4 @@
 <%@ page import="uk.org.pmms.Person.PhoneType"%>
-<h2>Results</h2>
 <g:if test="${personInstanceList.size() > 0 }">
 			
 			<table class="table">
@@ -36,9 +35,11 @@
 				<li><g:link action="edit" id="${personInstance.id }" style="text-decoration: none;">
 						<i class="fa fa-pencil fa-fw"></i> Edit Contact</g:link>
 				</li>
+				<g:if test="${personInstance?.email1 }">
 				<li><g:link action="#" id="${personInstance.id }" style="text-decoration: none;">
 						<i class="fa fa-paper-plane-o fa-fw"></i> Send Email</g:link>
 				</li>
+				</g:if>
 				<li><g:link action="#" id="${personInstance.id }" style="text-decoration: none;">
 						<i class="fa fa-envelope-o fa-fw"></i> Send Letter</g:link>
 				</li>

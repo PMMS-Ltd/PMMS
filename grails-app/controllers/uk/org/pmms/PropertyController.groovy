@@ -13,7 +13,6 @@ import grails.converters.JSON
 @Transactional(readOnly = true)
 
 class PropertyController {
-	def scaffold = true
 	def CMISService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	@Secured(['ROLE_USER'])

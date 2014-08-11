@@ -8,7 +8,7 @@
 	<body>
 		<div class="row">
 			<div id="create-client" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">
-				<h1 class="page-title"><g:message code="default.create.label" args="[entityName]" /></h1>
+				<h1 class="page-header"><g:message code="default.create.label" args="[entityName]" /></h1>
 				<g:if test="${flash.message}">
 				<div class="alert">${flash.message}</div>
 				</g:if>
@@ -33,9 +33,7 @@
 				<g:render template="form"/>
 			</div>
 			<div class="row">
-					<fieldset>
-						<g:submitButton name="create" class="btn btn-sm btn-success" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-					</fieldset>
+				<button name="create" class="btn btn-sm btn-success"><i class="fa fa-fw fa-lg fa-save"></i> Create</button>
 			</div>
 		</g:form>
 		</div>

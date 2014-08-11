@@ -8,7 +8,22 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+		<h1 class="page-header">Invoices
+		<div class="btn-group">
+  <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </a>
+  
+  <ul class="dropdown-menu" role="menu">
+  
+    <li><g:link
+     action="create" resource="${invoice}">
+				<i class="fa fa-plus fa-fw text-success"></i> Add New</g:link></li>
+  </ul>
+
+</div>
+		</h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>

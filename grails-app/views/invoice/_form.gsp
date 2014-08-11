@@ -65,4 +65,15 @@
 
 	</div>
 </div>
+
+<div class="form-group ${hasErrors(bean: invoiceInstance, field: 'balance', 'has-error')} required">
+	<label for="balance" class="control-label col-xs-4">
+		<g:message code="invoice.balance.label" default="Balance" />
+		<span class="required-indicator">*</span>
+	</label>
+	<div class="col-xs-8">
+		<g:field class="form-control" name="balance" value="${fieldValue(bean: invoiceInstance, field: 'balance')}" required=""/>
+
+	</div>
+</div>
 </div>

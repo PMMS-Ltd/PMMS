@@ -115,7 +115,7 @@
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'feeReceived', 'has-error')} ">
+<div class="form-group">
 	<label for="feeReceived" class="control-label col-xs-4">
 		<g:message code="transfer.feeReceived.label" default="Fee Received" />
 		
@@ -129,7 +129,7 @@
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'feeReceived', 'has-error')} ">
+<!-- <div class="form-group">
 	<label for="feeReceived" class="control-label col-xs-4">
 		<g:message code="transfer.feeReceived.label" default="Fee Received" />
 		
@@ -141,4 +141,4 @@
         </label>
       </div>
 	</div>
-</div>
+</div>-->

@@ -1,4 +1,3 @@
-<h2>Results</h2>
 <g:if test="${supplierInstanceList.size() > 0 }">
 			
 			<table class="table">
@@ -9,7 +8,7 @@
 						
 						<g:sortableColumn property="name" title="${message(code: 'supplier.name.label', default: 'Supplier Name')}" />
 						
-						<g:sortableColumn property="address" title="${message(code: 'supplier.address.label', default: 'Email1 Type')}" />
+						<g:sortableColumn property="address" title="${message(code: 'supplier.address.label', default: 'Address')}" />
 						
 						<th>Supplier Types</th>
 					

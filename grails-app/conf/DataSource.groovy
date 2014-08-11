@@ -1,9 +1,8 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "org.h2.Driver"
-    username = "sa"
-    password = ""
+    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+	
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -22,7 +21,7 @@ environments {
 			driverClassName = "com.mysql.jdbc.Driver"
 			username = "root"
 			password = "himson19155"
-			url = "jdbc:mysql://localhost:3306/pmms"
+			url = "jdbc:mysql://localhost:3306/pmms?useUnicode=yes&characterEncoding=UTF-8"
         }
     }
     test {
@@ -33,12 +32,12 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = "create"
+            dbCreate = "update"
             driverClassName = "com.mysql.jdbc.Driver"
 			username = "root"
 			password = "himson19155"
-			url = "jdbc:mysql://pmms-sql:3306/pmms-webapp"
-            /*properties {
+			url = "jdbc:mysql://pmms-sql:3306/pmms-webapp?useUnicode=yes&characterEncoding=UTF-8"
+            properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true
                initialSize = 5
@@ -56,8 +55,8 @@ environments {
                testWhileIdle = true
                testOnReturn = false
                jdbcInterceptors = "ConnectionState"
-               defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
-            }*/
+               defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_UNCOMMITTED
+            }
         }
     }
 }

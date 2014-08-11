@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div id="list-transfer" class="content scaffold-list" role="main">
-			<h1 class="page-header">All Transfers
+			<h1 class="page-header">Transfers
 		<div class="btn-group">
   <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
@@ -19,8 +19,8 @@
   <ul class="dropdown-menu" role="menu">
   
     <li><g:link
-     action="create" resource="${client}">
-				<i class="fa fa-plus fa-fw"></i> <g:message code="default.button.create.label" default="Add New" /></g:link></li>
+     action="create" resource="${transfer}">
+				<i class="fa fa-plus fa-fw text-success"></i> Add New</g:link></li>
   </ul>
 
 </div></h1>

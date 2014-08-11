@@ -96,7 +96,7 @@ environments {
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
-		grails.serverURL ="http://localhost:8080/PMMS"
+		//grails.serverURL ="http://localhost:8080/PMMS"
 		
 		//grails.alfresco.repo.clientfolder='e4668f45-203a-4d23-969b-246d38bfd062'
 		//grails.alfresco.repo.transferfolder='e4668f45-203a-4d23-969b-246d38bfd062'
@@ -106,7 +106,7 @@ environments {
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
-		grails.serverURL ="http://192.168.0.49/PMMS"
+		//grails.serverURL ="http://192.168.0.49/PMMS"
     }
 }
 
@@ -136,7 +136,7 @@ auditLog {
 	logIds = false  // log db-ids of associated objects.
 	// Note: if you change next 2 properties, you must update your database schema!
 	//tablename = 'my_audit' // table name for audit logs.
-	largeValueColumnTypes = true // use large column db types for oldValue/newValue.
+	largeValueColumnTypes = false // use large column db types for oldValue/newValue.
 	TRUNCATE_LENGTH = 1000
 	cacheDisabled = true
 	replacementPatterns = ["org.uk.pmms.":"", "org.uk.pmms.accounts.":""] // replace with empty string.

@@ -99,7 +99,7 @@ grails.project.dependency.resolution = {
 		//compile ":excel-import:1.0.0"
 		compile ":spring-security-core:2.0-RC2"
 		//compile ":spring-security-ui:1.0-RC1"
-		compile ":searchable:0.6.6"
+		//compile ":searchable:0.6.6"
 		compile ":rest-client-builder:2.0.1"
 		compile ":joda-time:1.5"
 		compile ":audit-logging:1.0.1"

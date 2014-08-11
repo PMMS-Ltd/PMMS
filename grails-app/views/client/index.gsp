@@ -11,7 +11,7 @@
 		
 		
 		
-			<h1 class="page-header"><g:message code="default.list.label" args="[entityName]" />
+			<h1 class="page-header">Clients
 				<div class="btn-group">
   <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>

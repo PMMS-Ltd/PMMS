@@ -1,4 +1,3 @@
-
 <%@ page import="uk.org.pmms.Property" %>
 <!DOCTYPE html>
 <html>
@@ -8,13 +7,13 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div class="col-xs-12" role="main">
-			<h1 class="page-header"><g:message code="default.list.label" args="[entityName]" /></h1>
+		<div class="col-xs-12 col-lg-8" role="main">
+			<h1 class="page-header">Properties</h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			
-			<table class="table table-striped">
+			<table class="table table-striped table-hover">
 			<thead>
 					<tr>
 					
@@ -30,7 +29,7 @@
 				</thead>
 				<tbody>
 				<g:each in="${propertyInstanceList}" status="i" var="propertyInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr>
 					
 						<td><g:link action="show" id="${propertyInstance.id}">${fieldValue(bean: propertyInstance, field: "propertyId")}</g:link></td>
 						
@@ -44,9 +43,9 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${propertyInstanceCount ?: 0}" />
-			</div>
+			<ul class="pagination">
+				<g:paginate total="${propertyInstanceCount ?: 0}" max="20"/>
+			</ul>
 		</div>
 	</body>
 </html>

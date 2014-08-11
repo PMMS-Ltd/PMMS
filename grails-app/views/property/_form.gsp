@@ -144,47 +144,45 @@
 	<div class="form-horizontal ${propertyInstance.owner? '':'hidden' }"
 		id="ownerDetails">
 		<div class="form-group" id="name">
-			<label for="nameField" class="control-label col-xs-3">Name</label>
+			<label for="nameField" class="control-label col-xs-3 col-lg-2">Name</label>
 			<p class="form-control-static col-xs-9" id="nameField">
-				${propertyInstance?.owner?.lastName },
-				${propertyInstance?.owner?.firstName }
-				(${propertyInstance?.owner?.salutation })
+				${propertyInstance?.owner?.lastName }, ${propertyInstance?.owner?.firstName } (${propertyInstance?.owner?.salutation })
 			</p>
 		</div>
 		<div class="form-group" id="address">
-			<label for="addressField" class="control-label col-xs-3">Address</label>
+			<label for="addressField" class="control-label col-xs-3 col-lg-2">Address</label>
 			<p class="form-control-static col-xs-9" id="addressField">
 				${propertyInstance?.owner?.address?.address1 }<br />
 				${propertyInstance?.owner?.address?.address2 }
 			</p>
 		</div>
 		<div class="form-group" id="town">
-			<label for="townField" class="control-label col-xs-3">Town</label>
+			<label for="townField" class="control-label col-xs-3 col-lg-2">Town</label>
 			<p class="form-control-static col-xs-9" id="townField">
 				${propertyInstance?.owner?.address?.town }
 			</p>
 		</div>
 		<div class="form-group" id="county">
-			<label for="countyField" class="control-label col-xs-3">County</label>
+			<label for="countyField" class="control-label col-xs-3 col-lg-2">County</label>
 			<p class="form-control-static col-xs-9" id="countyField"
 				${propertyInstance?.owner?.address?.county }></p>
 		</div>
 		<div class="form-group" id="postcode">
-			<label for="postcodeField" class="control-label col-xs-3">Post
+			<label for="postcodeField" class="control-label col-xs-3 col-lg-2">Post
 				Code</label>
 			<p class="form-control-static col-xs-9" id="postcodeField">
 				${propertyInstance?.owner?.address?.postCode }
 			</p>
 		</div>
 		<div class="form-group" id="country">
-			<label for="countryField" class="control-label col-xs-3">Country</label>
+			<label for="countryField" class="control-label col-xs-3 col-lg-2">Country</label>
 			<p class="form-control-static col-xs-9" id="countryField">
 				${propertyInstance?.owner?.address?.country }
 			</p>
 		</div>
 	</div>
 
-	<!-- <div class="hidden" id="newOwnerDetails">
+	<div class="hidden" id="newOwnerDetails">
 		<div class="row">
 			<div class="form-inline">
 				<div
@@ -298,7 +296,7 @@
 			</div>
 			</div>
 		</div>
-	</div>-->
+	</div>
 </div>
 <g:javascript>
 	 $("#pcSearch").click(function(){
