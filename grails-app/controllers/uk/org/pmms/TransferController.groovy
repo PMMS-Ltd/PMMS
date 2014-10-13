@@ -6,14 +6,20 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
+import grails.rest.RestfulController
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_USER'])
-class TransferController {
+class TransferController extends RestfulController{
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	static responseFormats = ['html','json']
 	def CMISService
 	def TransferService
+	
+	def TransferController() {
+		super(Transfer)
+	}
     def index(Integer max) {
 		if (params.filter){
 			def c = Transfer.createCriteria()
@@ -24,16 +30,27 @@ class TransferController {
 						eq 'client', Client.get(params.filter.client)
 					}
 				}
-			}	
-			respond results, model:[transferInstanceCount: results.size()]
+			}
+			request.withFormat {
+				json {render results as JSON}
+				"*" {respond results, model:[transferInstanceCount: results.size()]}
+			}
+			
 		}else{
         params.max = Math.min(max ?: 10, 100)
-        respond Transfer.list(params), model:[transferInstanceCount: Transfer.count()]
+		request.withFormat {
+			json {render Transfer.list(params) as JSON}
+			"*" {respond Transfer.list(params), model:[transferInstanceCount: Transfer.count()]}
+		}
+        
 		}
     }
 
     def show(Transfer transferInstance) {
-        respond transferInstance
+		request.withFormat {
+			json {render transferInstance as JSON}
+			"*" {respond transferInstance}
+		}
     }
 
     def create() {

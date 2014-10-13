@@ -6,7 +6,7 @@
 <r:require modules="flot"/>
 </head>
 <body>
-	<h1 class="page-header hidden-xs">${user.firstName } ${user.lastName }'s Dashboard</h1>
+	<h1 class="page-header hidden-xs">${user.getDisplayName() }'s Dashboard</h1>
 	<div class="row hidden-xs">
 		<div class="col-sm-3 col-lg-2">
 			<div class="small-box bg-fountain-blue">

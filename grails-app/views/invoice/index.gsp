@@ -16,10 +16,11 @@
   </a>
   
   <ul class="dropdown-menu" role="menu">
-  
+  <sec:ifAllGranted roles="ROLE_ADMIN">
     <li><g:link
      action="create" resource="${invoice}">
 				<i class="fa fa-plus fa-fw text-success"></i> Add New</g:link></li>
+  </sec:ifAllGranted>
   </ul>
 
 </div>

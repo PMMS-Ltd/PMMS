@@ -61,10 +61,11 @@
 			<div class="modal-body">
 				<form class="form">
 					<div class="input-group">
-						<input type="text" name="q" class="form-control"> <span
+					<input type="hidden" name="popUp" value="true"/>
+						<input type="text" name="search" class="form-control"> <span
 							class="input-group-btn"> <!--<button class="btn btn-default" type="button"><i class="fa fa-search"></i> Search</button>-->
 							<g:submitToRemote update="updateMe" class="btn btn-default"
-								value="Search" url="[controller: 'person', action: 'search']"></g:submitToRemote>
+								value="Search" url="[controller: 'person', action: 'personSearch']"></g:submitToRemote>
 						</span>
 					</div>
 					<!-- /input-group -->

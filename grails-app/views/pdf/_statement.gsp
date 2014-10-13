@@ -18,11 +18,9 @@
 <r:layoutResources />
 </head>
 <body>
-<div class="container">
 		
-			<img src="${resource(dir:'static/images', file:'PMMS%20Letterhead.png', absolute:true) }"
-				width="100%" />
-	<div class="clearfix">
+	<rendering:inlinePng bytes="${logo}" style="width:100%;"/>
+	
 		<div style="width: 33.333333333%; float: left; padding-top: 25px; padding-left: 30px;">
 			<p>
 				${property?.owner }
@@ -42,26 +40,21 @@
 				<g:formatDate date="${new Date() }" format="dd/MM/yyyy" />
 			</p>
 		</div>
-	</div>
-	
-		<div class="text-center" style="width: 100%;">
-			<p>
-				${property?.address }
-			</p>
-			<p>
-				${property?.client?.name }
-			</p>
-		</div>
+		<div style="clear: both;"></div>
 
-	
-		<div style="width: 100%;">
+		
+			<p class="text-center">${property?.address }</p>
+			<p class="text-center">${property?.client?.name }</p>
+		
+		
+		
 			<table class="table table-bordered" style="font-size: 0.9em;">
 				<thead>
 					<tr>
-						<th class="col-xs-2 text-center">Date</th>
+						<th class="text-center">Date</th>
 						<th class="text-center">Details</th>
-						<th class="col-xs-2 text-center">Credit</th>
-						<th class="col-xs-2 text-center">Debit</th>
+						<th class="text-center">Credit</th>
+						<th class="text-center">Debit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -85,10 +78,7 @@
 						</tr>
 					</g:each>
 				</tbody>
-
 			</table>
-		</div>
-	</div>
 	<r:layoutResources />
 </body>
 </html>

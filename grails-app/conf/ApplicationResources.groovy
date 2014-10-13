@@ -2,9 +2,10 @@ modules = {
     application {
 		dependsOn: 'jquery'
 		resource url:'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', attrs:[media:'all']
-		resource url:'http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/flatly/bootstrap.min.css', attrs:[media:'screen']
+		//resource url:'http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css', attrs:[media:'screen']
+		resource url:'http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/flatly/bootstrap.min.css', attrs:[media:'screen'] 
 		resource url:'http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'
-		resource url:'http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css'
+		resource url:'http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'
 		resource url:'js/application.js'
 		resource url:'css/custom.css'
     }
@@ -24,5 +25,15 @@ modules = {
 	printArea {
 		dependsOn: 'jquery'
 		resource url: 'js/jquery.PrintArea.js'
+	}
+	wizard {
+		resource url: 'css/wizard.css'
+	}
+	wysiwyg {
+		dependsOn: 'jquery'
+		resource url: 'js/jquery.hotkeys.js'
+		resource url: 'js/bootstrap-wysiwyg.js'
+		
+		
 	}
 }

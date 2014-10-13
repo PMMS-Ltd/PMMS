@@ -16,7 +16,7 @@ class Transfer {
 	Date copypackSent
 	Date lastUpdated
 	
-	static hasMany = [invoices: Invoice]
+	Invoice copyPackInvoice
     static constraints = {
 		
 		completionDate blank: true, nullable: true
@@ -25,6 +25,7 @@ class Transfer {
 		newOwner blank: true, nullable: true
 		repoFolderId blank:true, nullable: true, display: false
 		dateCreated display: false
+		copyPackInvoice nullable: true
     }
 	
 	static mapping = {

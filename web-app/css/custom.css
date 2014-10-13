@@ -1,3 +1,7 @@
+.container {
+	margin-top: 60px;
+}
+
 .required-indicator{
 	color: #ff0000;
 }
@@ -87,7 +91,7 @@
 @media (min-width: 1800px){
 	.container {
 		width: 1850px;
-		margin-top: 50px;
+		
 	}
 }
 @media (min-width: 992px){
@@ -116,3 +120,4 @@
 	background: #2ecc71;
 	font-size: 85%;
 }
+ #editor {overflow-y:scroll; height:300px; margin-top: 15px;}

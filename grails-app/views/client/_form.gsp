@@ -38,6 +38,7 @@
 	<g:datePicker class="form-control" name="yearEnd" precision="day"  value="${clientInstance?.yearEnd}"  />
 	</div>
 	</div>
+	
 	<g:if test="${!clientInstance.accounts }">
 	<div class="form-group required">
 	<label for="accountName" class="control-label col-xs-4 col-lg-3">

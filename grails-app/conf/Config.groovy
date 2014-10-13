@@ -15,6 +15,7 @@
 grails.project.groupId = 'uk.org.pmms' // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
+grails.mime.use.accept.header = true
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
     all:           '*/*', // 'all' maps to '*' or the first available format in withFormat
@@ -96,10 +97,22 @@ environments {
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
-		//grails.serverURL ="http://localhost:8080/PMMS"
+		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
+		grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
+		grails.camunda.url = "http://localhost:8090"
 		
-		//grails.alfresco.repo.clientfolder='e4668f45-203a-4d23-969b-246d38bfd062'
-		//grails.alfresco.repo.transferfolder='e4668f45-203a-4d23-969b-246d38bfd062'
+		/*mail {
+			host = "pmmsv1"
+			port = 25
+			username = "administrator"
+			password = "himson19155"
+			props = ["mail.smtp.auth":"true", 					   
+             "mail.smtp.starttls.enable":"true",
+			 "mail.smtp.socketFactory.port": 25,
+             "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+             "mail.smtp.socketFactory.fallback":"true"]
+		  }*/
+		grails.mail.default.from="info@something.com"
     }
     production {
         grails.logging.jul.usebridge = false
@@ -114,9 +127,9 @@ environments {
 log4j = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -152,6 +165,7 @@ auditLog {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.org.pmms.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.org.pmms.UserRole'
 grails.plugin.springsecurity.authority.className = 'uk.org.pmms.Role'
+
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
@@ -168,6 +182,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/auditLogEvent/**':			  ['permitAll'],
 	'/bankAccount/**':				  ['permitAll'],
 	'/importExport/**':				  ['permitAll'],
+	'/lettersAndMailings/**':		  ['permitAll'],
+	'/utils/**':		 			  ['permitAll'],
 	'/Pdf/**':				  		  ['permitAll']
 
 ]
@@ -180,3 +196,15 @@ grails.opencmis.alfresco.atomurl='http://alfresco.pmms.org.uk/alfresco/api/-defa
 //grails.opencmis.alfresco.atomurl='http://192.168.0.15/alfresco/api/-default-/public/cmis/versions/1.1/atom'
 grails.opencmis.alfresco.user='user'
 grails.opencmis.alfresco.password='bitnami'
+
+//LDAP settings
+grails.plugin.springsecurity.providerNames = ['ldapAuthProvider','anonymousAuthenticationProvider','rememberMeAuthenticationProvider']
+grails.plugin.springsecurity.ldap.context. managerDn = 'cn=admin,dc=test,dc=pmms,dc=org,dc=uk'
+grails.plugin.springsecurity.ldap.context. managerPassword = 'Jonlee2001'
+grails.plugin.springsecurity.ldap.context. server = 'ldap://192.168.0.61:389'
+grails.plugin.springsecurity.ldap.authorities.retrieveGroupRoles = true
+grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
+grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Groups,dc=test,dc=pmms,dc=org,dc=uk'
+grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberUid={1}'
+grails.plugin.springsecurity.ldap.search.base = 'dc=test,dc=pmms,dc=org,dc=uk'
+grails.plugin.springsecurity.ldap.mapper.userDetailsClass = 'inetOrgPerson'

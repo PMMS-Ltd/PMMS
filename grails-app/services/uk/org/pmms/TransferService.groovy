@@ -20,7 +20,7 @@ class TransferService {
 		//3. Set transferInstance.feeReceieved to current date
 			transferInstance.feeReceived = new Date()
 		//4. Add invoice to transfer
-			transferInstance.addToInvoices(cpInvoice)
+			transferInstance.copyPackInvoice = cpInvoice
 		//5. Save updated transfer
 			transferInstance.save(flush:true)
 	}

@@ -1,74 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet" media="print"></link>
-<!--<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet" media="print"></link>-->
-<link rel="stylesheet" href="${resource(dir:'css', file:'custom.css')}"></link>
-<title>Sample Invoice</title>
+<style type="text/css">
+@page {
+		width: 210mm;
+		height: 297mm;
+ 		margin: 1cm;
+ 	}
+ @media print {
+	.container {
+		width: 670px;
+	}
+  }
+</style>
 
+<r:require modules="jquery, application" />
+<r:layoutResources />
 </head>
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-8">
-				<img
-					src="http://pmmsorg.users37.interdns.co.uk/wordpress/wp-content/uploads/2013/08/Logo.png"
-					width="100%" />
-			</div>
-			<div class="col-xs-4 text-right">
-				<h1>INVOICE</h1>
-				<h1>
-					<small>#<g:formatNumber
-							number="${invoiceInstance?.id}" minIntegerDigits="6"/></small>
-				</h1>
-				<h3>
-					<small><g:formatDate date="${new Date()}" format="dd/MM/yyyy"/></small>
-				</h3>
-			</div>
-			<hr />
-		</div>
-		<div class="row">
-			<div class="col-xs-5">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">From</h3>
-					</div>
-					<div class="panel-body">
-						<p class="text-left">
-							<strong>PMMS Ltd.</strong><br /> Ground Floor Sidda House<br />
-							350 Lower Addiscombe Road<br /> Croydon<br /> Surrey<br /> CR9
-							7AX<br />
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-5 text-right pull-right">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">To</h3>
-					</div>
-					<div class="panel-body">
-						<p>
-							<strong>
-								${invoiceInstance?.billTo?.name}
-							</strong><br />
-							${invoiceInstance?.billTo?.address?.unitNo}
-							${invoiceInstance?.billTo?.address?.address1}<br />
-							${invoiceInstance?.billTo?.address?.address2}<br />
-							${invoiceInstance?.billTo?.address?.town}<br />
-							${invoiceInstance?.billTo?.address?.county}<br />
-							${invoiceInstance?.billTo?.address?.postCode}<br />
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- / end client details section -->
-		<div class="row">
-		<div class="col-xs-12">
-		<table class="table table-bordered table-condensed" style="margin-top: 25px;">
+		
+	<rendering:inlinePng bytes="${logo}" style="width:100%;"/>
+	<div style="width:33.3333333%; float:left;">
+		<h3>To:</h3>
+		<p style="margin-left: 50px;">
+			<strong>${invoiceInstance?.billTo?.name}</strong><br />
+			${invoiceInstance?.billTo?.address?.unitNo} ${invoiceInstance?.billTo?.address?.address1}<br />
+			${invoiceInstance?.billTo?.address?.address2}<br />
+			${invoiceInstance?.billTo?.address?.town}<br />
+			${invoiceInstance?.billTo?.address?.county}<br />
+			${invoiceInstance?.billTo?.address?.postCode}<br />
+		</p>
+	</div>
+	<!-- <div style="width: 33.3333333%; float:left;">
+		<h3>From:</h3>
+		<p>
+			<strong>PMMS Ltd.</strong><br />Ground Floor Sidda House<br />350 Lower Addiscombe Road<br />Croydon<br />Surrey<br />CR9 7AX<br />
+		</p>
+	</div>-->
+	<div class="text-right" style="width:33.33333%; float:right;">
+		<h1>INVOICE</h1>
+		<h1>
+			<small>#<g:formatNumber	number="${invoiceInstance?.id}" minIntegerDigits="6"/></small>
+		</h1>
+		<h3>
+			<small><g:formatDate date="${new Date()}" format="dd/MM/yyyy"/></small>
+		</h3>
+	</div>
+	<div style="clear:both;"></div>
+		
+		 <table class="table table-bordered table-condensed" style="margin-top: 25px;">
 			<thead>
 				<tr>
 					<th class="text-center">Description</th>
@@ -96,40 +77,34 @@
 				</g:each>
 			</tbody>
 		</table>
-		</div>
-	</div>
-		<div class="row">
-			<div class="col-xs-3 form-horizontal pull-right">
-				
-					<div class="form-group" style="margin-bottom:0px;">
-						<label class="control-label col-xs-7">Sub Total:</label>
-						<div class="col-xs-5">
-							<p class="form-control-static text-right">
-								<g:formatNumber number="${invoiceInstance?.subTotal }"
-									type="currency" currencyCode="GBP" currencySymbol="£" />
-							</p>
-						</div>
-					</div>
-					<div class="form-group" style="margin-bottom:0px;">
-						<label class="control-label col-xs-7">VAT:</label>
-						<div class="col-xs-5">
-							<p class="form-control-static text-right">
-								<g:formatNumber number="${invoiceInstance?.vat }"
-									type="currency" currencyCode="GBP" currencySymbol="£" />
-							</p>
-						</div>
-					</div>
-					<div class="form-group" style="margin-bottom:0px;">
-						<label class="control-label col-xs-7">Total:</label>
-						<div class="col-xs-5">
-							<p class="form-control-static text-right">
-								<g:formatNumber number="${invoiceInstance?.total }"
-									type="currency" currencyCode="GBP" currencySymbol="£" />
-							</p>
-						</div>
-					</div>
-				</div>
+
+		
+			<div style="width:25%; float:right; margin-top: 75px;">
+				<table class="table table-bordered" style="width: 100%;">
+				<tbody>
+					<tr>
+						<th>Sub Total:</th>
+						<td class="text-right"><g:formatNumber number="${invoiceInstance?.subTotal }" type="currency" currencyCode="GBP" currencySymbol="£" /></td>
+					</tr>
+					<tr>
+						<th>VAT:</th>
+						<td class="text-right"><g:formatNumber number="${invoiceInstance?.vat }" type="currency" currencyCode="GBP" currencySymbol="£" /></td>
+					</tr>
+					<tr>
+						<th>Total:</th>
+						<td class="text-right"><g:formatNumber number="${invoiceInstance?.total }" type="currency" currencyCode="GBP" currencySymbol="£" /></td>
+					</tr>
+					<tr>
+						<th>Received:</th>
+						<td class="text-right"><g:formatNumber number="${invoiceInstance?.total - invoiceInstance?.balance }" type="currency" currencyCode="GBP" currencySymbol="£" /></td>
+					</tr>
+					<tr>
+						<th>Balance:</th>
+						<td class="text-right"><g:formatNumber number="${invoiceInstance?.balance }" type="currency" currencyCode="GBP" currencySymbol="£" /></td>
+					</tr>
+				</tbody>
+				</table>
 			</div>
-		</div>
+		<r:layoutResources/>
 </body>
 </html>

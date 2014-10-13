@@ -15,16 +15,21 @@ class SupplierController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Supplier.list(params), model:[supplierInstanceCount: Supplier.count()]
+		
+		request.withFormat {
+			json {render Supplier.list(params) as JSON}
+			"*" { respond Supplier.list(params), model:[supplierInstanceCount: Supplier.count()]}
+		}
+		
+        
     }
 
     def show(Supplier supplierInstance) {
-        respond supplierInstance
+		request.withFormat {
+			json {render supplierInstance as JSON}
+			"*" { respond supplierInstance}
+		}
     }
-	def showJson(Supplier supplierInstance) {
-		render supplierInstance as JSON
-	}
-
     def create() {
         respond new Supplier(params)
     }

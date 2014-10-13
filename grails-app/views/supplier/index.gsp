@@ -29,7 +29,7 @@
 	</h1>
 	<div class="row">
 		<div class="col-lg-6">
-			<g:formRemote name="supplierSearchForm" class="form-inline" url="[controller: 'supplier', action: 'supplierSearch']" update="list-supplier">
+			<form id="supplierSearchForm" class="form-inline" method="post">
 				<div class="form-group">
 					<input type="text" class="form-control" id="contactSearch"
 						placeholder="Search..." size="85" name="search"/>
@@ -39,7 +39,7 @@
 						<i class="fa fa-fw fa-search"></i> Search
 					</button>
 				</div>
-			</g:formRemote>
+			</form>
 		</div>
 	</div>
 	<div class="row">
@@ -49,4 +49,17 @@
 	</div>
 
 </body>
+<g:javascript>
+			$("#supplierSearchForm").submit(function(event){
+				$.ajax({
+					type: 'POST',
+					url: '${request.contextPath}/supplier/supplierSearch',
+					data: $(this).serialize(),
+					success: function(data){
+						$("#list-supplier").html(data);
+					}
+				});
+				event.preventDefault();
+			});
+	</g:javascript>
 </html>

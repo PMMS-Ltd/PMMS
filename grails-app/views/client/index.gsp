@@ -34,7 +34,8 @@
 			</g:if>
 			<div class="row">
 		<div class="col-lg-6">
-			<g:formRemote name="clientSearchForm" class="form-inline" url="[controller: 'client', action: 'clientSearch']" update="list-client">
+			
+			<form class="form-inline" id="clientSearchForm" method="post" action="${request.contextPath}/client/clientSearch">
 				<div class="form-group">
 					<input type="text" class="form-control" id="contactSearch"
 						placeholder="Search..." size="85" name="search"/>
@@ -44,7 +45,8 @@
 						<i class="fa fa-fw fa-search"></i> Search
 					</button>
 				</div>
-			</g:formRemote>
+				</form>
+			
 		</div>
 	</div>
 	<div class="row">
@@ -53,4 +55,17 @@
 		</div>
 	</div>
 	</body>
+	<g:javascript>
+			$("#clientSearchForm").submit(function(event){
+				$.ajax({
+					type: 'POST',
+					url: '${request.contextPath}/client/clientSearch',
+					data: $(this).serialize(),
+					success: function(data){
+						$("#list-client").html(data);
+					}
+				});
+				event.preventDefault();
+			});
+	</g:javascript>
 </html>

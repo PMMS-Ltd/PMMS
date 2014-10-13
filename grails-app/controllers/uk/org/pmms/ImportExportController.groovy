@@ -3,6 +3,7 @@ package uk.org.pmms
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.codehaus.groovy.grails.web.json.JSONArray
 import org.grails.plugins.excelimport.*
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -13,6 +14,7 @@ import grails.converters.JSON
 class ImportExportController {
  def excelImportService
  def docx4jService
+ def CMISService
 
   def index() {
  }
@@ -51,7 +53,7 @@ class ImportExportController {
   
   def download(){
 	 def headers = grailsApplication.getDomainClass(params.className).persistentProperties.collect { it.name }
-	  //def withProperties = ['name', 'description', 'validTill', 'productNumber', 'price.value']
+	 
 	  
 	  new WebXlsxExporter().with {
 		  setResponseHeaders(response)
@@ -59,7 +61,7 @@ class ImportExportController {
 		  //add(products, withProperties)
 		  save(response.outputStream)
 	  }
-	  //render headers as JSON
+	 
   }
   def exportWord() {
 	 def output =  docx4jService.exportWord(Person.list())
@@ -101,15 +103,63 @@ class ImportExportController {
   def propertyList = excelImportService.columns(workbook, CONFIG_BOOK_COLUMN_MAP)
 	  propertyList.each { Map objParamMap ->
 	def address = new Address(objParamMap)
-	address.unitNo = formatNumber(number: objParamMap['unitNo'], type: 'number', maxFractionDigits: 0)
+	//address.unitNo = formatNumber(number: objParamMap['unitNo'], type: 'number', maxFractionDigits: 0)
+	address.unitNo = (String) objParamMap['unitNo']
 	address.save(flush:true, failOnError: true)
 	def prop = new Property(objParamMap)
 	prop.client = Client.get(params.id)
 	prop.address = address
+	prop.repoFolderId = CMISService.createFolder(prop.propertyId, prop.client.repoFolderId, '')
 	prop.save(flush: true, failOnError: true)
 		  
   }
 	  redirect (controller: 'client', action: 'show', id: params.id)
 	  //render columns
  }
+  def exportJsonToExcel(){
+	  
+	  JSONArray jsonArray = new JSONArray(params.headers)
+	  JSONArray jsonArray2 = new JSONArray(params.data)
+	   def headers = []
+	   for (int i=0; i<jsonArray.length(); i++) {
+		   headers.add( jsonArray.getString(i) );
+	   }
+
+	   WebXlsxExporter webXlsxExporter = new WebXlsxExporter()
+	   webXlsxExporter.setWorksheetName(params.sheetName)
+	   webXlsxExporter.with {
+		  setResponseHeaders(response)
+		  fillHeader(headers)
+		  jsonArray2.eachWithIndex() {rowData, i ->
+			  def row = []
+			  jsonArray.each() {header ->
+				  row.push(rowData[header])
+			  }
+			  fillRow(row,i+1)
+		  }
+		  
+		  save(response.outputStream)
+	  }
+  }
+  def exportJsonToPDF(){
+	  JSONArray jsonArray = new JSONArray(params.headers)
+	  JSONArray jsonArray2 = new JSONArray(params.data)
+	   def headers = []
+	   def data = []
+	   for (int i=0; i<jsonArray.length(); i++) {
+		   headers.add( jsonArray.getString(i) );
+	   }
+	   jsonArray2.eachWithIndex() {rowData, i ->
+		   def row = []
+		   jsonArray.each() {header ->
+			   row.push(rowData[header])
+		   }
+		   data.push(row)
+	   }
+	   def logoFile = new File(request.getSession().getServletContext().getRealPath("/images/PMMS Letterhead.png"))
+	   
+	  //render (template:'pdfTable', model: [headers: headers, data: data, sheetName: params.fileName, logo: logoFile.bytes])
+	  
+	  renderPdf(template: 'pdfTable',  model: [headers: jsonArray, data: data, sheetName: params.fileName, logo: logoFile.bytes], filename:params.fileName)
+  }
 }

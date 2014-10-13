@@ -16,6 +16,7 @@ class Supplier {
 		sortCode blank: true, nullable: true
 		email email:true, nullable:true, blank: true
     }
+	static fetchMode = [address: 'eager', workTypes: 'eager']
 	
 	String toString(){
 		return name

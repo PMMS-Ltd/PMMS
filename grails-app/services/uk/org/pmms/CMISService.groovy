@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 @Transactional
 class CMISService {
 	def grailsApplication
+	def springSecurityService
 	private Session session = null;
     def serviceMethod() {
 
@@ -31,10 +32,14 @@ class CMISService {
 			// default factory implementation
 			SessionFactory factory = SessionFactoryImpl.newInstance();
 			Map<String, String> parameter = new HashMap<String, String>();
-
+			//def user = springSecurityService.currentUser
+			def username = /*springSecurityService.isLoggedIn() ? springSecurityService.getPrincipal().username : */grailsApplication.config.grails.opencmis.alfresco.user
+			def password = /*springSecurityService.isLoggedIn() ? springSecurityService.getPrincipal().password : */grailsApplication.config.grails.opencmis.alfresco.password
+			
 			// user credentials
-			parameter.put(SessionParameter.USER, grailsApplication.config.grails.opencmis.alfresco.user);
-			parameter.put(SessionParameter.PASSWORD, grailsApplication.config.grails.opencmis.alfresco.password);
+			parameter.put(SessionParameter.USER, username);
+			parameter.put(SessionParameter.PASSWORD, password);
+			//parameter.put(SessionParameter.AUTH_HTTP_BASIC, false);
 
 			// connection settings
 			parameter.put(SessionParameter.ATOMPUB_URL, grailsApplication.config.grails.opencmis.alfresco.atomurl); // Uncomment for Atom Pub binding

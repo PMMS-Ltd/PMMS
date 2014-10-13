@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 
 import org.joda.time.*
 
+import static java.math.RoundingMode.*
 import uk.org.pmms.Client;
 
 @Transactional
@@ -25,12 +26,13 @@ class ArrearsService {
 			if (obj.serviceChargeType?.monthly == true)
 				due = obj.serviceChargeType.currentCharge().monthlyAmount * month
 			else if (obj.serviceChargeType?.quarterly == true)
-				due = obj.serviceChargeType.currentCharge().quarterlyAmount * round(month/4,0)
-			else if (obj.serviceChargeType?.quarterly == true)
-				due = obj.serviceChargeType.currentCharge().halfYearlyAmount * round(month/6,0)
+				due = obj.serviceChargeType.currentCharge().quarterlyAmount * Math.ceil(month/3)
+				
+			else if (obj.serviceChargeType?.halfYearly == true)
+				due = obj.serviceChargeType.currentCharge().halfYearlyAmount * Math.ceil(month/6)
 			else
 				due = obj.serviceChargeType?.currentCharge()?.annualAmount
-			//((obj.serviceChargeType.charges[0].serviceCharge + obj.serviceChargeType.charges[0].groundRent)/12) * month
+				
 			def received = Transaction.findAllByPropertyIdAndTypeAndDateEnteredGreaterThan(obj,2,obj.client.yearStart).amount.sum()
 			if (due == null){
 				due = 0.00
@@ -46,10 +48,13 @@ class ArrearsService {
 	}
 	
 	def currentMonth(Date yrStart) {
+		
 		if (yrStart.getDate()==1){
-			return Months.monthsBetween(new LocalDate(yrStart.getYear()+1900, yrStart.getMonth()+1, yrStart.getDate()), new LocalDate().now()).getMonths();
+			
+			return Months.monthsBetween(new LocalDate(yrStart.getYear()+1900, yrStart.getMonth()+1, yrStart.getDate()), new LocalDate().now()).getMonths()+1;
 		}else{
-			return Months.monthsBetween(new LocalDate(yrStart.getYear()+1900, yrStart.getMonth()+1, yrStart.getDate()), new LocalDate().now()).getMonths() -1;
+		
+			return Months.monthsBetween(new LocalDate(yrStart.getYear()+1900, yrStart.getMonth()+1, yrStart.getDate()), new LocalDate().now()).getMonths();
 		}
 	}
 }

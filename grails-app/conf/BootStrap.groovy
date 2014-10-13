@@ -12,21 +12,21 @@ class BootStrap {
 	
 	  if (Environment.current == Environment.DEVELOPMENT){
 	  DateFormat df = new SimpleDateFormat("yyyy-MM-dd")
-	  def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-      def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+	  //def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+      //def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
 
-      def testUser = new User(username: 'user', password: 'password', firstName: 'Test', lastName: 'Test', email: 'test@test.com')
-	  def adminUser = new User(username: 'admin', password: 'admin', firstName: 'System', lastName: 'Admin', email: 'admin@test.com')
-      testUser.save(flush: true)
-	  adminUser.save(flush: true)
+     // def testUser = new User(username: 'user', password: 'password', firstName: 'Test', lastName: 'Test', email: 'test@test.com')
+	 // def adminUser = new User(username: 'admin', password: 'admin', firstName: 'System', lastName: 'Admin', email: 'admin@test.com')
+     // testUser.save(flush: true)
+	 // adminUser.save(flush: true)
 
-      UserRole.create testUser, userRole, true
-	  UserRole.create adminUser, adminRole, true
-	  UserRole.create adminUser, userRole, true
+     // UserRole.create testUser, userRole, true
+	 // UserRole.create adminUser, adminRole, true
+	 // UserRole.create adminUser, userRole, true
 
-      assert User.count() == 2
-      assert Role.count() == 2
-      assert UserRole.count() == 3
+      //assert User.count() == 2
+     // assert Role.count() == 2
+     // assert UserRole.count() == 3
 	  
 	  def sp = new SupplierType(type:'Maintenance').save()
 	  def sp2 = new SupplierType(type:'Cleaning', typeParent: sp.id).save()

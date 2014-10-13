@@ -47,10 +47,10 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li><g:link controller="Invoice" action="index"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</g:link></li>
-	            <li><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
+	            <li class="disabled"><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
 	            <li><g:link controller="ServiceCharge" action="index"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</g:link></li>
-	            <li><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
-	            <li><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
+	            <li class="disabled"><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
+	            <li class="disabled"><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
 	            <sec:ifAnyGranted roles="ROLE_ADMIN">
 					<li class="divider"/>
 					<li><g:link controller="Transaction" action="index"><span class="fa fa-cubes fa-lg fa-fw pull-left"></span>&nbsp; Transactions</g:link></li>
@@ -101,11 +101,9 @@
 			<ul class="nav navbar-nav navbar-right">
 			<li>
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg fa-fw"></i>
-				<sec:loggedInUserInfo field="username"/> <span class="caret"></span>
+				<sec:loggedInUserInfo field="displayName"/> <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" role="menu">
-				<li class="text-right"><a href="#">Action</a></li>
-				<li class="divider"></li>
 				<li class="text-center">
 				<g:form controller="logout" action="index">
 					<button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-sign-out fa-fw fa-lg"></span> Logout</button>

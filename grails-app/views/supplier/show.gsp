@@ -1,5 +1,6 @@
 
 <%@ page import="uk.org.pmms.Supplier"%>
+<%@ page import="uk.org.pmms.Person.PhoneType"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <g:set var="entityName"
 	value="${message(code: 'supplier.label', default: 'Supplier')}" />
 <title><g:message code="default.show.label" args="[entityName]" /></title>
+<r:require modules="wysiwyg" />
 </head>
 <body>
 	<h1 class="page-header">
@@ -31,6 +33,11 @@
 								<li role="presentation"><g:link class="edit" action="edit"
 										resource="${supplierInstance}">
 										<i class="fa fa-pencil-square-o fa-fw"></i> Edit</g:link></li>
+										<g:if test="${supplierInstance?.email }">
+				<li>
+						<a href="#" data-toggle="modal" data-target="#emailModal" class="sendEmail"><i class="fa fa-paper-plane-o fa-fw"></i> Send Email</a>
+				</li>
+				</g:if>
 
 							</ul>
 						</div>
@@ -119,8 +126,19 @@
 													<span class="country-name">${e.address.country }</span>
 												</p>
 												<p class="list-group-item-text">
-													<i class="fa fa-phone"></i> &nbsp;<span class="tel">${e.phone1 }</span>
-													<strong>@</strong> &nbsp;<a class="email" href="mailto:${e.email1 }">${e.email1 }</a>
+													<g:if test="${e.phone1 }">
+														<g:if test="${e.phone1Type == PhoneType.MOBILE }">
+															<i class="fa fa-mobile fa-lg"></i>
+															${e.phone1 }
+														</g:if>
+														<g:else>
+															<i class="fa fa-phone"></i>
+															(${e.phone1Type}) ${e.phone1 }
+														</g:else>
+													</g:if>
+													<g:if test="${e.email1}">
+														<i class="fa fa-at"></i><span class="email"> ${e.email1 }</span>
+													</g:if>
 												</p>
 											</div>
 											<div class="col-xs-2 hidden close-icon">
@@ -274,9 +292,112 @@
 			
 			</div>
 		</div>
+		<div class="modal fade" id="emailModal" data-backdrop="static">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Send Email</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" method="POST" action="${request.contextPath}/supplier/sendEmail" id="emailForm">
+						<div class="form-group">
+							<label class="control-label col-xs-2">To:</label>
+							<div class="col-xs-10">
+								<p class="form-control-static" id="email"></p>
+								<input type="hidden" value="" id="emailInput" name="email"/>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label class="control-label col-xs-2"><span class="fa fa-asterisk fa-fw text-danger"></span> Subject:</label>
+							<div class="col-xs-10">
+								<input class="form-control input-sm" id="subject" type="text" required="" name="subject"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-2">Message:</label>
+							<div class="col-xs-10">
+
+								<div class="btn-toolbar" data-role="editor-toolbar"
+									data-target="#editor">
+									<div class="btn-group">
+										<a class="btn btn-default btn-sm dropdown-toggle"
+											data-toggle="dropdown" title="Font Size"><i
+											class="fa fa-fw fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li><a data-edit="fontSize 5"><font size="5">Large</font></a></li>
+											<li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+											<li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+										</ul>
+									</div>
+									<div class="btn-group">
+										<a class="btn btn-default btn-sm" data-edit="bold"
+											title="Bold (Ctrl/Cmd+B)"><i class="fa fa-fw fa-bold"></i></a>
+										<a class="btn btn-default btn-sm" data-edit="italic"
+											title="Italic (Ctrl/Cmd+I)"><i class="fa fa-fw fa-italic"></i></a>
+										<a class="btn btn-default btn-sm" data-edit="strikethrough"
+											title="Strikethrough"><i
+											class="fa fa-fw fa-strikethrough"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="underline"
+											title="Underline (Ctrl/Cmd+U)"><i
+											class="fa fa-fw fa-underline"></i></a>
+									</div>
+									<div class="btn-group">
+										<a class="btn btn-default btn-sm"
+											data-edit="insertunorderedlist" title="Bullet list"><i
+											class="fa fa-fw fa-list-ul"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="insertorderedlist"
+											title="Number list"><i class="fa fa-fw fa-list-ol"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="outdent"
+											title="Reduce indent (Shift+Tab)"><i
+											class="fa fa-fw fa-dedent"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="indent"
+											title="Indent (Tab)"><i class="fa fa-fw fa-indent"></i></a>
+									</div>
+									<div class="btn-group">
+										<a class="btn btn-default btn-sm" data-edit="justifyleft"
+											title="Align Left (Ctrl/Cmd+L)"><i
+											class="fa fa-fw fa-align-left"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="justifycenter"
+											title="Center (Ctrl/Cmd+E)"><i
+											class="fa fa-fw fa-align-center"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="justifyright"
+											title="Align Right (Ctrl/Cmd+R)"><i
+											class="fa fa-fw fa-align-right"></i></a> <a
+											class="btn btn-default btn-sm" data-edit="justifyfull"
+											title="Justify (Ctrl/Cmd+J)"><i
+											class="fa fa-fw fa-align-justify"></i></a>
+									</div>
+								</div>
+
+								<div id="editor" class="form-control"></div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="submitEmailForm" class="btn btn-primary btn-sm">
+						<i class="fa fa-fw fa-paper-plane"></i> Send
+					</button>
+					<button type="button" class="btn btn-default btn-sm"
+						data-dismiss="modal"><i class="fa fa-fw fa-times"></i> Cancel</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<g:javascript>
 		$('.editBtn').click(function(){$('.close-icon').toggleClass('hidden')});
+		
+		$(".sendEmail").on('click',function(){
+				$("#emailModal .modal-body #email").html("${supplierInstance.email }");
+				$("#emailModal .modal-body #emailInput").val("${supplierInstance.email }");
+				$('#editor').wysiwyg();
+			});
+			
+			$("#submitEmailForm").on('click',function(){
+				$("#emailForm").append("<input type='hidden' name='message' value='"+$('#editor').cleanHtml()+"'/>");
+				$("#emailForm").submit();
+				//alert('hello');
+			});
 	</g:javascript>
 </body>
 </html>

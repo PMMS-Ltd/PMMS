@@ -61,13 +61,13 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 		 
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-commons-api:0.10.0', {
-			 excludes 'slf4j-api'
+			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
 		 }
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-commons-impl:0.10.0', {
-			 excludes 'slf4j-api'
+			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
 		 }
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-client-api:0.10.0', {
-			 excludes 'slf4j-api'
+			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
 		 }
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-client-impl:0.10.0', {
 			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
@@ -76,14 +76,14 @@ grails.project.dependency.resolution = {
 			 excludes 'log4j', 'slf4j-api', 'slf4j-log4j12'
 		 }
 		 compile 'org.apache.chemistry.opencmis:chemistry-opencmis-server-support:0.10.0', {
-			 excludes 'servlet-api', 'slf4j-api'
+			 excludes 'servlet-api', 'slf4j-api', 'slf4j-log4j12'
 		 }
 		 // Alfresco CMIS extension
 		 compile 'org.alfresco.cmis.client:alfresco-opencmis-extension:0.7'
-		 compile 'org.xhtmlrenderer:flying-saucer-pdf:9.0.6'
-		 //compile 'org.xhtmlrenderer:core-renderer:R8pre2'
-		 compile 'com.lowagie:itext:2.1.7'
-		 compile ('org.docx4j:docx4j:3.1.0') {excludes "slf4j-api", "xml-apis", "commons-logging"}
+		 //compile 'org.xhtmlrenderer:flying-saucer-pdf:9.0.6'
+		 compile 'org.xhtmlrenderer:core-renderer:R8pre2'
+		 compile 'com.lowagie:itext:2.0.8'
+		 compile ('org.docx4j:docx4j:3.1.0') {excludes "slf4j-api", "xml-apis", "commons-logging", 'slf4j-log4j12'}
     }
 
     plugins {
@@ -96,15 +96,15 @@ grails.project.dependency.resolution = {
 		compile (":rendering:1.0.0") {
 			excludes "flying-saucer-pdf", "itext", "core-renderer-R8"
 		}
-		//compile ":excel-import:1.0.0"
 		compile ":spring-security-core:2.0-RC2"
-		//compile ":spring-security-ui:1.0-RC1"
-		//compile ":searchable:0.6.6"
 		compile ":rest-client-builder:2.0.1"
 		compile ":joda-time:1.5"
 		compile ":audit-logging:1.0.1"
 		compile ":excel-import:1.0.0"
 		compile ":excel-export:0.2.1"
+		compile ":rest-client-builder:2.0.3"
+		compile ":spring-security-ldap:2.0-RC2"
+		compile ":mail:1.0.7"
 		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.13" // or ":hibernate4:4.3.5.1"

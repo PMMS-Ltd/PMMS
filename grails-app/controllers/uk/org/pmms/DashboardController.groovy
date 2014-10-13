@@ -7,7 +7,7 @@ class DashboardController {
 	def springSecurityService
 	
     def index() {
-		def user = springSecurityService.currentUser
+		def user = springSecurityService.principal
 		render (view: 'user', model:[user:user])
 	}
 }

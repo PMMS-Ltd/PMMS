@@ -1,4 +1,5 @@
 <%@ page import="uk.org.pmms.Client"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +12,7 @@
 
 	<div id="edit-client" class="col-lg-8 col-md-10 col-sm-12 hidden-xs"
 		role="main">
-		<h1>
-			Update Directors
-		</h1>
+		<h1>${clientInstance.clientId } <small>Update Directors</small></h1>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">
 				${flash.message}

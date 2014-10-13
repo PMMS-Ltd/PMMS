@@ -12,7 +12,7 @@ import grails.converters.JSON
 class PersonController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
+	def mailService
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Person.list(params), model:[personInstanceCount: Person.count()]
@@ -110,8 +110,41 @@ class PersonController {
 	def search() {
 		render (template: "ownerSearch", model: ['results': Person.search('*'+params.q+'*')])
 	}
-	def personSearch() {
-		
+	/*def personSearch() {
+		if (!params.popUp)
 		render (template: "personList", model: ['personInstanceList': Person.findAllByFirstNameIlikeOrLastNameIlike('%'+params.search+'%','%'+params.search+'%')])
+		else
+		render (template: "ownerSearch", model: ['results': Person.findAllByFirstNameIlikeOrLastNameIlike('%'+params.search+'%','%'+params.search+'%')])
+	}*/
+	
+	def personSearch() {
+		def c = Person.createCriteria()
+		def results = c.list {
+			or{
+				ilike ("firstName",'%'+params.search+'%')
+				ilike ("lastName",'%'+params.search+'%')
+				address {or{
+					ilike ("address1", '%'+params.search+'%')
+					ilike ("postCode", '%'+params.search+'%')
+					}
+				}
+			}			
+		}
+		render (template: "personList", model: ['personInstanceList': results])
+	}
+	def sendEmail() {
+		mailService.sendMail { 
+			to params.email
+			subject params.subject
+			html params.message
+		}
+		request.withFormat {
+			form multipartForm {
+				flash.status = "alert-success"
+				flash.message = "Email sent successfully!"
+				redirect action: "index", method: "GET"
+			}
+			'*'{ redirect action:"index", method: "GET" }
+		}
 	}
 }

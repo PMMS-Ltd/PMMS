@@ -176,7 +176,20 @@ class ClientController {
 	}
 	@Secured(['ROLE_USER'])
 	def clientSearch() {
-		
-		render (template: "clientList", model: ['clientInstanceList': Client.findAllByClientIdIlikeOrNameIlike('%'+params.search+'%','%'+params.search+'%')])
+		def c = Client.createCriteria()
+		def results = c.list(){
+			or{
+				ilike ("clientId",'%'+params.search+'%')
+				ilike ("name",'%'+params.search+'%')
+				address{
+					or{
+						ilike ("address1", '%'+params.search+'%')
+						ilike ("postCode", '%'+params.search+'%')
+					}
+				}
+			}
+		}
+		render (template: "clientList", model: ['clientInstanceList': results])
 	}
+
 }

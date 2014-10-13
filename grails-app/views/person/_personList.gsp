@@ -16,6 +16,8 @@
 						<th class="col-lg-4">Address</th>
 					
 						<th>Contact Details</th>
+						
+						<th>Type</th>
 					
 					</tr>
 				</thead>
@@ -36,8 +38,8 @@
 						<i class="fa fa-pencil fa-fw"></i> Edit Contact</g:link>
 				</li>
 				<g:if test="${personInstance?.email1 }">
-				<li><g:link action="#" id="${personInstance.id }" style="text-decoration: none;">
-						<i class="fa fa-paper-plane-o fa-fw"></i> Send Email</g:link>
+				<li>
+						<a href="#" data-toggle="modal" data-target="#emailModal" data-emailAddress="${personInstance.email1}" class="sendEmail" style="text-decoration: none;"><i class="fa fa-paper-plane-o fa-fw"></i> Send Email</a>
 				</li>
 				</g:if>
 				<li><g:link action="#" id="${personInstance.id }" style="text-decoration: none;">
@@ -60,19 +62,34 @@
 					
 						<td>
 							<g:if test="${personInstance.email1 }">
-							<i class="fa fa-fw fa-envelope"></i> ${personInstance.email1 }
+							<i class="fa fa-fw fa-at"></i> ${personInstance.email1 }
 							</g:if>
 							<g:if test="${personInstance.phone1 }">
 								<g:if test="${personInstance.phone1Type == PhoneType.MOBILE }">
 									<i class="fa fa-fw fa-mobile fa-lg"></i>
+									${personInstance.phone1 }
 								</g:if>
 								<g:else>
 									<i class="fa fa-fw fa-phone"></i>
+									(${personInstance.phone1Type}) ${personInstance.phone1 }
 								</g:else>
-								 ${personInstance.phone1 }
+								 
 							</g:if>
 						</td>
-					
+						<td>
+							<!-- //TODO move this to a domain function// -->
+							<g:if test="${uk.org.pmms.Property.findAllByOwner(personInstance).size() > 0}">
+								<span class="label label-success">Owner</span>
+							</g:if>
+							<!-- //TODO move this to a domain function// -->
+							<g:if test="${uk.org.pmms.Supplier.createCriteria().list{employees{eq('id',personInstance.id)}}.size() > 0}">
+								<span class="label label-danger">Supplier</span>
+							</g:if>
+							<!-- //TODO move this to a domain function// -->
+							<g:if test="${uk.org.pmms.Client.createCriteria().list{directors{eq('id',personInstance.id)}}.size() > 0}">
+								<span class="label label-info">Director</span>
+							</g:if>
+						</td>
 					</tr>
 				</g:each>
 				</tbody>

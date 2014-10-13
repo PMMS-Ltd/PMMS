@@ -1,3 +1,4 @@
+<g:if test="${clientInstanceList.size() > 0 }">
 <table class="table">
 			<thead>
 					<tr>
@@ -39,3 +40,7 @@
 			<div class="pagination">
 				<g:paginate total="${clientInstanceCount ?: 0}" />
 			</div>
+			</g:if>
+			<g:else>
+				<h4 class="text-muted">No Results Found!</h4>
+			</g:else>

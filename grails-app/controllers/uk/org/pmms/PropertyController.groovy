@@ -159,6 +159,7 @@ class PropertyController {
 	@Secured(['ROLE_USER'])
 	def svcPdf (Property prop) {
 		def transactionList = Transaction.findAllByPropertyIdAndDateEnteredBetween(prop, prop.client.yearStart, prop.client.yearEnd, [sort: 'dateEntered', order: 'asc'])
-		renderPdf(template: '/pdf/statement',  model: [transactionList: transactionList, property: prop], filename:'Statement_'+prop.propertyId)
+		def logoFile = new File(request.getSession().getServletContext().getRealPath("/images/PMMS Letterhead.png"))
+		renderPdf(template: '/pdf/statement',  model: [transactionList: transactionList, property: prop, logo: logoFile.bytes], filename:'Statement_'+prop.propertyId)
 	}
 }

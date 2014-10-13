@@ -7,7 +7,7 @@ import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 
 @Transactional(readOnly = true)
-@Secured(['ROLE_ADMIN'])
+@Secured(['ROLE_USER'])
 class InvoiceController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -20,7 +20,7 @@ class InvoiceController {
     def show(Invoice invoiceInstance) {
         respond invoiceInstance
     }
-
+	@Secured(['ROLE_ADMIN'])
     def create() {
         respond new Invoice(params)
     }
@@ -47,7 +47,7 @@ class InvoiceController {
             '*' { respond invoiceInstance, [status: CREATED] }
         }
     }
-
+	@Secured(['ROLE_ADMIN'])
     def edit(Invoice invoiceInstance) {
         respond invoiceInstance
     }
@@ -74,7 +74,7 @@ class InvoiceController {
             '*'{ respond invoiceInstance, [status: OK] }
         }
     }
-
+	@Secured(['ROLE_ADMIN'])
     @Transactional
     def delete(Invoice invoiceInstance) {
 
@@ -105,7 +105,8 @@ class InvoiceController {
     }
 	def showPdf = {
 		def invoice = Invoice.get(params.id);
-		renderPdf(template: 'demo4', model: [invoiceInstance: invoice], filename: invoice.id)
+		def logoFile = new File(request.getSession().getServletContext().getRealPath("/images/PMMS Letterhead.png"))
+		renderPdf(template: 'demo4', model: [invoiceInstance: invoice, logo: logoFile.bytes], filename: "Invoice - "+invoice.id)
 	}
 	def test(Invoice invoiceInstance) {
 		render (template: 'demo4', model: [invoiceInstance: invoiceInstance])

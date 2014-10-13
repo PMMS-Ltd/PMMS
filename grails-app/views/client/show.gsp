@@ -1,5 +1,6 @@
 
 <%@ page import="uk.org.pmms.Client"%>
+<%@ page import="uk.org.pmms.Person.PhoneType"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,7 @@
 
 
 	<h1 class="page-header">
-		<g:fieldValue bean="${clientInstance}" field="name" />
+		${clientInstance.name} <small>(${clientInstance.clientId })</small>
 		<span class="pull-right">
 		<small>Overview</small>
 		<div class="btn-group">
@@ -427,12 +428,17 @@
 												</span>
 											</p>
 											<p class="list-group-item-text">
-												<i class="fa fa-phone"></i> &nbsp;<span class="tel">
-													${e.phone1 }
-												</span> <strong>@</strong> &nbsp;<a class="email"
-													href="mailto:${e.email1 }">
-													${e.email1 }
-												</a>
+												<g:if test="${e.phone1}">
+													<g:if test="${e.phone1Type == PhoneType.MOBILE }">
+														<i class="fa fa-mobile"></i> ${e.phone1 } &nbsp;
+													</g:if>
+													<g:else>
+														<i class="fa fa-phone"></i> (${e.phone1Type}) ${e.phone1 } &nbsp;
+													</g:else>
+												</g:if>
+												<g:if test="${e.email1 }">
+													<i class="fa fa-at"></i> ${e.email1 }
+												</g:if>
 											</p>
 										</div>
 										<div class="col-xs-2 hidden close-icon">
