@@ -1,5 +1,6 @@
 
 <%@ page import="uk.org.pmms.Client"%>
+<%@ page import="uk.org.pmms.accounts.ServiceCharge"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <body>
 	<h1 class="page-header">
 		${clientInstance.name} <small>(${clientInstance.clientId })</small>
-		<span class="pull-right"> <small>Finances</small>
+		<!--<span class="pull-right"> <small>Finances</small>
 			<div class="btn-group">
 				<a href="#" class="btn btn-xs btn-default dropdown-toggle"
 					data-toggle="dropdown"> <span class="caret"></span> <span
@@ -23,6 +24,13 @@
 					<li><g:link action="show" resource="${clientInstance}">Overview</g:link></li>
 				</ul>
 			</div> <!-- ./btn-group -->
+		<!-- </span>-->
+		<span style="font-size: 0.5em;">
+		<ul class="nav nav-pills pull-right">
+		  <li role="presentation"><g:link action="show" resource="${clientInstance }">Overview</g:link></li>
+		  <li role="presentation" class="active"><a href="#">Arrears</a></li>
+		  <li role="presentation"><g:link action="listCharges" controller="serviceCharge" id="${clientInstance.id}">Service Charge</g:link></li>
+		</ul>
 		</span>
 	</h1>
 

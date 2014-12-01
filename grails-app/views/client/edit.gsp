@@ -37,7 +37,8 @@
 				</div>
 				<div class="row">
 					<fieldset>
-						<g:actionSubmit class="btn btn-sm btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+							<button id="updateBtn" class="btn btn-sm btn-success"><i class="fa fa-fw fa-refresh"></i> Update</button>
+							<g:link class="btn btn-sm btn-default" action="show" id="${clientInstance.id }"><i class="fa fa-fw fa-times"></i> Cancel</g:link>
 					</fieldset>
 				</div>
 			</g:form>
@@ -54,7 +55,7 @@
 				</div>
 				<div class="row">
 					<fieldset>
-						<g:actionSubmit class="btn btn-sm btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+						<button class="btn btn-sm btn-success"><i class="fa fa-fw fa-refresh"></i> Update</button>
 					</fieldset>
 				</div>
 			</g:form>

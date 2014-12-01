@@ -37,6 +37,10 @@ class CamundaService {
 		}
 	}
 	def getPostUrl(String processId){
-		return engineUrl+"/process-definition/"+processId+"/submit-form"
+		return (engineUrl+"/process-definition/"+processId+"/submit-form")
+	}
+	def getInstances(String id){
+		def resp = rest.get(engineUrl+"/process-instance?processDefinitionId="+id)
+		return resp.json
 	}
 }

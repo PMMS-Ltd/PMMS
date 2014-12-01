@@ -42,27 +42,17 @@ $.ajax({
 	dataType: 'JSON',
 	contentType: 'application/json',
 	success: function(data){
-		//$("#list-person").html(data);
-		//window.location('${request.contextPath }/utils/processes');
-		alert("Success! : " + data);
+		console.log("data: " + data);
+		alert (data.links[0].href);
+		window.location.assign(data.links[0].href);
 	}
 });
 
+});
 
-
-/*var request = new XMLHttpRequest();
-request.open('POST', '${postUrl}', false);
-request.setRequestHeader('Content-Type', 'application/json');
-request.send(JSON.stringify(output));
-
-
-});*/
 </g:javascript>
 <r:layoutResources/>
 </body>
-
-
-
 </html>
 
 

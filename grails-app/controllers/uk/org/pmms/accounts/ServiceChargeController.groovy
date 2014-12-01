@@ -29,4 +29,11 @@ class ServiceChargeController {
 		}
 		redirect (action:'listCharges', id: svc.serviceChargeType.client.id)
 	}
+
+	def addCharges(Client clientInstance){
+		def client = Client.get(clientInstance.id)
+		//System.out.println(clientId)
+		render(view:'addCharges', model:['svcTypes': ServiceChargeType.findAllByClient(clientInstance), 'client': client])
+		//render ServiceChargeType.findAllByClient(clientInstance) as JSON
+	}
 }

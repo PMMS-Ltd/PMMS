@@ -84,6 +84,7 @@ grails.project.dependency.resolution = {
 		 compile 'org.xhtmlrenderer:core-renderer:R8pre2'
 		 compile 'com.lowagie:itext:2.0.8'
 		 compile ('org.docx4j:docx4j:3.1.0') {excludes "slf4j-api", "xml-apis", "commons-logging", 'slf4j-log4j12'}
+		// compile ":events-calendar:1.0RC1"
     }
 
     plugins {
@@ -104,13 +105,17 @@ grails.project.dependency.resolution = {
 		compile ":excel-export:0.2.1"
 		compile ":rest-client-builder:2.0.3"
 		compile ":spring-security-ldap:2.0-RC2"
+		compile ":directory-service:0.10.1"
 		compile ":mail:1.0.7"
+		compile ":task-manager:0.1"
+		compile ":calendar-manager:0.5"
 		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.13" // or ":hibernate4:4.3.5.1"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.0.2"
         runtime ":resources:1.2.7"
+		runtime ":cors:1.1.4"
 		
 		
         // Uncomment these (or add new ones) to enable additional resources capabilities

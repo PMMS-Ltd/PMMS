@@ -15,7 +15,7 @@
 	<tr>
 		<td>${it.name }</td>
 		<td>${it.category }</td>
-		<td><g:link class="btn btn-sm btn-danger" action="startProcess" id="${it.id }">Start Process</g:link></td>
+		<td><g:link class="btn btn-sm btn-danger" action="startProcess" id="${it.id }">Start Process</g:link> <g:link class="btn btn-sm btn-default" action="showProcessInstances" id="${it.id }">View Instances</g:link></td>
 	</tr>
 </g:each>
 </table>

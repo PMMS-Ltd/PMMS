@@ -24,6 +24,16 @@ environments {
 			url = "jdbc:mysql://localhost:3306/pmms?useUnicode=yes&characterEncoding=UTF-8"
         }
     }
+	UAT {
+		dataSource {
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			//url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+			driverClassName = "com.mysql.jdbc.Driver"
+			username = "root"
+			password = ""
+			url = "jdbc:mysql://192.168.10.30:3306/pmms?useUnicode=yes&characterEncoding=UTF-8"
+		}
+	}
     test {
         dataSource {
             dbCreate = "update"

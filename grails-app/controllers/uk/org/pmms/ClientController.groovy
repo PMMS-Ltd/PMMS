@@ -7,6 +7,8 @@ import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
 import uk.org.pmms.accounts.BankAccount
+import uk.org.pmms.calendar.Event;
+import uk.org.pmms.calendar.Calendar;
 
 @Transactional(readOnly = true)
 class ClientController {
@@ -14,6 +16,7 @@ class ClientController {
 	def ArrearsService
 	def grailsApplication
 	def TransferService
+	//def CalendarService
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	@Secured(['ROLE_USER'])
@@ -23,9 +26,20 @@ class ClientController {
     }
 	@Secured(['ROLE_USER'])
     def show(Client clientInstance) {
-		String query = "select cmis:name, cmis:objectId, cmis:contentStreamLength, cmis:contentStreamMimeType from cmis:document where in_folder('" + clientInstance.repoFolderId + "')"
+		def eventCount = 0
+		if (clientInstance.calendarId){
+			//eventCount = CalendarService.getEventCount(clientInstance?.calendarId)
+			eventCount = Event.findAllByCalendarAndStartDateGreaterThanAndEndDateLessThan(Calendar.get(clientInstance.calendarId), new Date().minus(1), new Date().plus(30)).size()
+		}
+		withFormat {
+			json { render clientInstance as JSON}
+			'*' {
+				String query = "select cmis:name, cmis:objectId, cmis:contentStreamLength, cmis:contentStreamMimeType from cmis:document where in_folder('" + clientInstance.repoFolderId + "')"
+				
+				[clientInstance: clientInstance, files: CMISService.getQueryResults(query, 10, 0), eventCount: eventCount]
+			}
+		}
 		
-        [clientInstance: clientInstance, files: CMISService.getQueryResults(query, 10, 0)]
     }
 	@Secured(['ROLE_ADMIN'])
     def create() {
@@ -50,7 +64,8 @@ class ClientController {
 		if (folderId){
 			clientInstance.repoFolderId = folderId
 		}
-		
+		def calendarId = CalendarService.createCalendar(name:clientInstance.name, color: 'blue', textColor: 'white')
+		clientInstance.calendarId = calendarId
 		clientInstance.save flush:true
 		
         request.withFormat {

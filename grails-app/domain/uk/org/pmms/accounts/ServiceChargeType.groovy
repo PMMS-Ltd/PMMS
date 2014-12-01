@@ -24,7 +24,7 @@ class ServiceChargeType {
 	
 	def currentCharge(){
 		def today = new Date()
-		return charges.find{it.startDate <= today && it.endDate > today && it.status=='Applied'}
+		return charges.find{it.startDate <= today && it.endDate > today}
 	}
 	def previousCharges(){
 		def today = new Date()

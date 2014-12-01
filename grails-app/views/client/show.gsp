@@ -16,19 +16,15 @@
 
 	<h1 class="page-header">
 		${clientInstance.name} <small>(${clientInstance.clientId })</small>
-		<span class="pull-right">
-		<small>Overview</small>
-		<div class="btn-group">
-			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
-				data-toggle="dropdown"> <span class="caret"></span> <span
-				class="sr-only">Toggle Dropdown</span>
-			</a>
-			<ul class="dropdown-menu dropdown-menu-right" role="menu">
-				<li><g:link action="finances" resource="${clientInstance }">Finances</g:link></li>
-			</ul>
-		</div>
+			<span style="font-size: 0.5em;">
+		<ul class="nav nav-pills pull-right">
+		  <li role="presentation" class="active"><a href="#">Overview</a></li>
+		  <li role="presentation"><g:link action="finances" resource="${clientInstance }">Arrears</g:link></li>
+		  <li role="presentation"><g:link action="listCharges" controller="serviceCharge" id="${clientInstance.id}">Service Charge</g:link></li>
+		</ul>
 		</span>
-	</h1>
+		</h1>
+
 	<g:if test="${flash.message}">
 		<div class="alert alert-warning col-xs-4 pull-right alert-dismissable"
 			role="status">
@@ -39,70 +35,22 @@
 	</g:if>
 	<div class="row hidden-xs">
 		<div class="col-sm-4 col-lg-2">
-			<div class="small-box bg-fountain-blue">
-				<div class="small-box-inner">
-					<h3>34</h3>
-					<p>Open Jobs</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-wrench"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i
-					class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-fountain-blue',value: 34, name: 'Open Jobs', icon: 'fa-wrench']"/>
 		</div>
 		<div class="col-sm-4 col-lg-2">
-			<div class="small-box bg-danger">
-				<div class="small-box-inner">
-					<h3>55</h3>
-					<p>Arrears</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-gbp"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i
-					class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-danger',value: 55, name: 'Arrears', icon: 'fa-gbp']"/>
 		</div>
 		<div class="col-sm-4 col-lg-2">
-			<div class="small-box bg-saffron">
-				<div class="small-box-inner">
-					<h3>18</h3>
-					<p>Notifications</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-bullhorn"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i
-					class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-saffron',value: 18, name: 'Notifications', icon: 'fa-bullhorn']"/>
 		</div>
 		<div class="col-sm-4 col-lg-2">
-			<div class="small-box bg-shamrock">
-				<div class="small-box-inner">
-					<h3>5</h3>
-					<p>Approvals</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-gavel"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i
-					class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-shamrock',value: 5, name: 'Approvals', icon: 'fa-check']"/>
 		</div>
+		<g:if test="${clientInstance.calendarId != null}">
 		<div class="col-sm-4 col-lg-2">
-			<div class="small-box bg-rebecca-purple">
-				<div class="small-box-inner">
-					<h3>9</h3>
-					<p>Upcoming Events</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-calendar"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i
-					class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-rebecca-purple',value: eventCount, name: 'Upcoming Events', icon: 'fa-calendar', link: '/calendar/show/', id: clientInstance.calendarId]"/>
 		</div>
+		</g:if>
 		<div class="col-sm-4 col-lg-2">
 			<div class="small-box" style="background: #95a5a6;">
 				<div class="small-box-inner">
@@ -241,8 +189,8 @@
 								data-toggle="dropdown"> <i class="caret"></i>
 							</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><g:link controller="serviceCharge" action="listCharges" id="${clientInstance.id}">
-										More Info <i class="fa fa-arrow-circle-right fa-fw"></i>
+								<li><g:link controller="serviceChargeType" action="index" id="${clientInstance.id}">
+										Edit ServiceChargeTypes <i class="fa fa-pencil fa-fw"></i>
 									</g:link></li>
 
 							</ul>
@@ -305,7 +253,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" style="margin-top: 15px; margin-bottom: 20px; height: 400px;">
+	<div class="row" style="margin-top: 15px; margin-bottom: 20px; height: 385px;">
 		<div class="col-lg-6 col-sm-12 col-xs-12" style="height: 100%;">
 			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">

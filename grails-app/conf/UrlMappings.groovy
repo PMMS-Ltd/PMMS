@@ -18,9 +18,14 @@ class UrlMappings {
 		"/api/transfer" (resources: "transfer") {
 			"/vSolicitor" (resources: "supplier")
 		}
+		/*"/api/supplier" (resources: "supplier") {
+			"/address" (resource: "address")
+			"/employees" (resources: "person")
+		}*/
 		"/api/supplier" (resources: "supplier") {
-			"/address" (resources: "address")
+			"/address" (controller: "supplier", method:"GET")
 		}
+		"/api/clients" (uri: "/client/index")
 		
 	}
 }

@@ -6,6 +6,7 @@ import uk.org.pmms.bpm.*
 class UtilsController {
 	def CamundaService
 	def springSecurityService
+	def CalendarService
 	
     def index() { 
 		def output = [:]
@@ -58,7 +59,7 @@ class UtilsController {
 		//render CamundaService.getProcesses()
 		render (template: "bpmProcesses", model: [processes: CamundaService.getProcesses()])
 	}
-	def user() {
+	def user() { 
 		def principal = springSecurityService.principal
 		def authorities = principal.authorities
 		def user = springSecurityService.getCurrentUser()
@@ -66,5 +67,12 @@ class UtilsController {
 	}
 	def startProcess() {
 		render (template: "startProcess", model: [startForm: CamundaService.getRenderedStartForm(params.id), postUrl: CamundaService.getPostUrl(params.id)])
+	}
+	def showProcessInstances(){
+		render (template: "showInstances", model: [instanceList: CamundaService.getInstances(params.id)])
+	}
+	def createCalendar() {
+		
+		render CalendarService.createCalendar(params)
 	}
 }

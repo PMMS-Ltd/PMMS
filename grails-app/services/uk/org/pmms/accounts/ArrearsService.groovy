@@ -30,7 +30,7 @@ class ArrearsService {
 				
 			else if (obj.serviceChargeType?.halfYearly == true)
 				due = obj.serviceChargeType.currentCharge().halfYearlyAmount * Math.ceil(month/6)
-			else
+			else if (obj.serviceChargeType?.annually == true)
 				due = obj.serviceChargeType?.currentCharge()?.annualAmount
 				
 			def received = Transaction.findAllByPropertyIdAndTypeAndDateEnteredGreaterThan(obj,2,obj.client.yearStart).amount.sum()

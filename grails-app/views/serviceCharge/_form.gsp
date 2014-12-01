@@ -1,47 +1,31 @@
 <%@ page import="uk.org.pmms.accounts.ServiceCharge" %>
 
-
-
-<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'annualAmount', 'has-error')} ">
-	<label for="annualAmount" class="control-label col-xs-4">
-		<g:message code="serviceCharge.annualAmount.label" default="Annual Amount" />
-		
-	</label>
+<div class="form-group">
+	<label for="client" class="control-label col-xs-4">Client</label>
 	<div class="col-xs-8">
-		<g:field class="form-control" name="annualAmount" value="${fieldValue(bean: serviceChargeInstance, field: 'annualAmount')}"/>
+		<g:select id="clientId" name="clientId" from="${uk.org.pmms.Client.list()}" optionKey="id" required="" value="${serviceChargeInstance?.serviceChargeType?.client?.clientId}" class="form-control"/>
 
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'halfYearlyAmount', 'has-error')} ">
-	<label for="halfYearlyAmount" class="control-label col-xs-4">
-		<g:message code="serviceCharge.halfYearlyAmount.label" default="Half Yearly Amount" />
-		
+<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'serviceChargeType', 'has-error')} required">
+	<label for="serviceChargeType" class="control-label col-xs-4">
+		<g:message code="serviceCharge.serviceChargeType.label" default="Service Charge Type" />
+		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-xs-8">
-		<g:field class="form-control" name="halfYearlyAmount" value="${fieldValue(bean: serviceChargeInstance, field: 'halfYearlyAmount')}"/>
+		<g:select id="serviceChargeType" name="serviceChargeType.id" from="${uk.org.pmms.accounts.ServiceChargeType.list() }" optionKey="id" required="" value="${serviceChargeInstance?.serviceChargeType?.id}" class="many-to-one form-control"/>
 
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'quarterlyAmount', 'has-error')} ">
-	<label for="quarterlyAmount" class="control-label col-xs-4">
-		<g:message code="serviceCharge.quarterlyAmount.label" default="Quarterly Amount" />
-		
+<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'startDate', 'has-error')} required">
+	<label for="startDate" class="control-label col-xs-4">
+		<g:message code="serviceCharge.startDate.label" default="Start Date" />
+		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-xs-8">
-		<g:field class="form-control" name="quarterlyAmount" value="${fieldValue(bean: serviceChargeInstance, field: 'quarterlyAmount')}"/>
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'monthlyAmount', 'has-error')} ">
-	<label for="monthlyAmount" class="control-label col-xs-4">
-		<g:message code="serviceCharge.monthlyAmount.label" default="Monthly Amount" />
-		
-	</label>
-	<div class="col-xs-8">
-		<g:field class="form-control" name="monthlyAmount" value="${fieldValue(bean: serviceChargeInstance, field: 'monthlyAmount')}"/>
+		<g:datePicker name="startDate" precision="day"  value="${serviceChargeInstance?.startDate}"  />
 
 	</div>
 </div>
@@ -63,7 +47,7 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-xs-8">
-		<g:field class="form-control" name="groundRent" value="${fieldValue(bean: serviceChargeInstance, field: 'groundRent')}" required=""/>
+		<g:field type="number" class="form-control" name="groundRent" value="${fieldValue(bean: serviceChargeInstance, field: 'groundRent')}" required=""/>
 
 	</div>
 </div>
@@ -74,30 +58,22 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-xs-8">
-		<g:field class="form-control" name="serviceCharge" value="${fieldValue(bean: serviceChargeInstance, field: 'serviceCharge')}" required=""/>
+		<g:field type="number" class="form-control" name="serviceCharge" value="${serviceChargeInstance?.serviceCharge}" required=""/>
 
 	</div>
 </div>
+<g:javascript>
+	$("#clientId").on('change',function(){
+		$.ajax({
+			type: 'POST',
+			url: '${request.contextPath}/serviceChargeType/getTypes',
+			data: {clientId: $(this).val()},
+			success: function(data){
+				$("#serviceChargeType").html(data);
+			}
+		});
+		event.preventDefault();
+	});
+</g:javascript>
 
-<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'serviceChargeType', 'has-error')} required">
-	<label for="serviceChargeType" class="control-label col-xs-4">
-		<g:message code="serviceCharge.serviceChargeType.label" default="Service Charge Type" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="col-xs-8">
-		<g:select id="serviceChargeType" name="serviceChargeType.id" from="${uk.org.pmms.accounts.ServiceChargeType.list()}" optionKey="id" required="" value="${serviceChargeInstance?.serviceChargeType?.id}" class="many-to-one form-control"/>
-
-	</div>
-</div>
-
-<div class="form-group ${hasErrors(bean: serviceChargeInstance, field: 'startDate', 'has-error')} required">
-	<label for="startDate" class="control-label col-xs-4">
-		<g:message code="serviceCharge.startDate.label" default="Start Date" />
-		<span class="required-indicator">*</span>
-	</label>
-	<div class="col-xs-8">
-		<g:datePicker name="startDate" precision="day"  value="${serviceChargeInstance?.startDate}"  />
-
-	</div>
-</div>
 

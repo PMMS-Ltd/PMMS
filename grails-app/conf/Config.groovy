@@ -97,8 +97,8 @@ environments {
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
+		grails.docServer.url = "http://localhost:9090/DocServer"
 		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
-		grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
 		grails.camunda.url = "http://localhost:8090"
 		
 		/*mail {
@@ -114,12 +114,25 @@ environments {
 		  }*/
 		grails.mail.default.from="info@something.com"
     }
+	UAT {
+		grails.logging.jul.usebridge = false
+		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		
+		//grails.serverURL ="http://192.168.10.200/PMMS"
+		grails.docServer.url = "http://192.168.10.200/DocServer"
+		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
+		grails.camunda.url = "http://localhost:8090"
+	}
     production {
         grails.logging.jul.usebridge = false
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
 		//grails.serverURL ="http://192.168.0.49/PMMS"
+		grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
+		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
+		grails.camunda.url = "http://localhost:8090"
     }
 }
 
@@ -160,11 +173,16 @@ auditLog {
 
 
 // Added by the Spring Security Core plugin:
-//grails.plugin.springsecurity.useBasicAuth = false
-//grails.plugin.springsecurity.basic.realmName = "Ralph's Bait and Tackle"
+grails.plugin.springsecurity.useBasicAuth = true
+grails.plugin.springsecurity.basic.realmName = "PMMS"
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.org.pmms.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.org.pmms.UserRole'
 grails.plugin.springsecurity.authority.className = 'uk.org.pmms.Role'
+
+grails.plugin.springsecurity.filterChain.chainMap = [
+	'/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter',
+	'/**': 'JOINED_FILTERS,-basicAuthenticationFilter,-basicExceptionTranslationFilter'
+	]
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
@@ -184,7 +202,11 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/importExport/**':				  ['permitAll'],
 	'/lettersAndMailings/**':		  ['permitAll'],
 	'/utils/**':		 			  ['permitAll'],
-	'/Pdf/**':				  		  ['permitAll']
+	'/Pdf/**':				  		  ['permitAll'],
+	'/task*/**':				  	  ['permitAll'],
+	'/calendar*/**':				  ['permitAll'],
+	'/event*/**':				  	  ['permitAll'],
+	'/api/**':				  		  ['permitAll']
 
 ]
 
@@ -208,3 +230,25 @@ grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Groups,dc=te
 grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberUid={1}'
 grails.plugin.springsecurity.ldap.search.base = 'dc=test,dc=pmms,dc=org,dc=uk'
 grails.plugin.springsecurity.ldap.mapper.userDetailsClass = 'inetOrgPerson'
+
+grails.plugins.directoryservice.sources = [
+	'directory':[
+		address: '192.168.0.61',
+		port: '389',
+		useSSL: false,
+		trustSSLCert: true,
+		followReferrals: true,
+		bindDN: 'cn=admin,dc=test,dc=pmms,dc=org,dc=uk',
+		bindPassword: 'Jonlee2001'
+	]
+]
+
+grails.plugins.directoryservice.dit = [
+	'ou=Users,dc=test,dc=pmms,dc=org,dc=uk':[
+		'singular':'person',
+		'plural':'people',
+		'rdnAttribute':'uid',
+		'source':'directory'
+	]
+]
+

@@ -141,8 +141,7 @@
 	<input type="hidden" class="form-control-static" id="ownerId"
 		name="owner.id" value="${propertyInstance?.owner?.id }"></input>
 
-	<div class="form-horizontal ${propertyInstance.owner? '':'hidden' }"
-		id="ownerDetails">
+	<div class="form-horizontal ${propertyInstance.owner? '':'hidden' }" id="ownerDetails">
 		<div class="form-group" id="name">
 			<label for="nameField" class="control-label col-xs-3 col-lg-2">Name</label>
 			<p class="form-control-static col-xs-9" id="nameField">
@@ -213,13 +212,13 @@
 				</div>
 
 				<div
-					class="form-group ${hasErrors(bean: personInstance, field: 'lastName', 'has-error')} required  col-xs-4">
+					class="form-group ${hasErrors(bean: personInstance, field: 'lastName', 'has-error')}  col-xs-4">
 					<label for="lastName" class="sr-only"> <g:message
 							code="person.lastName.label" default="Last Name" /> <span
 						class="required-indicator">*</span>
 					</label>
 					<g:textField class="form-control input-sm" name="owner.lastName"
-						required="" value="${personInstance?.lastName}"
+						value="${personInstance?.lastName}"
 						placeholder="Last Name" />
 				</div>
 			</div>
@@ -243,13 +242,13 @@
 		<div class="row">
 			<div class="col-xs-8" style="margin-top: 15px;">
 			<div id="addressForm" class="form-horizontal">
-				<div class="form-group ${hasErrors(bean: personInstance, field: 'address.address1', 'has-error')} required">
+				<div class="form-group ${hasErrors(bean: personInstance, field: 'address.address1', 'has-error')}">
 					<label for="address.address1" class="control-label col-xs-4 col-lg-3">
 						<span class="fa fa-asterisk fa-fw text-danger"></span>
 						<g:message code="address.address1.label" default="Address1" />
 					</label>
 					<div class="col-lg-8">
-						<g:textField class="form-control"name="owner.address.address1" maxlength="50" required=""/>
+						<g:textField class="form-control"name="owner.address.address1" maxlength="50"/>
 					</div>
 				</div>
 
@@ -284,13 +283,13 @@
 					</div>
 				</div>
 				<div
-					class="form-group ${hasErrors(bean: personInstance, field: 'address.country', 'has-error')} required">
+					class="form-group ${hasErrors(bean: personInstance, field: 'address.country', 'has-error')}">
 					<label for="address.country" class="control-label col-xs-4 col-lg-3">
 						<span class="fa fa-asterisk fa-fw text-danger"></span>
 						<g:message code="address.country.label" default="Country" />
 					</label>
 					<div class="col-xs-6">
-						<g:textField class="form-control" name="owner.address.country" required=""/>
+						<g:textField class="form-control" name="owner.address.country"/>
 					</div>
 				</div>
 			</div>

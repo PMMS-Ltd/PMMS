@@ -27,10 +27,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="${request.contextPath}">PMMS</a>
         </div>
-        <div class="collapse navbar-collapse" style="margin-right:15px;">
-          <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left" style="margin-left:15px;">
+          	<li><img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 60px; padding: 5px;"/></li>
             <li><a href="${request.contextPath}">Dashboard</a></li>
             <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
@@ -74,8 +74,9 @@
 	          </ul>
 	        </li>
           </ul>
-		  <sec:ifNotLoggedIn>
-		  <ul class="nav navbar-nav navbar-right">
+		
+		  <ul class="nav navbar-nav navbar-right" style="margin-right: 20px;">
+		    <sec:ifNotLoggedIn>
 			<li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <strong class="caret"></strong></a>
 			  <div class="dropdown-menu" style="padding: 15px; width: 275px;">
@@ -98,7 +99,7 @@
 			  </div>
 		  </sec:ifNotLoggedIn>
 		  <sec:ifLoggedIn>
-			<ul class="nav navbar-nav navbar-right">
+			
 			<li>
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg fa-fw"></i>
 				<sec:loggedInUserInfo field="displayName"/> <span class="caret"></span>
@@ -111,8 +112,8 @@
 				</li>
 			  </ul>
 			  </li>
-			  </ul>
 		  </sec:ifLoggedIn>
+		   </ul>
         </div><!--/.nav-collapse -->
      
     </div>

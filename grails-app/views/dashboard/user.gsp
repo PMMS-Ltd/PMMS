@@ -9,76 +9,22 @@
 	<h1 class="page-header hidden-xs">${user.getDisplayName() }'s Dashboard</h1>
 	<div class="row hidden-xs">
 		<div class="col-sm-3 col-lg-2">
-			<div class="small-box bg-fountain-blue">
-				<div class="small-box-inner">
-					<h3>34</h3>
-					<p>New Jobs</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-bolt"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="smallBox" model="[boxclass: 'bg-fountain-blue',value: 34, name: 'New Jobs', icon: 'fa-bolt']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<div class="small-box bg-danger">
-				<div class="small-box-inner">
-					<h3>55</h3>
-					<p>Expired jobs</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-exclamation"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="smallBox" model="[boxclass: 'bg-danger',value: 55, name: 'Expired Jobs', icon: 'fa-exclamation']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<div class="small-box bg-saffron">
-				<div class="small-box-inner">
-					<h3>18</h3>
-					<p>Notifications</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-bullhorn"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="smallBox" model="[boxclass: 'bg-saffron',value: 18, name: 'Notifications', icon: 'fa-bullhorn']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<div class="small-box bg-shamrock">
-				<div class="small-box-inner">
-					<h3>5</h3>
-					<p>Approvals</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-gavel"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="smallBox" model="[boxclass: 'bg-shamrock',value: 5, name: 'Approvals', icon: 'fa-check']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<div class="small-box bg-primary">
-				<div class="small-box-inner">
-					<h3>9</h3>
-					<p>Upcoming Events</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-calendar"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="smallBox" model="[boxclass: 'bg-primary',value: 9, name: 'Upcoming Events', icon: 'fa-calendar']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<div class="small-box" style="background:#95a5a6;">
-				<div class="small-box-inner">
-					<h3>1</h3>
-					<p>Requests</p>
-				</div>
-				<div class="icon">
-					<i class="fa fa-question"></i>
-				</div>
-				<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right fa-fw"></i></a>
-			</div>
+			<g:render template="smallBox" model="[boxclass: 'bg-info',value: 1, name: 'Requests', icon: 'fa-question']"/>
 		</div>
 	</div>
 	<div class="row visible-xs">
@@ -88,6 +34,16 @@
 		  <li class="list-group-item list-group-item-warning"><a href="#" style="color:#fff;"><i class="fa fa-fw fa-bullhorn fa-lg"></i> Notifications <span class="badge pull-right">12</span></a></li>
 		  <li class="list-group-item list-group-item-success"><a href="#" style="color:#fff;"><i class="fa fa-fw fa-gavel fa-lg"></i> Approvals <span class="badge pull-right">5</span></a></li>
 		</ul>
+	</div>
+	<div class="row">
+		<div class="col-xs-6">
+		<h3>Todays Tasks</h3>
+			<g:render plugin="task-manager" template="/task/taskTable" model="[tasks: tasks]"/>
+		</div>
+		<div class="col-xs-6">
+		<h3>This Weeks Tasks</h3>
+			<g:render plugin="task-manager" template="/task/taskTable" model="[tasks: weekTasks]"/>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-4" >
