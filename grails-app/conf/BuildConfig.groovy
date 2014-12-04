@@ -35,7 +35,7 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
-		mavenRepo ("http://192.168.0.74/artifactory/repo/") {
+		mavenRepo ("http://artifactory.pmms.org.uk/artifactory/repo/") {
 			auth([
 					username: 'user',
 					password: 'bitnami'
