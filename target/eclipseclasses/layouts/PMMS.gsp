@@ -14,7 +14,7 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"></link>
 		<g:layoutHead/>
 		<g:javascript library="application"/>
-		<r:require modules="flot, jquery"/>
+		<r:require modules="flot, jquery, grailsEvents"/>
 		<r:layoutResources />		
 	</head>
 	<body>
@@ -27,16 +27,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="${request.contextPath}">PMMS</a>
         </div>
-        <div class="collapse navbar-collapse" style="margin-right:15px;">
-          <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left" style="margin-left:15px;">
+          	<li><img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 180px; padding: 5px;"/></li>
             <li><a href="${request.contextPath}">Dashboard</a></li>
             <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li><g:link controller="Client" action="index"><span class="fa fa-users fa-lg fa-fw pull-left"></span>&nbsp; Clients</g:link></li>
-            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg fa-fw pull-left"></span>&nbsp; All Properties</g:link></li>
+            	<li><g:link controller="Property" action="index"><span class="fa fa-building-o fa-lg fa-fw pull-left"></span>&nbsp; Properties</g:link></li>
             	<li><g:link controller="Transfer" action="index"><span class="fa fa-exchange fa-lg fa-fw pull-left"></span>&nbsp; Transfers</g:link></li>
 	            <li class="divider"></li>
 	            <li><g:link controller="Person" action="index"><span class="fa fa-book fa-fw fa-lg pull-left"></span>&nbsp; Contacts</g:link></li>
@@ -47,10 +47,10 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	            <li><g:link controller="Invoice" action="index"><span class="fa fa-file-o fa-fw fa-lg"></span>&nbsp; Invoices</g:link></li>
-	            <li><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
+	            <li class="disabled"><a href="#"><span class="fa fa-money fa-fw fa-lg"></span>&nbsp; Arrears</a></li>
 	            <li><g:link controller="ServiceCharge" action="index"><span class="fa fa-gbp fa-fw fa-lg"></span>&nbsp; Service Charges</g:link></li>
-	            <li><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
-	            <li><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
+	            <li class="disabled"><a href="#"><span class="fa fa-university fa-fw fa-lg"></span>&nbsp; Bank Statements</a></li>
+	            <li class="disabled"><a href="#"><span class="fa fa-briefcase fa-fw fa-lg"></span>&nbsp; Budgets</a></li>
 	            <sec:ifAnyGranted roles="ROLE_ADMIN">
 					<li class="divider"/>
 					<li><g:link controller="Transaction" action="index"><span class="fa fa-cubes fa-lg fa-fw pull-left"></span>&nbsp; Transactions</g:link></li>
@@ -74,8 +74,9 @@
 	          </ul>
 	        </li>
           </ul>
-		  <sec:ifNotLoggedIn>
-		  <ul class="nav navbar-nav navbar-right">
+		
+		  <ul class="nav navbar-nav navbar-right" style="margin-right: 20px;">
+		    <sec:ifNotLoggedIn>
 			<li class="dropdown">
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <strong class="caret"></strong></a>
 			  <div class="dropdown-menu" style="padding: 15px; width: 275px;">
@@ -98,14 +99,12 @@
 			  </div>
 		  </sec:ifNotLoggedIn>
 		  <sec:ifLoggedIn>
-			<ul class="nav navbar-nav navbar-right">
+			
 			<li>
 			  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg fa-fw"></i>
-				<sec:loggedInUserInfo field="username"/> <span class="caret"></span>
+				<sec:loggedInUserInfo field="displayName"/> <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" role="menu">
-				<li class="text-right"><a href="#">Action</a></li>
-				<li class="divider"></li>
 				<li class="text-center">
 				<g:form controller="logout" action="index">
 					<button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-sign-out fa-fw fa-lg"></span> Logout</button>
@@ -113,8 +112,8 @@
 				</li>
 			  </ul>
 			  </li>
-			  </ul>
 		  </sec:ifLoggedIn>
+		   </ul>
         </div><!--/.nav-collapse -->
      
     </div>
@@ -130,6 +129,25 @@
 			e.stopPropagation();
 		});
 		</g:javascript>
+		<r:script>
+		try {
+		        var grailsEvents = new grails.Events("${createLink(uri:'')}", {transport: "sse"});
+		        grailsEvents.on('docserver-1', function (data) {
+		           new PNotify({
+					    title: data.sender,
+					    text: data.message,
+					    icon: 'fa fa-check',
+					    type: data.type,
+					    notificationId: data.notificationId,
+					    after_init: function(PNotify) {
+					    	$.ajax({url: "${request.contextPath}/notification/markAsRead/"+PNotify.options.notificationId});
+					    }
+					});
+		        });
+		    } catch (error) {
+		        console.log("ERROR: " + error.toString());
+		    }
+		</r:script>
 		<r:layoutResources />
 	</body>
 </html>

@@ -14,7 +14,7 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"></link>
 		<g:layoutHead/>
 		<g:javascript library="application"/>
-		<r:require modules="flot, jquery"/>
+		<r:require modules="flot, jquery, grailsEvents"/>
 		<r:layoutResources />		
 	</head>
 	<body>
@@ -30,7 +30,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-left" style="margin-left:15px;">
-          	<li><img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 60px; padding: 5px;"/></li>
+          	<li><img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 180px; padding: 5px;"/></li>
             <li><a href="${request.contextPath}">Dashboard</a></li>
             <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
@@ -129,6 +129,25 @@
 			e.stopPropagation();
 		});
 		</g:javascript>
+		<r:script>
+		try {
+		        var grailsEvents = new grails.Events("http://localhost:8080/PMMS", {transport: "sse"});
+		        grailsEvents.on('docserver-1', function (data) {
+		           new PNotify({
+					    title: data.sender,
+					    text: data.message,
+					    icon: 'fa fa-check',
+					    type: data.type,
+					    notificationId: data.notificationId,
+					    after_init: function(PNotify) {
+					    	$.ajax({url: "${request.contextPath}/notification/markAsRead/"+PNotify.options.notificationId});
+					    }
+					});
+		        });
+		    } catch (error) {
+		        console.log("ERROR: " + error.toString());
+		    }
+		</r:script>
 		<r:layoutResources />
 	</body>
 </html>

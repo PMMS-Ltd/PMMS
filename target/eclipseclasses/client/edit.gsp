@@ -37,11 +37,17 @@
 				</div>
 				<div class="row">
 					<fieldset>
-						<g:actionSubmit class="btn btn-sm btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+							<button id="updateBtn" class="btn btn-sm btn-success"><i class="fa fa-fw fa-refresh"></i> Update</button>
+							<g:link class="btn btn-sm btn-default" action="show" id="${clientInstance.id }"><i class="fa fa-fw fa-times"></i> Cancel</g:link>
 					</fieldset>
 				</div>
 			</g:form>
 		</div>
+		<g:if test="${clientInstance.accounts.size() > 0 }">
+			<div class="col-lg-4" id="accountsTable">
+				<g:render template="/bankAccount/accounts" model="['clientInstance':clientInstance]"/>
+			</div>
+		</g:if>
 		<div class="visible-xs">
 			<g:form url="[controller:'client', action:'save']" class="form"  method="PUT">
 				<div class="row">
@@ -49,7 +55,7 @@
 				</div>
 				<div class="row">
 					<fieldset>
-						<g:actionSubmit class="btn btn-sm btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+						<button class="btn btn-sm btn-success"><i class="fa fa-fw fa-refresh"></i> Update</button>
 					</fieldset>
 				</div>
 			</g:form>

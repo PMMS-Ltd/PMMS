@@ -10,12 +10,18 @@
    <r:layoutResources/>
   </head>
 
-  <body>
+  <body class="bg-primary">
 
     <div class="container">
+    <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
-    <h2 class="page-header"><g:message code="springSecurity.login.header"/></h2>
-      <g:form class="form" role="form" url="${postUrl}" method="POST">
+    <img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 100%; padding: 5px; margin-bottom: 25px;"/>
+    </div>
+ 	</div>
+ 	<div class="row">
+    <div class="col-xs-3 center-block panel" style="padding: 40px;float:none;">
+   
+        <g:form class="form" role="form" url="${postUrl}" method="POST">
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -28,10 +34,13 @@
 						<input type="password" placeholder="Password" class="form-control" name='j_password' id='password'>
 					</div>
 					</div>
+					<div class="text-center">
 					<button type="submit" class="btn btn-success btn-sm"><span class="fa fa-sign-in"></span>  Sign in</button>
-					<g:link class="btn btn-primary btn-sm"><span class="fa fa-question"></span>  Reset Password</g:link>
+					<g:link class="btn btn-default btn-sm"><span class="fa fa-question"></span>  Reset Password</g:link>
+					</div>
 				</g:form>
 		</div>
+		</div> <!--  row  -->
     </div> <!-- /container -->
 
 	<r:layoutResources/>

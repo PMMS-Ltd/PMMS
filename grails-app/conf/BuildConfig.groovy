@@ -6,6 +6,7 @@ grails.project.work.dir = "target/work"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
+grails.tomcat.nio = true
 
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
@@ -96,11 +97,12 @@ grails.project.dependency.resolution = {
 
     plugins {
         // plugins for the build system only
-        build ":tomcat:7.0.52.1"
+        build ":tomcat:7.0.42"
 
         // plugins for the compile step
         compile ":scaffolding:2.0.3"
         compile ':cache:1.1.2'
+		compile ":events-push:1.0.M7"
 		compile (":rendering:1.0.0") {
 			excludes "flying-saucer-pdf", "itext", "core-renderer-R8"
 		}
@@ -117,12 +119,13 @@ grails.project.dependency.resolution = {
 		compile ":task-manager:0.1"
 		compile ":calendar-manager:0.5"
 		
+		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.13" // or ":hibernate4:4.3.5.1"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.0.2"
         runtime ":resources:1.2.7"
-		runtime ":cors:1.1.4"
+		//runtime ":cors:1.1.4"
 		
 		
         // Uncomment these (or add new ones) to enable additional resources capabilities

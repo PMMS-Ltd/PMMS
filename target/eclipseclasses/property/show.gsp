@@ -28,7 +28,7 @@
 				<li class="fieldcontain">
 					<span id="address-label" class="property-label"><g:message code="property.address.label" default="Address" /></span>
 					
-						<span class="property-value" aria-labelledby="address-label"><g:link controller="address" action="show" id="${propertyInstance?.address}">${propertyInstance?.address}</g:link></span>
+						<span class="property-value" aria-labelledby="address-label"><g:link controller="address" action="show" id="${propertyInstance?.address.id}">${propertyInstance?.address}</g:link></span>
 					
 				</li>
 				</g:if>

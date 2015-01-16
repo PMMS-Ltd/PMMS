@@ -1,4 +1,8 @@
 @charset "UTF-8";
+.container {
+	margin-top: 60px;
+}
+
 .required-indicator{
 	color: #ff0000;
 }
@@ -88,7 +92,53 @@
 @media (min-width: 1800px){
 	.container {
 		width: 1850px;
-		margin-top: 50px;
+		
 	}
 }
+@media (min-width: 992px){
+	.modal-lg {
+		width: 920px;
+	}	
+
+}
+.status-draft{
+	background: #95a5a6;
+	font-size: 85%;
+}
+.status-new{
+	 background: #5c97bf;
+	 font-size: 85%;
+}
+.status-applied{
+	background: #663399;
+	font-size: 85%;
+}
+.status-awaiting-approval{
+	background: #f4d03f;
+	font-size: 85%;
+}
+.status-approved{
+	background: #2ecc71;
+	font-size: 85%;
+}
+ #editor {overflow-y:scroll; height:300px; margin-top: 15px;}
+ 
+ 
+ /*Task List Styling*/
+ 
+ .label-in-progress{
+ 	background: #5c97bf;
+	color: #fff;
+	font-size: 85%;
+ }
+ .label-completed{
+ 	background: #2ecc71;
+	color: #fff;
+	font-size: 85%;
+ }
+ .label-not-started{
+ 	background: #663399;
+	color: #fff;
+	font-size: 85%;
+ }
 

@@ -58,13 +58,15 @@
 				<h4 class="modal-title" id="myModalLabel">Search Solicitors</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form">
+				<form class="form" id="solicitorSearchForm">
 					<div class="input-group">
+						<input type="hidden" name="type" value="Solicitor"/>
 						<input type="text" name="q" class="form-control"> <span
 							class="input-group-btn">
-							<g:submitToRemote update="updateMe" class="btn btn-default"
+							<!--<g:submitToRemote update="updateMe" class="btn btn-default"
 								value="Search" url="[controller: 'supplier', action: 'search']"></g:submitToRemote>
-						</span>
+						</span>-->
+						<input type="submit" value="Search" class="btn btn-default"/>
 					</div>
 					<!-- /input-group -->
 				</form>
@@ -96,6 +98,17 @@
  	$('#newVSol').removeClass('hidden');
  	$('#addVSol').attr('disabled','disabled');
  });
+ $("#solicitorSearchForm").submit(function(event){
+				$.ajax({
+					type: 'POST',
+					url: '${request.contextPath}/supplier/search',
+					data: $(this).serialize(),
+					success: function(data){
+						$("#updateMe").html(data);
+					}
+				});
+				event.preventDefault();
+			});
 </g:javascript>
 	</body>
 </html>

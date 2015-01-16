@@ -95,7 +95,13 @@
 		<label for="countryField" class="control-label col-xs-4">Country</label>
 		<div class="col-xs-6">
 			<input type="text" class="form-control" name="vSolicitor.address.country">
-			<input type="hidden" name="vSolicitor.workType.id" value="1">
+			<input type="hidden" name="vSolicitor.workTypes[0].id" value="6">
+		</div>
+	</div>
+	<div class="form-group" id="email">
+		<label for="emailField" class="control-label col-xs-4">Email</label>
+		<div class="col-xs-6">
+			<g:field type="email" class="form-control" name="vSolicitor.email"/>
 		</div>
 	</div>
 </div>
@@ -109,7 +115,7 @@
 	</div>
 </div>
 
-<div class="form-group ${hasErrors(bean: transferInstance, field: 'feeReceived', 'has-error')} ">
+<div class="form-group">
 	<label for="feeReceived" class="control-label col-xs-4">
 		<g:message code="transfer.feeReceived.label" default="Fee Received" />
 		
@@ -122,3 +128,17 @@
       </div>
 	</div>
 </div>
+
+<!-- <div class="form-group">
+	<label for="feeReceived" class="control-label col-xs-4">
+		<g:message code="transfer.feeReceived.label" default="Fee Received" />
+		
+	</label>
+	<div class="col-xs-8">
+		<div class="checkbox">
+        <label>
+          <input type="checkbox" name="receivedFee" id="receivedFee" ${transferInstance?.feeReceived ? 'checked' : '' }>
+        </label>
+      </div>
+	</div>
+</div>-->

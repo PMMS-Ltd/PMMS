@@ -206,6 +206,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/task*/**':				  	  ['permitAll'],
 	'/calendar*/**':				  ['permitAll'],
 	'/event*/**':				  	  ['permitAll'],
+	'/notification/**':			  	  ['permitAll'],
 	'/api/**':				  		  ['permitAll']
 
 ]
