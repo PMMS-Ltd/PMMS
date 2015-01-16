@@ -125,7 +125,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.0.2"
         runtime ":resources:1.2.7"
-		//runtime ":cors:1.1.4"
+		runtime ":cors:1.1.4"
 		
 		
         // Uncomment these (or add new ones) to enable additional resources capabilities
