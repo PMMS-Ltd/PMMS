@@ -3,12 +3,30 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="\${message(code: '${domainClass.propertyName}.label', default: '${className}')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<h1 class="page-header">${domainClass.propertyName}
+				<div class="btn-group">
+  <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </a>
+  
+  <ul class="dropdown-menu" role="menu">
+  
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <li>
+    <g:link action="create"><i class="fa fa-plus fa-fw text-success"></i> Add New</g:link>	
+    </li>
+    </sec:ifAnyGranted>
+  </ul>
+
+</div>
+</h1>	
+		<!-- <a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="\${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -19,8 +37,8 @@
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="\${flash.message}">
 				<div class="message" role="status">\${flash.message}</div>
-			</g:if>
-			<table>
+			</g:if>-->
+			<table class="table table-striped">
 			<thead>
 					<tr>
 					<%  excludedProps = Event.allEvents.toList() << 'id' << 'version'
@@ -38,7 +56,7 @@
 				</thead>
 				<tbody>
 				<g:each in="\${${propertyName}List}" status="i" var="${propertyName}">
-					<tr class="\${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr>
 					<%  props.eachWithIndex { p, i ->
 							if (i == 0) { %>
 						<td><g:link action="show" id="\${${propertyName}.id}">\${fieldValue(bean: ${propertyName}, field: "${p.name}")}</g:link></td>

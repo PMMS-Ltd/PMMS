@@ -6,7 +6,7 @@ grails.project.work.dir = "target/work"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
-grails.tomcat.nio = true
+//grails.tomcat.nio = true
 
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
@@ -92,22 +92,26 @@ grails.project.dependency.resolution = {
 		 compile 'org.xhtmlrenderer:core-renderer:R8pre2'
 		 compile 'com.lowagie:itext:2.0.8'
 		 compile ('org.docx4j:docx4j:3.1.0') {excludes "slf4j-api", "xml-apis", "commons-logging", 'slf4j-log4j12'}
-		// compile ":events-calendar:1.0RC1"
+		 //compile 'org.grails.plugins:events:1.0.0.BUILD-SNAPSHOT'
+		 //compile 'org.atmosphere:atmosphere-runtime:2.1.4'
+		
     }
 
     plugins {
         // plugins for the build system only
-        build ":tomcat:7.0.42"
+        build ":tomcat:7.0.53"
 
         // plugins for the compile step
         compile ":scaffolding:2.0.3"
         compile ':cache:1.1.2'
-		compile ":events-push:1.0.M7"
+		//compile ":events-push:1.0.M7"
+		//runtime ":events-push:1.0.0.BUILD-SNAPSHOT"
 		compile (":rendering:1.0.0") {
 			excludes "flying-saucer-pdf", "itext", "core-renderer-R8"
 		}
 		compile ":spring-security-core:2.0-RC2"
 		compile ":rest-client-builder:2.0.1"
+		compile ":platform-core:1.0.RC5"
 		compile ":joda-time:1.5"
 		compile ":audit-logging:1.0.1"
 		compile ":excel-import:1.0.0"

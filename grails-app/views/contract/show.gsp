@@ -33,11 +33,56 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${contractInstance?.usualDay}">
+				<li class="fieldcontain">
+					<span id="usualDay-label" class="property-label"><g:message code="contract.usualDay.label" default="Usual Day" /></span>
+					
+						<span class="property-value" aria-labelledby="usualDay-label"><g:fieldValue bean="${contractInstance}" field="usualDay"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${contractInstance?.frequencyOfService}">
+				<li class="fieldcontain">
+					<span id="frequencyOfService-label" class="property-label"><g:message code="contract.frequencyOfService.label" default="Frequency Of Service" /></span>
+					
+						<span class="property-value" aria-labelledby="frequencyOfService-label"><g:fieldValue bean="${contractInstance}" field="frequencyOfService"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${contractInstance?.billingFrequency}">
+				<li class="fieldcontain">
+					<span id="billingFrequency-label" class="property-label"><g:message code="contract.billingFrequency.label" default="Billing Frequency" /></span>
+					
+						<span class="property-value" aria-labelledby="billingFrequency-label"><g:fieldValue bean="${contractInstance}" field="billingFrequency"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${contractInstance?.nominalCode}">
+				<li class="fieldcontain">
+					<span id="nominalCode-label" class="property-label"><g:message code="contract.nominalCode.label" default="Nominal Code" /></span>
+					
+						<span class="property-value" aria-labelledby="nominalCode-label"><g:fieldValue bean="${contractInstance}" field="nominalCode"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${contractInstance?.client}">
 				<li class="fieldcontain">
 					<span id="client-label" class="property-label"><g:message code="contract.client.label" default="Client" /></span>
 					
 						<span class="property-value" aria-labelledby="client-label"><g:link controller="client" action="show" id="${contractInstance?.client?.id}">${contractInstance?.client?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${contractInstance?.contractAmount}">
+				<li class="fieldcontain">
+					<span id="contractAmount-label" class="property-label"><g:message code="contract.contractAmount.label" default="Contract Amount" /></span>
+					
+						<span class="property-value" aria-labelledby="contractAmount-label"><g:fieldValue bean="${contractInstance}" field="contractAmount"/></span>
 					
 				</li>
 				</g:if>
@@ -56,6 +101,15 @@
 					<span id="contractor-label" class="property-label"><g:message code="contract.contractor.label" default="Contractor" /></span>
 					
 						<span class="property-value" aria-labelledby="contractor-label"><g:link controller="supplier" action="show" id="${contractInstance?.contractor?.id}">${contractInstance?.contractor?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${contractInstance?.nextReviewDate}">
+				<li class="fieldcontain">
+					<span id="nextReviewDate-label" class="property-label"><g:message code="contract.nextReviewDate.label" default="Next Review Date" /></span>
+					
+						<span class="property-value" aria-labelledby="nextReviewDate-label"><g:formatDate date="${contractInstance?.nextReviewDate}" /></span>
 					
 				</li>
 				</g:if>
