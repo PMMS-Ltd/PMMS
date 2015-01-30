@@ -114,6 +114,7 @@ environments {
 		grails.logging.jul.usebridge = false
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		grails.alfresco.repo.contractfolder = 'b07d6c04-693a-4fb7-9bf8-c7efd51ba6f5'
 		
 		//grails.serverURL ="http://192.168.10.200/PMMS"
 		grails.docServer.url = "http://192.168.10.200/DocServer"
