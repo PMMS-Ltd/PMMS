@@ -5,6 +5,7 @@ import uk.org.pmms.accounts.ServiceChargeService
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import grails.util.Environment
+import grails.converters.JSON
 
 class BootStrap {
 	def ServiceChargeService
@@ -35,7 +36,7 @@ class BootStrap {
 	  def sp5 = new SupplierType(type:'Bulk Waste Removal', typeParent: sp.id).save()
 	  def sp6 = new SupplierType(type:'Solicitor').save()
 	  
-	  def client = new Client(name:'Turnpike Hill Trust',yearStart: df.parse('2014-01-01'), yearEnd: df.parse('2014-12-31'), clientId: 'THT')
+	  def client = new Client(name:'Turnpike Hill Trust',yearStart: df.parse('2015-01-01'), yearEnd: df.parse('2015-12-31'), clientId: 'THT')
 	  def address = new Address(address1: 'Leyburn Gardens', town: 'Croydon', county: 'Surrey', postCode: 'CR0 5NL', country: 'GB').save()
 	  def ba = new BankAccount(accNo: 123456789, name: 'THT Clients Account', sortCode: 200557, type: 'Current').save(failOnError: true)
 	  def ba2 = new BankAccount(accNo: 987654321, name: 'PMMS Ltd. Trading Account', sortCode: 200557, type: 'Current').save()
@@ -49,7 +50,7 @@ class BootStrap {
 	  def serviceCharge = new ServiceCharge(serviceCharge: 690.00, groundRent: 0.00, startDate: client.yearStart, endDate:  client.yearEnd, serviceChargeType: scType, status: 'Approved').save(failOnError: true)	  
 	  def serviceCharge2 = new ServiceCharge(serviceCharge: 750.00, groundRent: 0.00, startDate: client.yearStart.plus(365), endDate:  client.yearEnd.plus(365), serviceChargeType: scType, status: 'Approved').save(failOnError: true)
 	  
-	  def property = new Property(propertyId: 'THT-LG-001', propertyType: 'Studio Flat', serviceChargeType: scType)
+	  def property = new Property(propertyId: 'THT-LG-001', propertyType: 'Studio Flat', serviceChargeType: scType, repoFolderId: '2e9ea49c-2a5f-481f-9755-749a0ffaabc0')
 	  property.address = new Address(unitNo: '1', address1: 'Leyburn Gardens', town: 'Croydon', county: 'Surrey', postCode: 'CR0 5NL', country: 'GB')
 	  client.addToUnits(property).save(failOnError: true)
 	  
@@ -63,11 +64,25 @@ class BootStrap {
 	  supplier.addToWorkTypes(sp5)
 	  supplier.save flush: true
 	  
-	  def person = new Person (firstName: 'Jonathan', initial: 'J', lastName: 'Lee', address: supplier.address).save(failOnError: true)
+	  def person = new Person (salutation: 'Mr', firstName: 'Jonathan', initial: 'J', lastName: 'Lee', address: supplier.address).save(failOnError: true)
 	  
 	  supplier.addToEmployees(person).save()
 	  property.owner = person; property.save()
 	  client.addToDirectors(person).save()
+	  }
+	  JSON.registerObjectMarshaller(SiteVisit) {
+		  def output = [:]
+		  output['id'] = it.id
+		  output['title'] = it.client.clientId + ' - ' + it.details
+		  output['start'] = it.visitStartDate
+		  output['end'] = it.visitEndDate
+		  output['allDay'] = false
+		  output['editable'] = false
+		  
+		  //output['textColor'] = it.calendar.textColor
+		  output['className'] = 'status-'+it.status.replace(' ', '-').toLowerCase()
+	  
+		  return output;
 	  }
     }
     def destroy = {

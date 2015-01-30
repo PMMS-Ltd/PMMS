@@ -2,11 +2,14 @@ package uk.org.pmms
 
 import grails.converters.JSON
 import uk.org.pmms.bpm.*
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 class UtilsController {
 	def CamundaService
 	def springSecurityService
 	def CalendarService
+	def CMISService
+	def NotificationService
 	
     def index() { 
 		def output = [:]
@@ -74,5 +77,30 @@ class UtilsController {
 	def createCalendar() {
 		
 		render CalendarService.createCalendar(params)
+	}
+	def uploadDocument(){
+		
+		def CommonsMultipartFile uploadedFile = params.myFile
+		String description = params.description?params.description:" "
+		CMISService.createDocument(params.repoFolderId, description, uploadedFile)
+		redirect(controller: params.objectType, action: "show", params: [id: params.objectId])
+	}
+	def deleteDocument(){
+		CMISService.deleteDocument(params.Id)
+		redirect(controller: params.objectType, action: "show", params: [id: params.objectId])
+	}
+	def downloadDocument(){
+		def output = CMISService.getDocument(params.documentId)
+		def settings = CMISService.getQueryResults("select cmis:name, cmis:contentStreamMimeType from cmis:document where cmis:objectId='"+params.documentId+"'")
+		def filename = (String)settings.name.toString().substring(1,settings.name.toString().length()-1)
+		if (output) {
+			response.setHeader("Content-disposition", "attachment; filename=" + filename);
+		 response.setContentType(settings.contentStreamMimeType)
+		 response.outputStream << output
+		}
+	}
+	def approvers() {
+		//NotificationService.approvalNotification()
+		render (template: "../notifications/basic")
 	}
 }

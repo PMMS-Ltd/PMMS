@@ -42,7 +42,7 @@ grails.resources.adhoc.includes = ['/images/**', '/css/**', '/js/**', '/plugins/
 
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
-
+grails.databinding.dateFormats = ['dd/MM/yyyy HH:mm','dd/MM/yyyy', 'yyyy-MM-dd HH:mm:ss.S', "yyyy-MM-dd'T'hh:mm:ss'Z'"]
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
@@ -96,23 +96,19 @@ environments {
         grails.logging.jul.usebridge = true
 		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
+		grails.alfresco.repo.contractfolder = 'b07d6c04-693a-4fb7-9bf8-c7efd51ba6f5'
 		
 		grails.docServer.url = "http://localhost:9090/DocServer"
 		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
 		grails.camunda.url = "http://localhost:8090"
 		
-		/*mail {
-			host = "pmmsv1"
+		mail {
+			host = "localhost"
 			port = 25
-			username = "administrator"
-			password = "himson19155"
-			props = ["mail.smtp.auth":"true", 					   
-             "mail.smtp.starttls.enable":"true",
-			 "mail.smtp.socketFactory.port": 25,
-             "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-             "mail.smtp.socketFactory.fallback":"true"]
-		  }*/
-		grails.mail.default.from="info@something.com"
+			username = "noreply@test.pmms.org.uk"
+			password = "pmms"
+		  }
+		grails.mail.default.from="noreply@test.pmms.org.uk"
     }
 	UAT {
 		grails.logging.jul.usebridge = false
@@ -140,9 +136,14 @@ environments {
 log4j = {
     // Example of changing the log pattern for the default console appender:
     //
-   // appenders {
-     //   console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+      console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+   }
+	root {
+		warn 'stdout'
+		// warn 'stdout','file'
+		additivity = true
+	}
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -208,6 +209,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/calendar*/**':				  ['permitAll'],
 	'/event*/**':				  	  ['permitAll'],
 	'/notification/**':			  	  ['permitAll'],
+	'/siteVisit/**':			  	  ['permitAll'],
 	'/api/**':				  		  ['permitAll']
 
 ]
@@ -246,11 +248,17 @@ grails.plugins.directoryservice.sources = [
 ]
 
 grails.plugins.directoryservice.dit = [
-	'ou=Users,dc=test,dc=pmms,dc=org,dc=uk':[
+		'ou=Users,dc=test,dc=pmms,dc=org,dc=uk':[
 		'singular':'person',
 		'plural':'people',
 		'rdnAttribute':'uid',
 		'source':'directory'
+	],
+		'ou=Groups,dc=test,dc=pmms,dc=org,dc=uk':[
+		'singular':'group',
+		'plural':'groups',
+		'rdnAttribute':'cn',
+		'source':'directory'		
 	]
 ]
 

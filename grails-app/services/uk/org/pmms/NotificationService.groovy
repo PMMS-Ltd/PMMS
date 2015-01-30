@@ -5,12 +5,18 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional(readOnly = false)
 class NotificationService {
-	
-	def eventNotify(params) {
-		def notification = new Notification(recipient: params.recipient, sender: params.sender, message: params.message, type: params.type).save()
+	def directoryService
+	def mailService
+	def approvalNotification() {
+		def approvers = directoryService.findPeopleWhere(memberOf:'cn=approvers,ou=Groups,dc=test,dc=pmms,dc=org,dc=uk')
 		
-		//notification.save(flush: true, failOnError: true)
-		params.notificationId = notification.id
-		event([namespace: 'browser', topic: "docserver-${params.recipient}", data: params])
+		approvers.each{
+			def recipient = it.mail
+			mailService.sendMail {
+			  to recipient
+			  subject "Approval Required"
+			  html '<b>Please Approve</b> the following item:' 
+			}
+		}
 	}
 }

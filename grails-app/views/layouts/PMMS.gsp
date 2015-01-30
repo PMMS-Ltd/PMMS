@@ -15,7 +15,7 @@
 		<g:layoutHead/>
 		<g:javascript library="application"/>
 		
-		<r:require modules="flot, jquery"/>
+		<r:require modules="flot, jquery, PNotify"/>
 		<r:layoutResources />		
 	</head>
 	<body>
@@ -61,17 +61,19 @@
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
-	          	<li><a href="#"><span class="fa fa-plus fa-fw fa-lg"></span>&nbsp; New Job</a></li>
+	          	<li><g:link controller="Job" action="create"><span class="fa fa-plus fa-fw fa-lg text-success"></span><span class="fa fa-wrench fa-fw fa-lg text-success"></span> New Job</g:link></li>
+	          	<li><g:link controller="Job" action="create"><span class="fa fa-plus fa-fw fa-lg text-success"></span><span class="fa fa-flash fa-fw fa-lg text-success"></span> New Issue</g:link></li>
 	          	<li class="divider"></li>
-	            <li><a href="#"><span class="fa-stack fa-lg">
+	            <li><!-- <a href="#"><span class="fa-stack fa-lg">
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-check fa-stack-1x text-success"></i>
-					</span> Open Jobs</a></li>
-	            <li><a href="#"><span class="fa-stack fa-lg fa-fw pull-left">
+					</span> Open Jobs</a>--><g:link controller="job" action="index"><i class="fa fa-fw fa-lg fa-wrench"></i> Jobs</g:link></li>
+	            <li><!-- <a href="#"><span class="fa-stack fa-lg fa-fw pull-left">
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-ban fa-stack-1x text-danger"></i>
-					</span> Closed Jobs</a></li>
-	            <li><g:link controller="contract"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span>&nbsp; Contracts</g:link></li>
+					</span> Closed Jobs</a>--><a href="#"><i class="fa fa-fw fa-lg fa-flash"></i> Issues</a></li>
+	            <li><g:link controller="contract"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span> Contracts</g:link></li>
+	             <li><g:link controller="siteVisit"><span class="fa fa-location-arrow fa-fw fa-lg pull-left"></span> Site Visits</g:link></li>
 	          </ul>
 	        </li>
           </ul>
@@ -130,25 +132,7 @@
 			e.stopPropagation();
 		});
 		</g:javascript>
-		<r:script>
-		try {
-		        var grailsEvents = new grails.Events("http://localhost:8080/PMMS", {transport: "sse"});
-		        grailsEvents.on('docserver-1', function (data) {
-		           new PNotify({
-					    title: data.sender,
-					    text: data.message,
-					    icon: 'fa fa-check',
-					    type: data.type,
-					    notificationId: data.notificationId,
-					    after_init: function(PNotify) {
-					    	$.ajax({url: "${request.contextPath}/notification/markAsRead/"+PNotify.options.notificationId});
-					    }
-					});
-		        });
-		    } catch (error) {
-		        console.log("ERROR: " + error.toString());
-		    }
-		</r:script>
+		
 		<r:layoutResources />
 	</body>
 </html>

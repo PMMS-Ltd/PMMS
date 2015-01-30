@@ -8,6 +8,7 @@ class Property implements Comparable{
 	Person owner
 	String propertyType
 	String repoFolderId
+	String blockInfo
 	
 	ServiceChargeType serviceChargeType
 	
@@ -19,6 +20,7 @@ class Property implements Comparable{
 		owner nullable: true
 		propertyType inList: ["Studio Flat","1 Bed Flat", "2 Bed Flat", "3 Bed Flat", "Maisonette", "House","Other"]
 		serviceChargeType nullable: true
+		blockInfo nullable:true
     }
 	static mapping = {
         client lazy: false

@@ -4,6 +4,7 @@
 		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="${message(code: 'contract.label', default: 'Contract')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<r:require module="datepicker"/>
 	</head>
 	<body>
 		<div id="create-contract" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">

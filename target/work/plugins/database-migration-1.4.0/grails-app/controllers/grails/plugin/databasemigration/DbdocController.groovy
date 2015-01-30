@@ -23,14 +23,12 @@ import liquibase.changelog.filter.DbmsChangeSetFilter
 import liquibase.database.Database
 import liquibase.lockservice.LockService
 import liquibase.parser.ChangeLogParserFactory
-import grails.plugin.springsecurity.annotation.Secured
 
 /**
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
  */
- @Secured(['permitAll'])
 class DbdocController {
-	
+
 	def migrationResourceAccessor
 
 	def index = {

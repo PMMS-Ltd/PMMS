@@ -11,8 +11,8 @@
 		class="fa fa-arrow-circle-right fa-fw"></i></a>
 	</g:if>
 	<g:else>
-		<a href="#" class="small-box-footer">More info <i
-		class="fa fa-arrow-circle-right fa-fw"></i></a>
+		<g:link controller="${controller }" action="${action }" class="small-box-footer">More info <i
+		class="fa fa-arrow-circle-right fa-fw"></i></g:link>
 	</g:else>
 	
 </div>

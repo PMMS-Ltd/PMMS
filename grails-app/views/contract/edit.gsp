@@ -2,21 +2,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="${message(code: 'contract.label', default: 'Contract')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<r:require module="datepicker"/>
 	</head>
 	<body>
-		<a href="#edit-contract" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="edit-contract" class="content scaffold-edit" role="main">
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+		<div id="edit-contract" class="col-lg-8 col-md-10 col-sm-12 hidden-xs" role="main">
+			<h1 class="page-header"><g:message code="default.edit.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -27,15 +20,16 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:contractInstance, action:'update']" method="PUT" >
-				<g:hiddenField name="version" value="${contractInstance?.version}" />
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-				</fieldset>
-			</g:form>
+			<div class="col-lg-8 col-md-10 col-sm-12 hidden-xs">
+			<g:form url="[resource:contractInstance, action:'update']" method="PUT" class="form form-horizontal">
+			<div class="row">
+				<g:render template="form"/>
+			</div>
+			<div class="row">
+				<button name="update" class="btn btn-sm btn-success"><i class="fa fa-fw fa-refresh"></i> Update</button>
+			</div>
+		</g:form>
+		</div>
 		</div>
 	</body>
 </html>

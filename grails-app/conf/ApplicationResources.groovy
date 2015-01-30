@@ -16,12 +16,6 @@ modules = {
 		dependsOn: 'application'
 		resource url:'http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js'
 	}
-	tablesorter {
-		dependsOn: 'jquery'
-		resource url:'http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.4/js/jquery.tablesorter.min.js'
-		resource url:'http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.4/js/jquery.tablesorter.widgets.min.js'
-		resource url:'http://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.17.4/css/theme.bootstrap.css'
-	}
 	printArea {
 		dependsOn: 'jquery'
 		resource url: 'js/jquery.PrintArea.js'
@@ -33,7 +27,19 @@ modules = {
 		dependsOn: 'jquery'
 		resource url: 'js/jquery.hotkeys.js'
 		resource url: 'js/bootstrap-wysiwyg.js'
-		
-		
+	}
+	PNotify {
+		resource url:'js/pnotify.custom.min.js'
+		resource url:'css/pnotify.custom.min.css'
+	}
+	datepicker {
+		resource url:'http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js'
+		resource url:'http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js'
+		resource url:'http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css'
+	}
+	multiSelect {
+		resource url:'js/jquery.multi-select.js'
+		resource url:'css/multi-select.css'
+		resource url:'images/switch.png'
 	}
 }

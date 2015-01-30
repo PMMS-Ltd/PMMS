@@ -7,8 +7,13 @@
 		<g:message code="contract.startDate.label" default="Start Date" />
 		<span class="required-indicator">*</span>
 	</label>
-	<div class="col-xs-8">
-		<g:datePicker name="startDate" precision="day"  value="${contractInstance?.startDate}"  />
+	<div class="col-xs-4">
+		<!--<g:datePicker name="startDate" precision="day"  value="${contractInstance?.startDate}"  />-->
+		<div class='input-group' id='startDate'>
+                    <input type='text' class="form-control input-sm" name="startDate" value="${formatDate(date: contractInstance?.startDate, format: 'dd/MM/yyyy')}"/>
+                    <span class="input-group-addon input-sm"><span class="fa fa-calendar fa-fw"></span>
+                    </span>
+                </div>
 
 	</div>
 </div>
@@ -18,8 +23,13 @@
 		<g:message code="contract.endDate.label" default="End Date" />
 		
 	</label>
-	<div class="col-xs-8">
-		<g:datePicker name="endDate" precision="day"  value="${contractInstance?.endDate}" default="none" noSelection="['': '']" />
+	<div class="col-xs-4">
+		<!--<g:datePicker name="endDate" precision="day"  value="${contractInstance?.endDate}" default="none" noSelection="['': '']" />-->
+		<div class='input-group' id='endDate'>
+                    <input type='text' class="form-control input-sm" name="endDate" value="${formatDate(date: contractInstance?.endDate, format: 'dd/MM/yyyy')}"/>
+                    <span class="input-group-addon input-sm"><span class="fa fa-calendar fa-fw"></span>
+                    </span>
+                </div>
 
 	</div>
 </div>
@@ -121,8 +131,12 @@
 		<g:message code="contract.nextReviewDate.label" default="Next Review Date" />
 		<span class="required-indicator">*</span>
 	</label>
-	<div class="col-xs-8">
-		<g:datePicker name="nextReviewDate" precision="day"  value="${contractInstance?.nextReviewDate}"  />
+	<div class="col-xs-4">
+		<div class='input-group' id='nextReviewDate'>
+                    <input type='text' class="form-control input-sm" name="nextReviewDate" value="${formatDate(date: contractInstance?.nextReviewDate, format: 'dd/MM/yyyy')}"/>
+                    <span class="input-group-addon input-sm"><span class="fa fa-calendar fa-fw"></span>
+                    </span>
+                </div>
 
 	</div>
 </div>
@@ -137,4 +151,18 @@
 
 	</div>
 </div>
-
+<r:script type="text/javascript">
+    $(function () {
+        $('#startDate').datetimepicker({format: 'DD/MM/YYYY'});
+        $('#endDate').datetimepicker({format: 'DD/MM/YYYY'});
+        $('#nextReviewDate').datetimepicker({format: 'DD/MM/YYYY'});
+        $("#startDate").on("dp.change",function (e) {
+            $('#endDate').data("DateTimePicker").minDate(e.date);
+            $('#nextReviewDate').data("DateTimePicker").minDate(e.date);
+        });
+        $("#endDate").on("dp.change",function (e) {
+            $('#startDate').data("DateTimePicker").maxDate(e.date);
+            $('#nextReviewDate').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</r:script>

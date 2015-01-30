@@ -12,6 +12,7 @@ class DashboardController {
 		def user = springSecurityService.principal
 		def tasks = TaskService.getTodaysTasks(user.uid)
 		def weekTasks = TaskService.getThisWeeksTasks(user.uid)
-		render (view: 'user', model:[user:user, tasks: tasks, weekTasks: weekTasks])
+		def myVisits = SiteVisit.findAllByRequester(user.uid).size()
+		render (view: 'user', model:[user:user, tasks: tasks, weekTasks: weekTasks, visits: myVisits])
 	}
 }

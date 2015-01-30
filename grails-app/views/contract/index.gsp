@@ -7,6 +7,7 @@
 <g:set var="entityName"
 	value="${message(code: 'contract.label', default: 'Contract')}" />
 <title><g:message code="default.list.label" args="[entityName]" /></title>
+
 </head>
 <body>
 	<h1 class="page-header">
@@ -30,6 +31,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
+				
 				<g:sortableColumn property="ref" class="col-lg-2"
 					title="${message(code: 'contract.startDate.label', default: 'Contract Ref')}" />
 				<g:sortableColumn property="client" class="text-center col-lg-1"
@@ -42,6 +44,8 @@
 					title="${message(code: 'contract.startDate.label', default: 'Start Date')}" />
 				<g:sortableColumn property="endDate" class="text-center col-lg-1"
 					title="${message(code: 'contract.endDate.label', default: 'End Date')}" />
+				<g:sortableColumn property="nextReviewDate" class="text-center col-lg-1"
+					title="${message(code: 'contract.nextReviewDate.label', default: 'Next Review Date')}" />
 
 				<!--<g:sortableColumn property="usualDay"
 					title="${message(code: 'contract.usualDay.label', default: 'Usual Day')}" />
@@ -67,7 +71,14 @@
 					<td>${fieldValue(bean: contractInstance, field: "contractType")}</td>
 					<td class="text-center"><g:formatDate date="${contractInstance.startDate}" format="dd/MM/yyyy"/></td>
 					<td class="text-center"><g:formatDate date="${contractInstance.endDate}" format="dd/MM/yyyy"/></td>
-
+					<g:if test="${new Date().plus(60) > contractInstance.nextReviewDate }">
+					<td class="text-center bg-warning">
+					</g:if>
+					<g:else>
+						<td class="text-center">
+					</g:else>
+					<g:formatDate date="${contractInstance.nextReviewDate}" format="dd/MM/yyyy"/>
+					</td>
 					<!-- <td>
 						${fieldValue(bean: contractInstance, field: "usualDay")}
 					</td>
@@ -91,6 +102,10 @@
 	<div class="pagination">
 		<g:paginate total="${contractInstanceCount ?: 0}" />
 	</div>
-	</div>
+	<r:script>
+		$(document).ready(function() {
+		    //$('#contractsTable').DataTable({bFilter: true});
+		} );
+	</r:script>
 </body>
 </html>

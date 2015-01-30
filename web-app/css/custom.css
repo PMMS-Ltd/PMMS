@@ -100,9 +100,10 @@
 	}	
 
 }
-.status-draft{
+.status-draft, .label-draft{
 	background: #95a5a6;
 	font-size: 85%;
+	border-color: #95a5a6;
 }
 .status-new{
 	 background: #5c97bf;
@@ -116,9 +117,10 @@
 	background: #f4d03f;
 	font-size: 85%;
 }
-.status-approved{
+.status-approved, .label-approved{
 	background: #2ecc71;
 	font-size: 85%;
+	border-color: #2ecc71;
 }
  #editor {overflow-y:scroll; height:300px; margin-top: 15px;}
  

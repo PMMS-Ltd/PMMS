@@ -14,6 +14,7 @@ import grails.converters.JSON
 
 class PropertyController {
 	def CMISService
+	def ArrearsService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
@@ -22,7 +23,8 @@ class PropertyController {
     }
 	@Secured(['ROLE_USER'])
     def show(Property propertyInstance) {
-        respond propertyInstance
+		String query = "select cmis:name, cmis:objectId, cmis:contentStreamLength, cmis:contentStreamMimeType, cmis:description from cmis:document where in_folder('" + propertyInstance.repoFolderId + "')"
+        respond propertyInstance, model:[arrears: ArrearsService.arrearsByProperty(propertyInstance), files: CMISService.getQueryResults(query,10,0)]
     }
 	@Secured(['ROLE_ADMIN'])
     def create() {
@@ -152,14 +154,38 @@ class PropertyController {
 	@Secured(['ROLE_USER'])
 	def svcStatement (Property prop) {
 		def transactionList = Transaction.findAllByPropertyIdAndDateEnteredBetween(prop, prop.client.yearStart, prop.client.yearEnd, [sort: 'dateEntered', order: 'asc'])
+		def arrears = Transaction.findAllByPropertyIdAndTypeInListAndDateEnteredLessThan(prop,[2,7,12],prop.client.yearStart).amount.sum()
+		def creditSum = Transaction.findAllByPropertyIdAndTypeInListAndDateEnteredBetweenAndAmountGreaterThan(prop,[2,7,12],prop.client.yearStart, prop.client.yearEnd, 0).amount.sum()
+		def debitSum = Transaction.findAllByPropertyIdAndTypeInListAndDateEnteredBetweenAndAmountLessThan(prop,[2,7,12],prop.client.yearStart, prop.client.yearEnd, 0).amount.sum()
 		//def transactionList = Transaction.findAllByPropertyId(prop,[sort: 'dateEntered', order: 'asc'])
+		if (arrears != null){
+			if (arrears > 0){
+				creditSum = creditSum + arrears
+			}else if (arrears < 0) {
+				debitSum = debitSum + arrears
+			}
+		}
+		creditSum = creditSum != null ? creditSum : 0.00
+		debitSum = debitSum != null ? debitSum : 0.00
 		
-		render (template:'svcStatement', model: [transactionList: transactionList, property: prop])
+		
+		render (template:'../templates/svcStatement', model: [transactionList: transactionList, property: prop, arrears: arrears, creditSum: creditSum, debitSum: debitSum])
 	}
 	@Secured(['ROLE_USER'])
 	def svcPdf (Property prop) {
 		def transactionList = Transaction.findAllByPropertyIdAndDateEnteredBetween(prop, prop.client.yearStart, prop.client.yearEnd, [sort: 'dateEntered', order: 'asc'])
 		def logoFile = new File(request.getSession().getServletContext().getRealPath("/images/PMMS Letterhead.png"))
-		renderPdf(template: '/pdf/statement',  model: [transactionList: transactionList, property: prop, logo: logoFile.bytes], filename:'Statement_'+prop.propertyId)
+		def arrears = Transaction.findAllByPropertyIdAndTypeInListAndDateEnteredLessThan(prop,[2,7,12],prop.client.yearStart).amount.sum()
+		def creditSum = Transaction.findAllByPropertyIdAndTypeInListAndDateEnteredBetweenAndAmountGreaterThan(prop,[2,7,12],prop.client.yearStart, prop.client.yearEnd, 0).amount.sum()
+		def debitSum = Transaction.findAllByPropertyIdAndTypeInListAndDateEnteredBetweenAndAmountLessThan(prop,[2,7,12],prop.client.yearStart, prop.client.yearEnd, 0).amount.sum()
+		//def transactionList = Transaction.findAllByPropertyId(prop,[sort: 'dateEntered', order: 'asc'])
+		if (arrears > 0){
+			creditSum = creditSum + arrears
+		}else if (arrears < 0) {
+			debitSum = debitSum + arrears
+		}
+		creditSum = creditSum != null ? creditSum : 0.00
+		debitSum = debitSum != null ? debitSum : 0.00
+		renderPdf(template: '/pdf/statement',  model: [transactionList: transactionList, property: prop, logo: logoFile.bytes, arrears: arrears, creditSum: creditSum, debitSum: debitSum], filename:'Statement_'+prop.propertyId+'.pdf')
 	}
 }

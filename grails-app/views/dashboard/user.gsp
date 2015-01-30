@@ -21,7 +21,7 @@
 			<g:render template="smallBox" model="[boxclass: 'bg-shamrock',value: 5, name: 'Approvals', icon: 'fa-check']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<g:render template="smallBox" model="[boxclass: 'bg-primary',value: 9, name: 'Upcoming Events', icon: 'fa-calendar']"/>
+			<g:render template="smallBox" model="[boxclass: 'bg-primary',value: visits, name: 'Upcoming Site Visits', icon: 'fa-location-arrow', controller: 'siteVisit', action: 'index']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
 			<g:render template="smallBox" model="[boxclass: 'bg-info',value: 1, name: 'Requests', icon: 'fa-question']"/>

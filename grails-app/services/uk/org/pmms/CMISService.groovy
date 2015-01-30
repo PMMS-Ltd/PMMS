@@ -1,6 +1,7 @@
 package uk.org.pmms
 
 import grails.transaction.Transactional
+
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
@@ -16,7 +17,6 @@ import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.data.PropertyData;
 import org.apache.chemistry.opencmis.commons.enums.*
 import org.apache.chemistry.opencmis.commons.exceptions.*
-
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Transactional
@@ -112,6 +112,7 @@ class CMISService {
 			out.add(emptyArr)
 		}
 		//return results
+		//System.out.println (out)
 		return out
 		
 	}
@@ -178,13 +179,14 @@ class CMISService {
 		return out
 		
 	}
-	def createDocument (String folderId, CommonsMultipartFile content){
+	def createDocument (String folderId, String description, CommonsMultipartFile content){
 		if (!this.session){
 			getSession()
 		}
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
 		properties.put(PropertyIds.NAME, content.getOriginalFilename());
+		properties.put(PropertyIds.DESCRIPTION, description);
 		
 		InputStream stream = new ByteArrayInputStream(content.getBytes());
 		ContentStream contentStream = this.session.getObjectFactory().createContentStream(content.getOriginalFilename(), content.getSize(), content.getContentType(), stream);
@@ -220,5 +222,13 @@ class CMISService {
 			return success.toString() + e
 		}
 		return success
+	}
+	def getDocument(String documentId){
+		if (!this.session){
+			getSession()
+		}
+		Document doc = (Document) this.session.getObject(documentId)
+		InputStream stream = doc.getContentStream().getStream()
+		return stream
 	}
 }

@@ -16,6 +16,11 @@
 <param-value>Sample Value</param-value>
 </context-param>
 <filter>
+<filter-name>cors-headers</filter-name>
+<filter-class>com.brandseye.cors.CorsFilter</filter-class>
+<async-supported>true</async-supported>
+</filter>
+<filter>
 <filter-name>springSecurityFilterChain</filter-name>
 <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 <async-supported>true</async-supported>
@@ -90,6 +95,10 @@
         <filter-name>charEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+<filter-mapping>
+<filter-name>cors-headers</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
 <filter-mapping>
 <filter-name>DeclaredResourcesPluginFilter</filter-name>
 <url-pattern>/static/*</url-pattern>
@@ -200,25 +209,6 @@
 <servlet-name>grails-errorhandler</servlet-name>
 <servlet-class>org.codehaus.groovy.grails.web.servlet.ErrorHandlingServlet</servlet-class>
 </servlet>
-<servlet>
-<description>MeteorServlet</description>
-<servlet-name>MeteorServlet</servlet-name>
-<servlet-class>org.grails.plugin.platform.events.push.GrailsMeteorServlet</servlet-class>
-<init-param>
-<param-name>org.atmosphere.cpr.broadcaster.shareableThreadPool</param-name>
-<param-value>true</param-value>
-</init-param>
-<init-param>
-<param-name>org.atmosphere.cpr.broadcaster.maxProcessingThreads</param-name>
-<param-value>20</param-value>
-</init-param>
-<init-param>
-<param-name>org.atmosphere.cpr.broadcaster.maxAsyncWriteThreads</param-name>
-<param-value>20</param-value>
-</init-param>
-<load-on-startup>0</load-on-startup>
-<async-supported>true</async-supported>
-</servlet>
 
     <servlet-mapping>
         <servlet-name>gsp</servlet-name>
@@ -231,10 +221,6 @@
 <servlet-mapping>
 <servlet-name>grails</servlet-name>
 <url-pattern>*.dispatch</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>MeteorServlet</servlet-name>
-<url-pattern>/g-eventsbus/*</url-pattern>
 </servlet-mapping>
 
     <session-config>

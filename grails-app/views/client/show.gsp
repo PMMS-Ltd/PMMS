@@ -100,8 +100,13 @@
 					<tr>
 						<th>Address</th>
 						<td>
-							${clientInstance.address }
-						
+							${clientInstance?.address?.address1 }<br />
+							<g:if test="${clientInstance?.address?.address2 }">
+							${clientInstance?.address?.address2 }<br />
+							</g:if>
+							${clientInstance?.address?.town }<br />
+							${clientInstance?.address?.county }<br />
+							${clientInstance?.address?.postCode }<br/>
 						</td>
 					</tr>
 					<tr>

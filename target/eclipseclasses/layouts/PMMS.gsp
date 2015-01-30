@@ -14,7 +14,8 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}"></link>
 		<g:layoutHead/>
 		<g:javascript library="application"/>
-		<r:require modules="flot, jquery, grailsEvents"/>
+		
+		<r:require modules="flot, jquery"/>
 		<r:layoutResources />		
 	</head>
 	<body>
@@ -129,9 +130,9 @@
 			e.stopPropagation();
 		});
 		</g:javascript>
-		<r:script>
+		<!--<r:script>
 		try {
-		        var grailsEvents = new grails.Events("${createLink(uri:'')}", {transport: "sse"});
+		        var grailsEvents = new grails.Events("http://localhost:8080/PMMS", {transport: "sse"});
 		        grailsEvents.on('docserver-1', function (data) {
 		           new PNotify({
 					    title: data.sender,
@@ -147,7 +148,7 @@
 		    } catch (error) {
 		        console.log("ERROR: " + error.toString());
 		    }
-		</r:script>
+		</r:script>-->
 		<r:layoutResources />
 	</body>
 </html>

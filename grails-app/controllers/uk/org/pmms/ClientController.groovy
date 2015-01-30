@@ -16,7 +16,7 @@ class ClientController {
 	def ArrearsService
 	def grailsApplication
 	def TransferService
-	//def CalendarService
+	def CalendarService
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	@Secured(['ROLE_USER'])
@@ -64,8 +64,8 @@ class ClientController {
 		if (folderId){
 			clientInstance.repoFolderId = folderId
 		}
-		def calendarId = CalendarService.createCalendar(name:clientInstance.name, color: 'blue', textColor: 'white')
-		clientInstance.calendarId = calendarId
+		def calendar = new Calendar(name:clientInstance.name, color: 'blue', textColor: 'white').save(flush:true)
+		clientInstance.calendarId = calendar.id
 		clientInstance.save flush:true
 		
         request.withFormat {
