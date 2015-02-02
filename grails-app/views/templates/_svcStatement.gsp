@@ -15,6 +15,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-4" style="padding-top: 25px; padding-left: 30px;">
+			<g:if test="${property?.owner }">
 				${property?.owner }<br/>
 				<address>
 					${property?.owner?.address?.unitNo} ${property?.owner?.address?.address1}<br/>
@@ -27,6 +28,7 @@
 					${property?.owner?.address?.postCode}<br/>
 					<g:country code="${property?.owner?.address?.country}"/><br/>
 				</address>
+			</g:if>
 			</div>
 			<div class="col-xs-8 text-right">
 				<h3>Service Charge Statement</h3>
