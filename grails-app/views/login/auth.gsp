@@ -10,16 +10,16 @@
    <r:layoutResources/>
   </head>
 
-  <body class="bg-primary">
+  <body>
 
     <div class="container">
     <div class="row">
     <div class="col-xs-4 col-xs-offset-4">
-    <img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 100%; padding: 5px; margin-bottom: 25px;"/>
+    <img src="${resource (dir: 'images', file: 'PMMSlogo.png') }" style="width: 100%; padding: 5px; margin-bottom: 25px;"/>
     </div>
  	</div>
  	<div class="row">
-    <div class="col-xs-3 center-block panel" style="padding: 40px;float:none;">
+    <div class="col-xs-3 center-block bg-danger" style="padding: 40px;float:none;">
    
         <g:form class="form" role="form" url="${postUrl}" method="POST">
 				<div class="form-group">

@@ -35,7 +35,7 @@
 	</g:if>
 	<div class="row hidden-xs">
 		<div class="col-sm-4 col-lg-2">
-			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-fountain-blue',value: 34, name: 'Open Jobs', icon: 'fa-wrench']"/>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-info',value: 34, name: 'Open Jobs', icon: 'fa-wrench']"/>
 		</div>
 		<div class="col-sm-4 col-lg-2">
 			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-danger',value: 55, name: 'Arrears', icon: 'fa-gbp']"/>
@@ -44,7 +44,7 @@
 			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-saffron',value: 18, name: 'Notifications', icon: 'fa-bullhorn']"/>
 		</div>
 		<div class="col-sm-4 col-lg-2">
-			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-shamrock',value: 5, name: 'Approvals', icon: 'fa-check']"/>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-success',value: 5, name: 'Approvals', icon: 'fa-check']"/>
 		</div>
 		<g:if test="${clientInstance.calendarId != null}">
 		<div class="col-sm-4 col-lg-2">
@@ -67,7 +67,7 @@
 	</div>
 	<div class="row" style="height: 250px;">
 		<div class="col-lg-6 col-sm-8 col-xs-12" style="height: 100%;">
-			<div class="panel panel-default" style="height: 100%;">
+			<div class="panel panel-primary" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-fw fa-cog"></i> Details
@@ -100,7 +100,7 @@
 					<tr>
 						<th>Address</th>
 						<td>
-							${clientInstance?.address?.address1 }<br />
+							${clientInstance?.address?.unitNo } ${clientInstance?.address?.address1 }<br />
 							<g:if test="${clientInstance?.address?.address2 }">
 							${clientInstance?.address?.address2 }<br />
 							</g:if>
@@ -137,7 +137,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-default" style="height: 100%;">
+			<div class="panel panel-primary" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-shield fa-fw"></i> Insurance
@@ -184,7 +184,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-default" style="height: 100%;">
+			<div class="panel panel-primary" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<!--<i class="fa fa-file-o fa-fw"></i> Recent Files-->
@@ -260,7 +260,7 @@
 	</div>
 	<div class="row" style="margin-top: 15px; margin-bottom: 20px; height: 385px;">
 		<div class="col-lg-6 col-sm-12 col-xs-12" style="height: 100%;">
-			<div class="panel panel-default" style="height: 100%;">
+			<div class="panel panel-primary" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-building-o fa-fw"></i> Properties &nbsp;<span class="badge">${clientInstance?.units?.size() }</span>
@@ -325,7 +325,7 @@
 			</div>
 		</div>
 		<div class="col-lg-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<span class="fa fa-user fa-fw"></span> Directors

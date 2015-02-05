@@ -8,9 +8,8 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		
-		
-		
+		<div class="row">
+			<div class="col-xs-2">
 			<h1 class="page-header">Clients
 				<div class="btn-group">
   <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
@@ -29,28 +28,34 @@
 
 </div>
 </h1>
+			</div>
+			
+			<div class="col-xs-10" style="margin-top: 45px;">
+				<form class="form-inline pull-right" id="clientSearchForm" method="post" action="${request.contextPath}/client/clientSearch">
+				<div class="form-group">
+					<div class="input-group">
+					<input type="text" class="form-control" id="contactSearch"
+						placeholder="Search..." size="85" name="search"/>
+						<span class="input-group-btn">
+							<button class="btn btn-danger"><i class="fa fa-fw fa-search"></i></button>
+						</span>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+		<hr />
+		
+		
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<div class="row">
-		<div class="col-lg-6">
 			
-			<form class="form-inline" id="clientSearchForm" method="post" action="${request.contextPath}/client/clientSearch">
-				<div class="form-group">
-					<input type="text" class="form-control" id="contactSearch"
-						placeholder="Search..." size="85" name="search"/>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-default">
-						<i class="fa fa-fw fa-search"></i> Search
-					</button>
-				</div>
-				</form>
 			
-		</div>
-	</div>
+			
+		
 	<div class="row">
-			<div class="col-lg-10" id="list-client">
+			<div class="col-lg-12" id="list-client">
 			<g:render template="clientList" model="['clientInstanceList': clientInstanceList]"/>
 		</div>
 	</div>

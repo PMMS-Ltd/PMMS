@@ -7,6 +7,7 @@
 </head>
 <body>
 	<h1 class="page-header hidden-xs">${user.getDisplayName() }'s Dashboard</h1>
+	<hr class="hidden-xs"/>
 	<div class="row hidden-xs">
 		<div class="col-sm-3 col-lg-2">
 			<g:render template="smallBox" model="[boxclass: 'bg-fountain-blue',value: 34, name: 'New Jobs', icon: 'fa-bolt']"/>
@@ -18,7 +19,7 @@
 			<g:render template="smallBox" model="[boxclass: 'bg-saffron',value: 18, name: 'Notifications', icon: 'fa-bullhorn']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
-			<g:render template="smallBox" model="[boxclass: 'bg-shamrock',value: 5, name: 'Approvals', icon: 'fa-check']"/>
+			<g:render template="smallBox" model="[boxclass: 'bg-success',value: 5, name: 'Approvals', icon: 'fa-check']"/>
 		</div>
 		<div class="col-sm-3 col-lg-2">
 			<g:render template="smallBox" model="[boxclass: 'bg-primary',value: visits, name: 'Upcoming Site Visits', icon: 'fa-location-arrow', controller: 'siteVisit', action: 'index']"/>
@@ -27,6 +28,7 @@
 			<g:render template="smallBox" model="[boxclass: 'bg-info',value: 1, name: 'Requests', icon: 'fa-question']"/>
 		</div>
 	</div>
+
 	<div class="row visible-xs">
 		<ul class="list-group">
 		  <li class="list-group-item list-group-item-info"><a href="#" style="color:#fff;"><i class="fa fa-fw fa-bolt fa-lg"></i> New Jobs <span class="badge pull-right">34</span></a></li>
@@ -34,6 +36,7 @@
 		  <li class="list-group-item list-group-item-warning"><a href="#" style="color:#fff;"><i class="fa fa-fw fa-bullhorn fa-lg"></i> Notifications <span class="badge pull-right">12</span></a></li>
 		  <li class="list-group-item list-group-item-success"><a href="#" style="color:#fff;"><i class="fa fa-fw fa-gavel fa-lg"></i> Approvals <span class="badge pull-right">5</span></a></li>
 		</ul>
+
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
@@ -45,6 +48,7 @@
 			<g:render plugin="task-manager" template="/task/taskTable" model="[tasks: weekTasks]"/>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-sm-4" >
 			<h3 class="text-center">Chart 1</h3>

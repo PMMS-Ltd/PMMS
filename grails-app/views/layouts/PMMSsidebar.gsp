@@ -31,7 +31,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-left" style="margin-left:15px;">
-          	<li><img src="${resource (dir: 'images', file: 'PMMSlogo.png') }" style="width: 140px; padding: 5px;"/></li>
+          	<li><img src="${resource (dir: 'images', file: 'PMMS Icon.png') }" style="width: 180px; padding: 5px;"/></li>
             <li><a href="${request.contextPath}">Dashboard</a></li>
             <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
@@ -120,21 +120,12 @@
         </div><!--/.nav-collapse -->
      
     </div>
-	<div class="container">
-		
-			<g:layoutBody/>
-		
-	</div>	
+    
+    		<div class="container">
+				<g:layoutBody/>
+			</div>
+	
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-		<nav class="navbar navbar-inverse navbar-fixed-bottom" style="font-size: 0.9em; min-height: 40px;">
-		<div class="col-xs-2"></div>
-		  <div class="col-xs-8 text-center">
-		  	<span style="color: #fff;">PMMS Property Management System &#169; 2015</span>
-		  </div>
-		  <div class="col-xs-2 text-right">
-		  	<span style="color: #fff;">Version: 1.0.0</span>
-		  </div>
-		</nav>
 		<g:javascript>
 			// Fix input element click problem
 		$('.dropdown input, .dropdown label').click(function(e) {

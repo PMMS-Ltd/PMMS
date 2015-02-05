@@ -3,9 +3,9 @@
 <h3>Accounts</h3>
 <table class="table table-condensed table-bordered">
 <thead>
-	<tr>
-		<th class="col-xs-3">Account No.</th>
-		<th class="col-xs-2">Type</th>
+	<tr class="bg-primary">
+		<th class="col-xs-3 text-center">Account No.</th>
+		<th class="col-xs-2 text-center">Type</th>
 		<th>Account Name</th>
 		<th></th>
 	</tr>
@@ -13,10 +13,10 @@
 <tbody >
 <g:each in="${clientInstance.accounts }" var="acc">
 <tr>
-<td>
+<td class="text-center">
 	${acc.accNo}
 </td>
-<td>
+<td class="text-center">
 	${acc.type}
 </td>
 <td>

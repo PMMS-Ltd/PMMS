@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div>
-			<h1 class="page-title"><g:message code="default.create.label" args="[entityName]" /></h1>
+			<h1 class="page-header">Request Site Visit</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -25,7 +25,7 @@
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<button class="btn btn-success btn-sm"><i class="fa fa-fw fa-save"></i> Create</button>
 				</fieldset>
 			</g:form>
 			</div>

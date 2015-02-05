@@ -10,24 +10,41 @@
 <r:require modules="wysiwyg" />
 </head>
 <body>
-	<h1 class="page-header">
-		Contacts
-		<div class="btn-group">
-			<a href="#" class="btn btn-xs btn-default dropdown-toggle"
-				data-toggle="dropdown"> <span class="caret"></span> <span
-				class="sr-only">Toggle Dropdown</span>
-			</a>
+	<div class="row">
+			<div class="col-xs-2">
+			<h1 class="page-header">Contacts
+				<div class="btn-group">
+  <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </a>
+  
+  <ul class="dropdown-menu" role="menu">
+  
+    <sec:ifAnyGranted roles="ROLE_ADMIN">
+    <li>
+    <g:link action="create"><i class="fa fa-plus fa-fw text-success"></i> Add New</g:link>	
+    </li>
+    </sec:ifAnyGranted>
+  </ul>
 
-			<ul class="dropdown-menu" role="menu">
-
-				<sec:ifAnyGranted roles="ROLE_ADMIN">
-					<li><g:link action="create">
-							<i class="fa fa-plus fa-fw text-success"></i> Add New</g:link></li>
-				</sec:ifAnyGranted>
-			</ul>
-
+</div>
+</h1>
+			</div>
+			<div class="col-xs-10" style="margin-top: 45px;">
+				<form class="form-inline pull-right" id="personSearchForm" method="post">
+				<div class="form-group">
+					<div class="input-group">
+					<input type="text" class="form-control" id="contactSearch"
+						placeholder="Search..." size="85" name="search"/>
+						<span class="input-group-btn">
+							<button class="btn btn-danger"><i class="fa fa-fw fa-search"></i></button>
+						</span>
+					</div>
+				</div>
+			</form>
+			</div>
 		</div>
-	</h1>
 	<g:if test="${flash.message}">
 		<div class="alert ${flash.status } alert-dismissible col-xs-4 pull-right" role="status">
 			<button type="button" class="close" data-dismiss="alert">
@@ -37,21 +54,6 @@
 			${flash.message}
 		</div>
 	</g:if>
-	<div class="row">
-		<div class="col-lg-6">
-			<form id="personSearchForm" class="form-inline" method="post">
-				<div class="form-group">
-					<input type="text" class="form-control" id="contactSearch"
-						placeholder="Search..." size="85" name="search" />
-				</div>
-				<div class="form-group">
-					<button class="btn btn-default" update="list-person">
-						<i class="fa fa-fw fa-search"></i> Search
-					</button>
-				</div>
-			</form>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-xs-12" id="list-person">
 			<g:render template="personList"
