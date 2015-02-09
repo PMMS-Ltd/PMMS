@@ -45,6 +45,7 @@
 			</form>
 			</div>
 		</div>
+		<hr/>
 	<g:if test="${flash.message}">
 		<div class="alert ${flash.status } alert-dismissible col-xs-4 pull-right" role="status">
 			<button type="button" class="close" data-dismiss="alert">

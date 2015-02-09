@@ -23,8 +23,8 @@
 		  <li role="presentation"><g:link action="listCharges" controller="serviceCharge" id="${clientInstance.id}">Service Charge</g:link></li>
 		</ul>
 		</span>
-		</h1>
-
+	</h1>
+	<hr />
 	<g:if test="${flash.message}">
 		<div class="alert alert-warning col-xs-4 pull-right alert-dismissable"
 			role="status">
@@ -67,7 +67,7 @@
 	</div>
 	<div class="row" style="height: 250px;">
 		<div class="col-lg-6 col-sm-8 col-xs-12" style="height: 100%;">
-			<div class="panel panel-primary" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-fw fa-cog"></i> Details
@@ -137,7 +137,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-primary" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-shield fa-fw"></i> Insurance
@@ -184,7 +184,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-primary" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<!--<i class="fa fa-file-o fa-fw"></i> Recent Files-->
@@ -260,7 +260,7 @@
 	</div>
 	<div class="row" style="margin-top: 15px; margin-bottom: 20px; height: 385px;">
 		<div class="col-lg-6 col-sm-12 col-xs-12" style="height: 100%;">
-			<div class="panel panel-primary" style="height: 100%;">
+			<div class="panel panel-default" style="height: 100%;">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="fa fa-building-o fa-fw"></i> Properties &nbsp;<span class="badge">${clientInstance?.units?.size() }</span>
@@ -286,7 +286,7 @@
 						</div>
 					</h3>
 				</div>
-				<div class="panel-body" style="height: 352px; overflow-y: auto;">
+				<div class="panel-body" style="height: 340px; overflow-y: auto;">
 
 					<g:if test="${clientInstance?.units}">
 						<table class="table table-condensed table-striped">
@@ -325,7 +325,7 @@
 			</div>
 		</div>
 		<div class="col-lg-4 col-xs-12" style="height: 100%;">
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<span class="fa fa-user fa-fw"></span> Directors

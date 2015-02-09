@@ -9,49 +9,32 @@
 <title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 <body>
-
-	<div id="edit-client" class="col-lg-8 col-md-10 col-sm-12 hidden-xs"
-		role="main">
-		<h1>${clientInstance.clientId } <small>Update Directors</small></h1>
-		<g:if test="${flash.message}">
-			<div class="message" role="status">
-				${flash.message}
+	<div class="row">
+		<div class="col-xs-8">
+			<h1 class="page-header">${clientInstance.name } <small>(${clientInstance.clientId})</small></h1>
+		</div>
+		<div class="col-xs-4">
+			<h3 class="pull-right page-header">Edit Directors List</h3>
+		</div>
+	</div> <!-- end of row -->
+	<hr />
+		
+	<g:if test="${flash.message}">
+		<div class="message" role="status">
+			${flash.message}
+		</div>
+	</g:if>
+	<div class="hidden-xs">
+		<div class="row">
+			<g:form url="[resource: clientInstance, action:'update']" class="form form-horizontal" method="PUT">
+					<g:render template="directors" />
+			</g:form>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<g:link action="show" id="${clientInstance.id }" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-arrow-left"></i> Back</g:link>
 			</div>
-		</g:if>
-		<g:hasErrors bean="${clientInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${clientInstance}" var="error">
-					<li
-						<g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
-							error="${error}" /></li>
-				</g:eachError>
-			</ul>
-		</g:hasErrors>
 		</div>
-		<div class="col-lg-10 col-md-10 col-sm-12 hidden-xs">
-			<g:form url="[resource: clientInstance, action:'update']"
-				class="form form-horizontal" method="PUT">
-				<div class="row">
-					<g:render template="directors" />
-				</div>
-				<div class="row">
-					
-						<g:link action="show" id="${clientInstance.id }" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-arrow-left"></i> Back</g:link>
-					
-				</div>
-			</g:form>
-		</div>
-		<div class="visible-xs">
-			<g:form url="[controller:'client', action:'save']" class="form"  method="PUT">
-				<div class="row">
-					<g:render template="directors" />
-				</div>
-				<div class="row">
-					<fieldset>
-						<g:actionSubmit class="btn btn-sm btn-success" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					</fieldset>
-				</div>
-			</g:form>
-		</div>
+	</div>
 </body>
 </html>

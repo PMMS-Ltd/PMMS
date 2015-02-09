@@ -3,14 +3,14 @@
 </head>
 
 <body>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+<div class="modal-header bg-primary">
+	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" style="color: #fff;">&times;</span><span class="sr-only">Close</span></button>
 	<h4 class="modal-title">Service Charge Statement</h4>
 </div>
 <div class="modal-body" id="svcStatement">
 		<div class="row">
 			<div class="col-xs-12 visible-print-block">
-				<img src="${resource(dir:'images', file: 'PMMS Letterhead.png') }" width="100%"/>
+				<img src="${resource(dir:'images', file: 'PMMSlogo.png') }" width="50%"/>
 			</div>
 		</div>
 		<div class="row">

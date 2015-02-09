@@ -74,4 +74,7 @@ class NoteController {
         noteInstance.delete flush:true
         render status: NO_CONTENT
     }
+	def getNotes() {
+		
+	}
 }

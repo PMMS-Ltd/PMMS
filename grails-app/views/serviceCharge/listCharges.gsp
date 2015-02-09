@@ -10,18 +10,6 @@
 		<div class="row">
 			<h1 class="page-header">
 		${clientInstance.name} <small>(${clientInstance.clientId })</small>
-		<!--<span class="pull-right"> <small>Finances</small>
-			<div class="btn-group">
-				<a href="#" class="btn btn-xs btn-default dropdown-toggle"
-					data-toggle="dropdown"> <span class="caret"></span> <span
-					class="sr-only">Toggle Dropdown</span>
-				</a>
-
-				<ul class="dropdown-menu dropdown-menu-right" role="menu">
-					<li><g:link action="show" resource="${clientInstance}">Overview</g:link></li>
-				</ul>
-			</div> <!-- ./btn-group -->
-		<!-- </span>-->
 		<span style="font-size: 0.5em;">
 		<ul class="nav nav-pills pull-right">
 		  <li role="presentation"><g:link action="show" resource="${clientInstance }">Overview</g:link></li>
@@ -30,13 +18,12 @@
 		</ul>
 		</span>
 	</h1>
-	<div class="row">
-		<div class="col-xs-12">
-			<g:link action="addCharges" controller="serviceCharge" id="${clientInstance.id}" class="btn btn-sm btn-success"><i class="fa fa-fw fa-plus"></i> Add Charges</g:link>
-		</div>
-	</div>
+	<hr />
+	
+			
+		
 			<div class="col-xs-6">
-				<h3 class="text-center"><g:formatDate date="${clientInstance.yearStart }" format="dd/MM/yyy"/> - <g:formatDate date="${clientInstance.yearEnd }" format="dd/MM/yyy"/></h3>
+				<h3 class="text-center">Current Financial Year <span class="text-muted">(<g:formatDate date="${clientInstance.yearStart }" format="dd/MM/yyy"/> - <g:formatDate date="${clientInstance.yearEnd }" format="dd/MM/yyy"/>)</span></h3>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -106,7 +93,7 @@
 						</g:each>
 					</tbody>
 				</table>
-			
+			<g:link action="addCharges" controller="serviceCharge" id="${clientInstance.id}" class="btn btn-sm btn-success"><i class="fa fa-fw fa-plus"></i> Add Charges</g:link>
 			</div>
 			<div class="col-xs-6">
 				<h3 class="text-center">

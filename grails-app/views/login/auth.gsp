@@ -20,7 +20,7 @@
  	</div>
  	<div class="row">
     <div class="col-xs-3 center-block bg-danger" style="padding: 40px;float:none;">
-   
+   		
         <g:form class="form" role="form" url="${postUrl}" method="POST">
 				<div class="form-group">
 					<div class="input-group">
@@ -39,6 +39,7 @@
 					<g:link class="btn btn-default btn-sm"><span class="fa fa-question"></span>  Reset Password</g:link>
 					</div>
 				</g:form>
+				
 		</div>
 		</div> <!--  row  -->
     </div> <!-- /container -->

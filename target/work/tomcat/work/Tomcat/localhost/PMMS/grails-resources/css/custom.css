@@ -1,14 +1,23 @@
-.container {
+.container, .container-fluid {
 	margin-top: 30px;
 }
-
+th > a {
+	/*color: #fff;*/
+	color: #1a355e;
+	text-decoration: none !important;
+}
 th {
-	font-weight: 400;
-	font-size: 1.1em;	
+	font-weight: 600;
+	font-size: 1.0em;	
 }
 .table-bordered > thead > tr > th {
-	border-color: transparent;
+	/*border-color: transparent;*/
+	background: #eee;
 }
+.panel-default > .panel-heading {
+	/*border-color: transparent;*/
+	background: #eee;
+} 
 .control-label{
 	font-weight: 600;
 	font-size: 1.1em;
@@ -18,7 +27,11 @@ hr {
 	margin: 0 0 20px 0 ;
 }
 .page-header {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+	font-weight: 600;
+}
+h1, h2, h3{
+	font-family: "Josefin Sans";
 }
 .required-indicator{
 	color: #8f2041;
@@ -83,9 +96,10 @@ hr {
 	background: #5c97bf;
 	color: #fff;
 }
-.bg-rebecca-purple{
+.bg-rebecca-purple, .Directors-Meeting{
 	/*background: #663399;*/
 	background: #553982;
+	border-color: transparent;
 	color: #fff;
 }
 .bg-saffron{

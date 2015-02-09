@@ -2,18 +2,18 @@
 <table class="table table-bordered">
 			<thead>
 					<tr>
-						<th class="text-center bg-primary"></th>
-						<g:sortableColumn property="clientId" title="${message(code: 'client.clientId.label', default: 'Client Id')}" class="text-center bg-primary"/>
+						<th class="text-center"></th>
+						<g:sortableColumn property="clientId" title="${message(code: 'client.clientId.label', default: 'Client Id')}" class="text-center"/>
 						
-						<g:sortableColumn property="name" title="${message(code: 'client.name.label', default: 'Name')}" class=" bg-primary"/>
+						<g:sortableColumn property="name" title="${message(code: 'client.name.label', default: 'Name')}"/>
 						
-						<g:sortableColumn property="address" title="${message(code: 'client.address.label', default: 'Address')}" class="bg-primary"/>
+						<g:sortableColumn property="address" title="${message(code: 'client.address.label', default: 'Address')}"/>
 															
-						<g:sortableColumn property="yearStart" title="${message(code: 'client.yearStart.label', default: 'Year Start')}" class="text-center bg-primary"/>
+						<g:sortableColumn property="yearStart" title="${message(code: 'client.yearStart.label', default: 'Year Start')}" class="text-center "/>
 					
-						<g:sortableColumn property="yearEnd" title="${message(code: 'client.yearEnd.label', default: 'Year End')}" class="text-center bg-primary"/>
+						<g:sortableColumn property="yearEnd" title="${message(code: 'client.yearEnd.label', default: 'Year End')}" class="text-center"/>
 						
-						<th class="text-center bg-primary">Properties</th>
+						<th class="text-center">Properties</th>
 					
 					</tr>
 				</thead>

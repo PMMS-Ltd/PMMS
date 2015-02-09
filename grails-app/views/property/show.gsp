@@ -37,7 +37,7 @@
 				${flash.message}
 			</div>
 		</g:if>
-		<div class="row" style="margin-bottom: 25px;">
+		<div class="row" style="margin-bottom: 25px; height: 245px;">
 			<div class="col-lg-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -77,8 +77,8 @@
 				</div>
 			</div>
 			<g:if test="${propertyInstance?.owner}">
-				<div class="col-lg-4">
-					<div class="panel panel-default">
+				<div class="col-lg-4" style="height: 100%;">
+					<div class="panel panel-default" style="height: 100%;">
 						<div class="panel-heading">
 							<h3 class="panel-title">Owner Details</h3>
 						</div>

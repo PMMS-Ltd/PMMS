@@ -4,20 +4,20 @@
 			<table class="table table-bordered">
 			<thead>
 					<tr>
-						<th style="width:110px;" class="bg-primary"></th>
-						<g:sortableColumn property="salutation" title="${message(code: 'person.salutation.label', default: 'Salutation')}" style="width: 50px;" class="bg-primary"/>
+						<th style="width: 120px;"></th>
+						<g:sortableColumn property="salutation" title="${message(code: 'person.salutation.label', default: 'Salutation')}" style="width: 50px;"/>
 					
-						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" class="col-lg-1 bg-primary" />
+						<g:sortableColumn property="firstName" title="${message(code: 'person.firstName.label', default: 'First Name')}" class="col-lg-1 " />
 					
-						<g:sortableColumn property="initial" title="${message(code: 'person.initial.label', default: 'Initial')}"  style="width:50px;" class="bg-primary"/>
+						<g:sortableColumn property="initial" title="${message(code: 'person.initial.label', default: 'Initial')}"  style="width:50px;"/>
 					
-						<g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}"  class="col-lg-1 bg-primary"/>
+						<g:sortableColumn property="lastName" title="${message(code: 'person.lastName.label', default: 'Last Name')}"  class="col-lg-1"/>
 						
-						<th class="col-lg-4 bg-primary">Address</th>
+						<th class="col-lg-4">Address</th>
 					
-						<th class="bg-primary">Contact Details</th>
+						<th>Contact Details</th>
 						
-						<th class="bg-primary">Type</th>
+						<th>Type</th>
 					
 					</tr>
 				</thead>
@@ -25,7 +25,7 @@
 				<g:each in="${personInstanceList}" status="i" var="personInstance">
 					<tr>
 					
-						<td>
+						<td class="text-center">
 							<div class="btn-group">
 							<g:link action="show" id="${personInstance.id}" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-eye"></i> View</g:link>
 			<button class="btn btn-sm btn-primary dropdown-toggle"

@@ -62,7 +62,7 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance<b class="caret"></b></a>
 	          <ul class="dropdown-menu">
 	          	<li><g:link controller="Job" action="create"><span class="fa fa-plus fa-fw fa-lg text-success"></span><span class="fa fa-wrench fa-fw fa-lg text-success"></span> New Job</g:link></li>
-	          	<li><g:link controller="Job" action="create"><span class="fa fa-plus fa-fw fa-lg text-success"></span><span class="fa fa-flash fa-fw fa-lg text-success"></span> New Issue</g:link></li>
+	          	<li><g:link controller="issue" action="create"><span class="fa fa-plus fa-fw fa-lg text-success"></span><span class="fa fa-flash fa-fw fa-lg text-success"></span> New Issue</g:link></li>
 	          	<li class="divider"></li>
 	            <li><!-- <a href="#"><span class="fa-stack fa-lg">
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
@@ -71,7 +71,7 @@
 	            <li><!-- <a href="#"><span class="fa-stack fa-lg fa-fw pull-left">
 					  <i class="fa fa-wrench fa-flip-horizontal fa-stack-1x"></i>
 					  <i class="fa fa-ban fa-stack-1x text-danger"></i>
-					</span> Closed Jobs</a>--><a href="#"><i class="fa fa-fw fa-lg fa-flash"></i> Issues</a></li>
+					</span> Closed Jobs</a>--><g:link controller="issue" action="index"><i class="fa fa-fw fa-lg fa-flash"></i> Issues</g:link></li>
 	            <li><g:link controller="contract"><span class="fa fa-puzzle-piece fa-fw fa-lg pull-left"></span> Contracts</g:link></li>
 	             <li><g:link controller="siteVisit"><span class="fa fa-location-arrow fa-fw fa-lg pull-left"></span> Site Visits</g:link></li>
 	          </ul>
@@ -120,7 +120,7 @@
         </div><!--/.nav-collapse -->
      
     </div>
-	<div class="container">
+	<div class="container-fluid">
 		
 			<g:layoutBody/>
 		

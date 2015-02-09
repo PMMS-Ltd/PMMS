@@ -10,6 +10,7 @@ class UtilsController {
 	def CalendarService
 	def CMISService
 	def NotificationService
+	def directoryService
 	
     def index() { 
 		def output = [:]
@@ -102,5 +103,10 @@ class UtilsController {
 	def approvers() {
 		//NotificationService.approvalNotification()
 		render (template: "../notifications/basic")
+	}
+	def getUserPic(){
+		def person = directoryService.findPersonWhere(uid: params.id)
+		
+		render (view: 'getUserPic', model:[person: person]); 
 	}
 }

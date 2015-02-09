@@ -16,14 +16,16 @@
 </style>
 
 <r:require modules="jquery, application" />
-<r:layoutResources />
+<!--<r:layoutResources />-->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></link>
+
 </head>
 <body>
 
-	<rendering:inlinePng bytes="${logo}" style="width:100%;" />
-
-	<div
-		style="width: 33.333333333%; float: left; padding-top: 25px; padding-left: 30px;">
+	<rendering:inlinePng bytes="${logo}" style="width: 40%; float: left;"/>
+	<div style="clear: both;"></div>
+	<div style="width: 33.333333333%; float: left; padding-top: 25px; padding-left: 30px;">
 		${property?.owner }<br />
 		<address>
 			${property?.owner?.address?.unitNo}
@@ -63,7 +65,7 @@
 
 	<table class="table table-bordered" style="font-size: 0.9em;">
 		<thead>
-			<tr>
+			<tr >
 				<th class="text-center">Date</th>
 				<th class="text-center">Details</th>
 				<th class="text-center">Credit</th>
@@ -116,21 +118,22 @@
 			</tr>
 		</tbody>
 	</table>
-	<table class="table" style="width: 50%; float: right;">
-		<tr>
-			<th class="text-right"><h4>Balance:</h4></th>
-			<td></td>
-			<td class="text-center"><h4>
-					<g:formatNumber number="${creditSum + debitSum}" type="currency"
-						currencyCode="GBP" currencySymbol="£" />
-				</h4></td>
-		</tr>
-	</table>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-	  <div class="container">
-	    <rendering:inlinePng bytes="${logo}" style="width:100%;" />
-	  </div>
-	</nav>
+	<div style="width: 50%; float:right; margin-right: 50px; margin-top: 50px;">
+		<h4 class="text-right">Balance: <g:formatNumber number="${creditSum + debitSum}" type="currency" currencyCode="GBP" currencySymbol="£" /></h4>
+	</div>
+	<div style="clear:both;"></div>
+	<div style="width: 100%; min-height: 100px; position: fixed; bottom: 0px; border-color: #8b1b3f !important; border-top: 1px solid;">
+		<div>
+			<rendering:inlinePng bytes="${RICS}" style="width: 120px; float: left; margin-top: 20px;"/>
+			<rendering:inlinePng bytes="${IRPM}" style="width: 60px; float: left; margin-left: 40px; margin-top: 20px;"/>
+		</div>
+		<div class="text-right">
+			<span style="font-size: 1.0em;">Property Maintenance &amp; Management Services Ltd.</span><br />
+			<span style="font-size: 0.8em;">Ground Floor | Sidda House | 350 Lower Addiscombe Road<br />
+			Croydon | Surrey | CR9 7AX | <b>phone</b> 020 8656 0568</span> 
+			<p style="font-size: 0.8em;"><b>www.pmms.org.uk</b></p>
+		</div>
+	</div>
 	<r:layoutResources />
 </body>
 </html>

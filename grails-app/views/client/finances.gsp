@@ -33,7 +33,7 @@
 		</ul>
 		</span>
 	</h1>
-
+	<hr />
 	<g:if test="${flash.message}">
 		<div class="alert alert-warning col-xs-4 pull-right alert-dismissable"
 			role="status">

@@ -8,7 +8,9 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<h1 class="page-header">${domainClass.propertyName}
+		<div class="row">
+			<div class="col-xs-2">
+			<h1 class="page-header">\${domainClass.propertyName }
 				<div class="btn-group">
   <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
@@ -25,7 +27,24 @@
   </ul>
 
 </div>
-</h1>	
+</h1>
+			</div>
+			
+			<div class="col-xs-10" style="margin-top: 45px;">
+				<form class="form-inline pull-right" id="clientSearchForm" method="post" action="/${domainClass.propertyName }/search">
+				<div class="form-group">
+					<div class="input-group">
+					<input type="text" class="form-control" id="${domainClass.propertyName }Search"
+						placeholder="Search..." size="85" name="search"/>
+						<span class="input-group-btn">
+							<button class="btn btn-danger"><i class="fa fa-fw fa-search"></i></button>
+						</span>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+		<hr />
 		<!-- <a href="#list-${domainClass.propertyName}" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
@@ -38,9 +57,10 @@
 			<g:if test="\${flash.message}">
 				<div class="message" role="status">\${flash.message}</div>
 			</g:if>-->
-			<table class="table table-striped">
+			<table class="table table-bordered">
 			<thead>
 					<tr>
+						<th></th>
 					<%  excludedProps = Event.allEvents.toList() << 'id' << 'version'
 						allowedNames = domainClass.persistentProperties*.name << 'dateCreated' << 'lastUpdated'
 						props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) && it.type != null && !Collection.isAssignableFrom(it.type) && (domainClass.constrainedProperties[it.name] ? domainClass.constrainedProperties[it.name].display : true) }
@@ -57,9 +77,10 @@
 				<tbody>
 				<g:each in="\${${propertyName}List}" status="i" var="${propertyName}">
 					<tr>
+						<td><g:link class="btn btn-primary btn-sm" action="show" id="\${${propertyName}.id}"><i class="fa fa-fw fa-eye-o"></i> View</g:link></td>
 					<%  props.eachWithIndex { p, i ->
 							if (i == 0) { %>
-						<td><g:link action="show" id="\${${propertyName}.id}">\${fieldValue(bean: ${propertyName}, field: "${p.name}")}</g:link></td>
+						<td>\${fieldValue(bean: ${propertyName}, field: "${p.name}")}</td>
 					<%      } else if (i < 6) {
 								if (p.type == Boolean || p.type == boolean) { %>
 						<td><g:formatBoolean boolean="\${${propertyName}.${p.name}}" /></td>
