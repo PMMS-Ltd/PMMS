@@ -6,8 +6,12 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-xs-4">
-		<g:select id="client" name="client.id" from="${uk.org.pmms.Client.list()}" optionKey="id" required="" value="${siteVisitInstance?.client?.id}" class="many-to-one form-control"/>
-
+		<g:if test="${siteVisitInstance.client }">
+			<p class="form-control-static">${siteVisitInstance.client }</p>
+		</g:if>
+		<g:else>
+			<g:select id="client" name="client.id" from="${uk.org.pmms.Client.list()}" optionKey="id" required="" value="${siteVisitInstance?.client?.id}"  noSelection="${['null':'']}" class="many-to-one form-control"/>
+		</g:else>
 	</div>
 </div>
 <div class="form-group ${hasErrors(bean: siteVisitInstance, field: 'visitStartDate', 'has-error')} required">
@@ -55,10 +59,30 @@
 		<g:message code="siteVisit.jobs.label" default="Jobs" />
 		
 	</label>
+	<g:if test="${siteVisitInstance.jobs }">
 	<div class="col-xs-8">
-		<g:select name="jobs" from="${uk.org.pmms.Job.list()}" multiple="multiple" optionKey="id" size="5" value="${siteVisitInstance?.jobs*.id}" class="form-control"/>
+		<ul class="list-group">
+		 <g:each in="${siteVisitInstance.jobs }" var="job">
+			 	<li class="list-group-item">
+			 		<div class="row">
+			 			<div class="col-xs-2">
+			 				 <span class="badge">${job.id }</span>
+			 			</div>
+			 			<div class="col-xs-10">
+			 				${job.faultDetails }
+			 			</div>
+			 		</div>
+			 	</li>
+			</g:each>
+		</ul>
+		</div>
+	</g:if>
+	<g:else>
+		<div class="col-xs-8" id="jobs">
+		<!--<g:select name="jobs" from="" multiple="multiple" optionKey="id" size="5" value="${siteVisitInstance?.jobs*.id}" class="form-control"/>-->
 		<!--<g:link class="btn btn-xs btn-default" action="addJob" id="${site }"params="[jobId: '2']"><i class="fa fa-fw fa-chevron-right"></i></g:link>-->
 	</div>
+	</g:else>
 </div>
 <input type="hidden" name="requester" value="${siteVisitInstance?.requester }"/>
 <r:script type="text/javascript">
@@ -71,8 +95,16 @@
         $("#visitEndDate").on("dp.change",function (e) {
             $('#visitStartDate').data("DateTimePicker").maxDate(e.date);
         });
-        
-        $('#jobs').multiSelect()
+        $("#client").on('change', function(){
+        	$.get( "${request.contextPath }/siteVisit/getJobs/"+this.value, function( data ) {
+				  $( "#jobs" ).html( data );
+				  $('#jobsSelect').multiSelect();
+				});
+        	//$("#jobs").html($.get('${request.contextPath }/siteVisit/getJobs/'+this.value));
+        	//$("#jobs").prop('disabled', false);
+        	//$('#jobs').multiSelect();
+        })
+       
     });
 </r:script>
 

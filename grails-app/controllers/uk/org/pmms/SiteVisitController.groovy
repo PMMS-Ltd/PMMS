@@ -133,7 +133,11 @@ class SiteVisitController {
 		sv.status = 'Approved'
 		
 		sv.save(flush:true, failOnError: true)
-		
+		sv.jobs.each() {
+			def job = Job.get(it.id)
+			job.requiresSV = false
+			job.save()
+		}
 		request.withFormat {
 			'*' {
 				flash.message = "Site Visit " + sv.id + "approved by " + username + " at " + dfMedium.format(sv.approvalDate)
@@ -150,5 +154,16 @@ class SiteVisitController {
 		
 		sv.addToJobs(job).save(flush:true, failOnError: true)
 		render (view:"create", model:[siteVisitInstance: sv])
+	}
+	def getJobs() {
+		def jobs = Job.findAllByClientAndRequiresSV(Client.get(params.id), true)
+		
+		def getJobs = "<select id='jobsSelect' name='jobs' multiple='multiple'>"
+		
+		jobs.each(){
+			getJobs += "<option value='"+it.id+"'>"+it.id+"</option>"	
+		}
+		getJobs += "</select>"
+		render getJobs
 	}
 }

@@ -27,6 +27,7 @@
 
 </div>
 </h1>
+<hr />
 			<g:if test="${flash.message}">
 		<r:script>
 				new PNotify({

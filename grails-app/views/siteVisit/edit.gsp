@@ -10,7 +10,7 @@
 	<body>
 		
 		<div>
-			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
+			<h1 class="page-header"><g:message code="default.edit.label" args="[entityName]" /> ${siteVisitInstance.id }</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

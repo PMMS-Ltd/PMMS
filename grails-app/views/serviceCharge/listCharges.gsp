@@ -8,20 +8,20 @@
 	</head>
 	<body>
 		<div class="row">
+			<div class="col-xs-12">
 			<h1 class="page-header">
-		${clientInstance.name} <small>(${clientInstance.clientId })</small>
-		<span style="font-size: 0.5em;">
-		<ul class="nav nav-pills pull-right">
-		  <li role="presentation"><g:link action="show" resource="${clientInstance }">Overview</g:link></li>
-		  <li role="presentation"><g:link action="finances" resource="${clientInstance }">Arrears</g:link></li>
-		  <li role="presentation" class="active"><a href="#">Service Charge</a></li>
-		</ul>
-		</span>
-	</h1>
-	<hr />
+				${clientInstance.name} <small>(${clientInstance.clientId })</small>
+				<ul class="nav nav-pills pull-right" style="font-size: 0.5em;">
+				  <li role="presentation"><g:link action="show" resource="${clientInstance }">Overview</g:link></li>
+				  <li role="presentation"><g:link action="finances" resource="${clientInstance }">Arrears</g:link></li>
+				  <li role="presentation" class="active"><a href="#">Service Charge</a></li>
+				</ul>
+			</h1>
+			<hr />
+			</div>
 	
-			
-		
+	</div>
+	<div class="row">
 			<div class="col-xs-6">
 				<h3 class="text-center">Current Financial Year <span class="text-muted">(<g:formatDate date="${clientInstance.yearStart }" format="dd/MM/yyy"/> - <g:formatDate date="${clientInstance.yearEnd }" format="dd/MM/yyy"/>)</span></h3>
 				<table class="table table-bordered">
