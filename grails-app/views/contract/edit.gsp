@@ -27,6 +27,7 @@
 			</div>
 			<div class="row">
 				<button name="update" class="btn btn-sm btn-success"><i class="fa fa-fw fa-refresh"></i> Update</button>
+				<a class="btn btn-sm btn-default" href="#" onclick="javascript:window.history.back();"><i class="fa fa-fw fa-times"></i> Cancel</a>
 			</div>
 		</g:form>
 		</div>

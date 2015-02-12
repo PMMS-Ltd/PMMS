@@ -28,7 +28,20 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Contract Details</h3>
+					<h3 class="panel-title">Contract Details
+						<div class="dropdown pull-right">
+							<a href="#" class="dropdown-toggle btn btn-default btn-xs"
+								data-toggle="dropdown"> <i class="caret"></i>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li role="presentation">
+									<g:link class="edit" action="edit" resource="${contractInstance}">
+										<i class="fa fa-pencil-square-o fa-fw"></i> Edit
+									</g:link>
+								</li>
+							</ul>
+						</div>
+					</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table table-bordered">
@@ -128,7 +141,7 @@
 		</div>
 	</div><!-- end of row -->
 	<div class="row" style="margin-top: 25px;">
-		<div class="col-lg-4">
+		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa fw fa-comment-o"></i> Notes <button class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#addNote"><i class="fa fa-fw fa-plus"></i></button></h3>
