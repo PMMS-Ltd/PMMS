@@ -4,6 +4,7 @@
 		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="${message(code: 'job.label', default: 'Job')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<r:require module="typeahead"/>
 	</head>
 	<body>
 		<div id="create-job" class="content scaffold-create" role="main">
@@ -24,7 +25,8 @@
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<button name="create" class="btn btn-success btn-sm"><i class="fa fa-fw fa-save"></i> Create</button>
+					<a name="cancel" class="btn btn-default btn-sm" onclick="javascript:window.history.back();"><i class="fa fa-fw fa-times"></i> Cancel</a>
 				</fieldset>
 			</g:form>
 			</div>

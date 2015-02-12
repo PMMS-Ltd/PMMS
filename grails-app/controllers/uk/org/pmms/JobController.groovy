@@ -13,6 +13,7 @@ class JobController {
     static responseFormats = ['html','json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	def springSecurityService
+	def directoryService
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Job.list(params), [status: OK]
@@ -22,7 +23,12 @@ class JobController {
 		def username = springSecurityService.principal.username
 		params.enteredBy = username
 		def job = new Job(params)
-		respond job, [status: OK]
+		def users = directoryService.findPeopleWhere(objectClass:'inetOrgPerson')
+		request.withFormat {
+			html { render(view:'create', model:[jobInstance: job, users: users])}
+		   json{ respond job, [status: OK]}
+	   }
+		//respond job, [status: OK, users: users]
 	}
 	def show(Job jobInstance) {
 		respond jobInstance, [status: OK]
@@ -36,8 +42,11 @@ class JobController {
 
         jobInstance.validate()
         if (jobInstance.hasErrors()) {
-            render status: NOT_ACCEPTABLE
-            return
+			request.withFormat {
+				form multipartForm {respond jobInstance.errors, view:'create'}
+			   '*'{  render status: NOT_ACCEPTABLE}
+			}
+			return
         }
 
         jobInstance.save flush:true

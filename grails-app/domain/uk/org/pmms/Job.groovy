@@ -6,7 +6,7 @@ class Job {
 	Client client
 	String faultLocation
 	String faultDetails
-	String priority
+	String priority = "Normal"
 	String repoFolderId
 	String status = "New"
 	Supplier contractor
@@ -23,6 +23,7 @@ class Job {
 		repoFolderId nullable: true, blank: false, display: false
 		contractor nullable: true, blank: true
 		siteVisit nullable: true
+		priority inList: ["Emergency","High","Normal","Low"]
 		
     }
 }
