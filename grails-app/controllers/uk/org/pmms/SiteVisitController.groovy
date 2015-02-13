@@ -127,9 +127,9 @@ class SiteVisitController {
 	def approveVisit() {
 		def sv = SiteVisit.get(params.id)
 		String username = springSecurityService.principal.username
-		sv.approver = username
+		//sv.approver = username
 		sv.approved = true
-		sv.approvalDate = new Date()
+		//sv.approvalDate = new Date()
 		sv.status = 'Approved'
 		
 		sv.save(flush:true, failOnError: true)
@@ -140,9 +140,33 @@ class SiteVisitController {
 		}
 		request.withFormat {
 			'*' {
-				flash.message = "Site Visit " + sv.id + "approved by " + username + " at " + dfMedium.format(sv.approvalDate)
+				flash.message = "Site Visit " + sv.id + " approved by " + username + " at " + dfMedium.format(new Date())
 				flash.type = 'success'
-				flash.icon = 'fa fa-check'
+				flash.icon = 'fa fa-thumbs-up'
+				redirect action:"index", method:"GET"
+			}
+		}
+	}
+	@Transactional
+	def rejectVisit() {
+		def sv = SiteVisit.get(params.id)
+		String username = springSecurityService.principal.username
+		sv.approver = username
+		sv.approved = false
+		sv.approvalDate = new Date()
+		sv.status = 'Rejected'
+		
+		sv.save(flush:true, failOnError: true)
+		/*sv.jobs.each() {
+			def job = Job.get(it.id)
+			job.requiresSV = false
+			job.save()
+		}*/
+		request.withFormat {
+			'*' {
+				flash.message = "Site Visit " + sv.id + " Rejected by " + username + " at " + dfMedium.format(sv.approvalDate)
+				flash.type = 'danger'
+				flash.icon = 'fa fa-thumbs-down'
 				redirect action:"index", method:"GET"
 			}
 		}

@@ -155,6 +155,11 @@ h1, h2, h3{
 	font-size: 85%;
 	border-color: #41A85F;
 }
+.status-rejected, .label-rejected {
+	background: #8f2041;
+	font-size: 85%;
+	border-color: #8f2041;
+}
  #editor {overflow-y:scroll; height:300px; margin-top: 15px;}
  
  
@@ -178,4 +183,26 @@ h1, h2, h3{
  	background: #663399;
 	color: #fff;
 	font-size: 85%;
+ }
+ 
+ /* Select Picker */
+  .text-emergency{
+ 	background-color: #8f2041;
+ 	color: #fff;
+ }
+  .text-high{
+ 	background-color: #f4d03f;
+ 	color: #fff;
+ }
+  .text-normal{
+ 	background-color: #41a85f;
+ 	color: #fff;
+ }
+  .text-low{
+  	background-color: #2969b0;
+  	color: #fff;
+ }
+ button .selectpicker{
+ 	color: #1a355e;
+ 	background-color: #fff !important;
  }

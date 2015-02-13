@@ -232,7 +232,7 @@ grails.plugin.springsecurity.ldap.context. server = 'ldap://192.168.0.61:389'
 grails.plugin.springsecurity.ldap.authorities.retrieveGroupRoles = true
 grails.plugin.springsecurity.ldap.authorities.retrieveDatabaseRoles = false
 grails.plugin.springsecurity.ldap.authorities.groupSearchBase = 'ou=Groups,dc=test,dc=pmms,dc=org,dc=uk'
-grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'memberUid={1}'
+grails.plugin.springsecurity.ldap.authorities.groupSearchFilter = 'uniqueMember={0}'
 grails.plugin.springsecurity.ldap.search.base = 'dc=test,dc=pmms,dc=org,dc=uk'
 grails.plugin.springsecurity.ldap.mapper.userDetailsClass = 'inetOrgPerson'
 
