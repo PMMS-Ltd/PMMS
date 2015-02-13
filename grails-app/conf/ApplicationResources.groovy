@@ -38,12 +38,4 @@ modules = {
 		resource url:'http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js'
 		resource url:'http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css'
 	}
-	multiSelect {
-		resource url:'js/jquery.multi-select.js'
-		resource url:'css/multi-select.css'
-		resource url:'images/switch.png'
-	}
-	typeahead {
-		resource url:'js/typeahead.bundle.js'
-	}
 }

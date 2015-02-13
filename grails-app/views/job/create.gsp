@@ -4,7 +4,6 @@
 		<meta name="layout" content="PMMS">
 		<g:set var="entityName" value="${message(code: 'job.label', default: 'Job')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-		<r:require module="typeahead"/>
 	</head>
 	<body>
 		<div id="create-job" class="content scaffold-create" role="main">
