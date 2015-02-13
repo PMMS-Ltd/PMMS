@@ -79,6 +79,9 @@ class UtilsController {
 		
 		render CalendarService.createCalendar(params)
 	}
+	def showNotification() {
+		render (view: '/notifications/basic')
+	}
 	def uploadDocument(){
 		
 		def CommonsMultipartFile uploadedFile = params.myFile
@@ -100,13 +103,23 @@ class UtilsController {
 		 response.outputStream << output
 		}
 	}
-	def approvers() {
-		//NotificationService.approvalNotification()
-		render (template: "../notifications/basic")
+	def getGroupMemberEmails() {
+		if (params.name){
+			def approvers = directoryService.findGroupWhere('cn': params.name)
+			def output = []
+			approvers.uniqueMemberValues().each(){
+				
+				def person = directoryService.findPersonWhere('cn':it.substring(3).split(',')[0])
+				def arr = [:]
+				arr.put('uid', person.uid)
+				arr.put('name', person.displayName)
+				arr.put('email', person.mail)
+				
+				output.add(arr)
+			}
+			render output as JSON
+		}
 	}
-	def getUserPic(){
-		def person = directoryService.findPersonWhere(uid: params.id)
-		
-		render (view: 'getUserPic', model:[person: person]); 
-	}
+	
+	
 }

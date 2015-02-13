@@ -43,4 +43,7 @@ modules = {
 		resource url:'css/multi-select.css'
 		resource url:'images/switch.png'
 	}
+	typeahead {
+		resource url:'js/typeahead.bundle.js'
+	}
 }

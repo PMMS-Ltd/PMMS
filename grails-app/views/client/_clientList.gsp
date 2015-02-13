@@ -1,4 +1,4 @@
-<g:if test="${clientInstanceList.size() > 0 }">
+<g:if test="${clientInstanceList}">
 <table class="table table-bordered">
 			<thead>
 					<tr>

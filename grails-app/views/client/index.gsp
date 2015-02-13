@@ -55,7 +55,7 @@
 			
 		
 	<div class="row">
-			<div class="col-lg-12" id="list-client">
+		<div class="col-lg-12" id="list-client">
 			<g:render template="clientList" model="['clientInstanceList': clientInstanceList]"/>
 		</div>
 	</div>

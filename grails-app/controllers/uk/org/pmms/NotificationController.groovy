@@ -114,4 +114,15 @@ class NotificationController {
 		notification.save()
 		render "ok"
 	}
+	def sendNotificationEmail(){
+		sendMail {
+			to "jon@pmms.org.uk"
+			subject "-PMMS- Approval Required - Site Visit"
+			body(
+				 view: "/notifications/basic",
+				 model: [name: 'Jonathan Lee']
+			)
+		}
+		render "mail sent"
+	}
 }

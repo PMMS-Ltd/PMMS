@@ -3,12 +3,14 @@ package uk.org.pmms
 
 
 import static org.springframework.http.HttpStatus.*
+import grails.rest.RestfulController
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_USER'])
+
 class SupplierController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -23,7 +25,13 @@ class SupplierController {
 		
         
     }
-
+	def supplierNames() {
+		def output = []
+		Supplier.list().each(){
+			output.add('name':it.name)
+		}
+		render output as JSON
+	}
     def show(Supplier supplierInstance) {
 		request.withFormat {
 			json {render supplierInstance as JSON}
