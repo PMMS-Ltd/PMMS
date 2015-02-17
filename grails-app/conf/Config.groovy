@@ -101,14 +101,6 @@ environments {
 		grails.docServer.url = "http://localhost:9090/DocServer"
 		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
 		grails.camunda.url = "http://localhost:8090"
-		
-		mail {
-			host = "localhost"
-			port = 25
-			username = "noreply@test.pmms.org.uk"
-			password = "pmms"
-		  }
-		grails.mail.default.from="noreply@test.pmms.org.uk"
     }
 	UAT {
 		grails.logging.jul.usebridge = false
@@ -158,7 +150,18 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
-
+mail {
+	host = "smtp.mailgun.org"
+	port = 587
+	username = "noreply@pmms.org.uk"
+	password = "Jonlee2001"
+	props = ["mail.smtp.auth":"true",
+		 "mail.smtp.transport":"smtps",
+		 "mail.smtp.socketFactory.port":"587",
+		 "mail.smtp.starttls.enable":"true"
+	  ]
+	}
+grails.mail.default.from="noreply@test.pmms.org.uk"
 auditLog {
 	verbose = false // verbosely log all changed values to db
 	logIds = false  // log db-ids of associated objects.
