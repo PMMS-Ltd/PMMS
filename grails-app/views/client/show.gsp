@@ -34,25 +34,25 @@
 		</div>
 	</g:if>
 	<div class="row hidden-xs">
-		<div class="col-sm-4 col-lg-2">
-			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-info',value: 34, name: 'Open Jobs', icon: 'fa-wrench']"/>
+		<div class="col-xs-2 col-lg-1">
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-info',value: uk.org.pmms.Job.findAllByClientAndStatusNot(clientInstance, 'Closed').size(), name: 'Open Jobs', icon: 'fa-wrench', link: '/job/index']"/>
 		</div>
-		<div class="col-sm-4 col-lg-2">
+		<div class="col-xs-2 col-lg-1">
 			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-danger',value: 55, name: 'Arrears', icon: 'fa-gbp']"/>
 		</div>
-		<div class="col-sm-4 col-lg-2">
+		<div class="col-xs-2 col-lg-1">
 			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-saffron',value: 18, name: 'Notifications', icon: 'fa-bullhorn']"/>
 		</div>
-		<div class="col-sm-4 col-lg-2">
+		<div class="col-xs-2 col-lg-1">
 			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-success',value: 5, name: 'Approvals', icon: 'fa-check']"/>
 		</div>
 		<g:if test="${clientInstance.calendarId != null}">
-		<div class="col-sm-4 col-lg-2">
+		<div class="col-xs-2 col-lg-1">
 			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-rebecca-purple',value: eventCount, name: 'Upcoming Events', icon: 'fa-calendar', link: '/calendar/show/', id: clientInstance.calendarId]"/>
 		</div>
 		</g:if>
-		<div class="col-sm-4 col-lg-2">
-			<div class="small-box" style="background: #95a5a6;">
+		<div class="col-xs-2 col-lg-1">
+			<div class="small-box text-center" style="background: #95a5a6;">
 				<div class="small-box-inner">
 					<h3>${transfers.getTransfersByClient(clientInstance).size()}</h3>
 					<p>Transfers</p>

@@ -1,6 +1,7 @@
 package uk.org.pmms
 
 class Job {
+	static auditable = [ignore:['version','lastUpdated','repoFolderId','notes']]
 	String enteredBy
 	String assignedTo
 	Client client
@@ -19,11 +20,20 @@ class Job {
 	static hasMany = [notes: Note, issues: Issue]
 		
     static constraints = {
-		status inList: ["New", "Open", "Awaiting Further Info","Pending","Closed"], blank: true, nullable: false, display: false
+		status inList: ["New", "Assigned", "Declined","In Progress","Work Complete", "Invoice Received", "Awaiting Payment","Closed","Awaiting Further Info"] 
 		repoFolderId nullable: true, blank: false, display: false
 		contractor nullable: true, blank: true
 		siteVisit nullable: true
 		priority inList: ["Emergency","High","Normal","Low"]
 		
     }
+	
+	def beforeInsert() {
+		if (status == "New" && contractor)
+		status = "Assigned"
+	}
+	def beforeUpdate() {
+		if (status == "New" && contractor)
+		status = "Assigned"
+	}
 }

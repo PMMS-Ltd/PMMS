@@ -33,6 +33,13 @@ class JobController {
 	def show(Job jobInstance) {
 		respond jobInstance, [status: OK]
 	}
+	def edit(Job jobInstance) {
+		def users = directoryService.findPeopleWhere(objectClass:'inetOrgPerson')
+		request.withFormat {
+			html { render(view:'edit', model:[jobInstance: jobInstance, users: users])}
+		   json{ respond job, [status: OK]}
+	   }
+	}
     @Transactional
     def save(Job jobInstance) {
         if (jobInstance == null) {
@@ -71,7 +78,10 @@ class JobController {
         }
 
         jobInstance.save flush:true
-        respond jobInstance, [status: OK]
+       request.withFormat {
+			 form multipartForm { render(view:'show', model:[jobInstance: jobInstance])}
+			'*'{ respond jobInstance, [status: CREATED]}
+		}
     }
 
     @Transactional
@@ -85,4 +95,43 @@ class JobController {
         jobInstance.delete flush:true
         render status: NO_CONTENT
     }
+	@Transactional
+	def accept() {
+		def jobInstance = Job.get(params.id)
+		if (jobInstance && jobInstance.status=="Assigned") {
+			jobInstance.status = "In Progress"
+			jobInstance.save(flush:true)
+			//TODO Send notification to assignee
+			render jobInstance 
+		}
+	}
+	@Transactional
+	def decline() {
+		def jobInstance = Job.get(params.id)
+		if (jobInstance && jobInstance.status=="Assigned") {
+			jobInstance.status = "Declined"
+			jobInstance.save(flush:true)
+			//TODO Send notification to assignee
+			render jobInstance
+		}
+	}
+	@Transactional
+	def complete() {
+		def jobInstance = Job.get(params.id)
+		if (jobInstance && jobInstance.status=="In Progress") {
+			jobInstance.status = "Work Complete"
+			jobInstance.save(flush:true)
+			//TODO Send notification to assignee
+			render jobInstance
+		}
+	}
+	@Transactional
+	def addNote() {
+		def job = Job.get(params.id)
+		def note = Note.get(params.noteId)
+		
+		job.addToNotes(note).save()
+		
+		redirect action: 'show', id: job.id 
+	}
 }

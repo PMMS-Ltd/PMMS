@@ -32,11 +32,12 @@ class NoteController {
             render status: NOT_ACCEPTABLE
             return
         }
-
-		if (!request.getFile('myFile').empty){
-			def CommonsMultipartFile uploadedFile = params.myFile
-			def file = CMISService.createDocument(params.repoFolderId,' ', uploadedFile)
-			noteInstance.addToAttachments(file)
+		if (params.myFile){
+			if (!request.getFile('myFile').empty){
+				def CommonsMultipartFile uploadedFile = params.myFile
+				def file = CMISService.createDocument(params.repoFolderId,' ', uploadedFile)
+				noteInstance.addToAttachments(file)
+			}
 		}
 		noteInstance.save flush:true
 		

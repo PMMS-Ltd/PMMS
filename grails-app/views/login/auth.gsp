@@ -10,7 +10,7 @@
    <r:layoutResources/>
   </head>
 
-  <body>
+  <body style="background-color: #efefef;">
 
     <div class="container">
     <div class="row">
@@ -19,7 +19,7 @@
     </div>
  	</div>
  	<div class="row">
-    <div class="col-xs-3 center-block bg-danger" style="padding: 40px;float:none;">
+    <div class="col-xs-3 center-block bg-danger" style="padding: 40px; float:none; border-radius: 6px;">
    		
         <g:form class="form" role="form" url="${postUrl}" method="POST">
 				<div class="form-group">

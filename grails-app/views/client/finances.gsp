@@ -47,49 +47,17 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="row">
-				<div class="col-sm-4 col-lg-2">
-					<div class="small-box" style="background: #95a5a6;">
-						<div class="small-box-inner">
-							<h3>1</h3>
-							<p>Reminder 1</p>
-						</div>
-						<div class="icon">1</div>
-						<a href="#" class="small-box-footer">More info <i
-							class="fa fa-arrow-circle-right fa-fw"></i></a>
-					</div>
+				<div class="col-xs-4 col-lg-1">
+					<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-info',value: 0, name: 'Reminder 1', icon: 'fa-1']"/>
 				</div>
-				<div class="col-sm-4 col-lg-2">
-					<div class="small-box bg-saffron">
-						<div class="small-box-inner">
-							<h3>1</h3>
-							<p>Reminder 2</p>
-						</div>
-						<span class="icon">2</span> <a href="#" class="small-box-footer">More
-							info <i class="fa fa-arrow-circle-right fa-fw"></i>
-						</a>
-					</div>
+				<div class="col-xs-4 col-lg-1">
+					<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-success',value: 0, name: 'Reminder 2', icon: 'fa-2']"/>
 				</div>
-				<div class="col-sm-4 col-lg-2">
-					<div class="small-box bg-danger">
-						<div class="small-box-inner">
-							<h3>1</h3>
-							<p>Reminder 3</p>
-							<span class="icon">3</span>
-						</div>
-						<a href="#" class="small-box-footer">More info <i
-							class="fa fa-arrow-circle-right fa-fw"></i></a>
-					</div>
+				<div class="col-xs-4 col-lg-1">
+					<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-warning',value: 0, name: 'Reminder 3', icon: 'fa-3']"/>
 				</div>
-				<div class="col-sm-4 col-lg-2">
-					<div class="small-box bg-primary">
-						<div class="small-box-inner">
-							<h3>1</h3>
-							<p>Solicitor</p>
-							<span class="icon"><i class="fa fa-fw fa-gavel"></i></span>
-						</div>
-						<a href="#" class="small-box-footer">More info <i
-							class="fa fa-arrow-circle-right fa-fw"></i></a>
-					</div>
+				<div class="col-xs-4 col-lg-1">
+					<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-danger',value: 0, name: 'Solicitor', icon: 'fa-gavel']"/>
 				</div>
 			</div>
 		</div>

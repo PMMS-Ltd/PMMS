@@ -31,7 +31,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-left" style="margin-left:15px;">
-          	<li><img src="${resource (dir: 'images', file: 'PMMSlogo.png') }" style="width: 140px; padding: 5px;"/></li>
+          	<li><img src="${resource (dir: 'images', file: 'PMMSlogo.png') }" style="width: 130px; padding: 5px;"/></li>
             <li><a href="${request.contextPath}">Dashboard</a></li>
             <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
@@ -120,7 +120,7 @@
         </div><!--/.nav-collapse -->
      
     </div>
-	<div class="container-fluid">
+	<div class="container-fluid" style="margin-bottom: 40px;">
 		
 			<g:layoutBody/>
 		
