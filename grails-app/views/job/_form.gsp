@@ -31,6 +31,15 @@
 
 	</div>
 </div>
+<div class="form-group ${hasErrors(bean: jobInstance, field: 'category', 'has-error')} ">
+	<label for="category" class="control-label col-xs-3">
+		<g:message code="job.category.label" default="Category" />
+		
+	</label>
+	<div class="col-xs-8">
+		<g:select id="category" name="category.id" from="${uk.org.pmms.SupplierType.list()}" optionKey="id" value="${jobInstance?.category?.id}" class="many-to-one form-control" noSelection="['null': '']"/>
+	</div>
+</div>
 <div class="form-group ${hasErrors(bean: jobInstance, field: 'contractor', 'has-error')} ">
 	<label for="contractor" class="control-label col-xs-3">
 		<g:message code="job.contractor.label" default="Contractor" />
@@ -84,3 +93,17 @@
 
 	</div>
 </div>
+<g:if test="${jobInstance.id }">
+	<div class="form-group">
+		<label for="requiresSV" class="control-label col-xs-3">
+			<g:message code="job.requiresSV.label" default="Requires Site Visit?" />
+		</label>
+		<div class="col-xs-8">
+			<div class="checkbox">
+	        <label>
+	          <input type="checkbox" name="requiresSV" ${jobInstance?.requiresSV ? 'checked' : '' }>
+	        </label>
+	      </div>
+		</div>
+	</div>
+</g:if>
