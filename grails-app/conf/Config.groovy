@@ -1,4 +1,3 @@
-
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -118,7 +117,7 @@ environments {
     }
 	UAT {
 		grails.logging.jul.usebridge = false
-		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		grails.alfresco.repo.clientfolder = 'aed8ffb0-333e-48df-9ccb-e9e10b5c93ce'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		grails.alfresco.repo.contractfolder = 'b07d6c04-693a-4fb7-9bf8-c7efd51ba6f5'
 		
@@ -129,7 +128,7 @@ environments {
 	}
     production {
         grails.logging.jul.usebridge = false
-		grails.alfresco.repo.clientfolder = '95c63d57-e1e2-47f9-8ef3-37a248059bf0'
+		grails.alfresco.repo.clientfolder = 'aed8ffb0-333e-48df-9ccb-e9e10b5c93ce'
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		
 		//grails.serverURL ="http://192.168.0.49/PMMS"
@@ -264,4 +263,3 @@ grails.plugins.directoryservice.dit = [
 		'source':'directory'		
 	]
 ]
-
