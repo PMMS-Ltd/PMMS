@@ -6,15 +6,17 @@ import static org.springframework.http.HttpStatus.*
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat
-
 import grails.converters.JSON
 import grails.transaction.Transactional
+import grails.plugin.springsecurity.annotation.Secured
 
 @Transactional(readOnly = true)
+@Secured(['ROLE_USER'])
 class SiteVisitController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	def springSecurityService
+	def NotificationService
 	DateFormat dfShort = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 	DateFormat dfMedium = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
     def index(Integer max) {
@@ -46,7 +48,9 @@ class SiteVisitController {
 		
 		
         siteVisitInstance.save flush:true
-
+		
+		NotificationService.approvalNotification(siteVisitInstance.id.toString())
+		
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'siteVisit.label', default: 'SiteVisit'), siteVisitInstance.id])
@@ -124,51 +128,52 @@ class SiteVisitController {
 		render SiteVisit.list(params) as JSON
 	}
 	@Transactional
-	def approveVisit() {
+	def approve() {
 		def sv = SiteVisit.get(params.id)
-		String username = springSecurityService.principal.username
-		//sv.approver = username
-		sv.approved = true
-		//sv.approvalDate = new Date()
-		sv.status = 'Approved'
-		
-		sv.save(flush:true, failOnError: true)
-		sv.jobs.each() {
-			def job = Job.get(it.id)
-			job.requiresSV = false
-			job.save()
-		}
-		request.withFormat {
-			'*' {
-				flash.message = "Site Visit " + sv.id + " approved by " + username + " at " + dfMedium.format(new Date())
-				flash.type = 'success'
-				flash.icon = 'fa fa-thumbs-up'
-				redirect action:"index", method:"GET"
+		if (sv.status == 'Draft'){
+			sv.approved = true
+			sv.status = 'Approved'
+			
+			sv.save(flush:true, failOnError: true)
+			sv.jobs.each() {
+				def job = Job.get(it.id)
+				job.requiresSV = false
+				job.save()
 			}
+			request.withFormat {
+				'*' {
+						flash.message = "Site Visit " + sv.id + " approved at " + dfMedium.format(new Date())
+						flash.type = 'success'
+						flash.icon = 'fa fa-thumbs-up'
+						redirect action:"index", method:"GET"
+					}
+			}
+		}else if(sv.status == "Approved"){
+			render "Site Visit has already been approved"
+		}else {
+			render "Site Visit approval not available"
 		}
 	}
 	@Transactional
-	def rejectVisit() {
+	def reject() {
 		def sv = SiteVisit.get(params.id)
-		String username = springSecurityService.principal.username
-		sv.approver = username
-		sv.approved = false
-		sv.approvalDate = new Date()
-		sv.status = 'Rejected'
-		
-		sv.save(flush:true, failOnError: true)
-		/*sv.jobs.each() {
-			def job = Job.get(it.id)
-			job.requiresSV = false
-			job.save()
-		}*/
-		request.withFormat {
-			'*' {
-				flash.message = "Site Visit " + sv.id + " Rejected by " + username + " at " + dfMedium.format(sv.approvalDate)
-				flash.type = 'danger'
-				flash.icon = 'fa fa-thumbs-down'
-				redirect action:"index", method:"GET"
+		if (sv.status == 'Draft'){
+			sv.approved = false
+			sv.status = 'Rejected'
+			
+			sv.save(flush:true, failOnError: true)
+			request.withFormat {
+				'*' {
+					flash.message = "Site Visit " + sv.id + " Rejected at " + dfMedium.format(sv.approvalDate)
+					flash.type = 'danger'
+					flash.icon = 'fa fa-thumbs-down'
+					redirect action:"index", method:"GET"
+				}
 			}
+		}else if(sv.status == "Rejected"){
+			render "Site Visit has already been rejected"
+		}else {
+			render "Site Visit rejection not available"
 		}
 	}
 	@Transactional

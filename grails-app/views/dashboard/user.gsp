@@ -66,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<div class="row">
 		<div class="col-sm-4" >
 			<h3 class="text-center">Chart 1</h3>
@@ -84,7 +84,6 @@
 	
 	</body>
 	<!-- FLOT CHARTS -->
-        <script src="" type="text/javascript"></script>
         <g:javascript>
         	
 
@@ -104,6 +103,7 @@
 		$.plot("#chart-1",[d1]);
 		$.plot("#chart-2",[d2]);
 		$.plot("#chart-3",[d3]);
+		
 	});
         </g:javascript>
 </html>

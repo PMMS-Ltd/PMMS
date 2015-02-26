@@ -4,12 +4,13 @@ package uk.org.pmms
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-
+import grails.util.Holders
 @Transactional(readOnly = true)
 class NotificationController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	def NotificationService
+	def grailsApplication
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Notification.list(params), model:[notificationInstanceCount: Notification.count()]
@@ -115,14 +116,17 @@ class NotificationController {
 		render "ok"
 	}
 	def sendNotificationEmail(){
+		def sv = SiteVisit.get(1)
 		sendMail {
 			to "jon@pmms.org.uk"
-			subject "-PMMS- Approval Required - Site Visit"
+			from "noreply@pmms.org.uk"
+			subject "PMMS Approval Required - Site Visit"
 			body(
-				 view: "/notifications/basic",
-				 model: [name: 'Jonathan Lee']
+				 view: "/notifications/approval",
+				 model: [sv: sv, url: grailsApplication.config.grails.serverURL]
 			)
 		}
 		render "mail sent"
+		//render grailsApplication.config.grails.serverURL
 	}
 }

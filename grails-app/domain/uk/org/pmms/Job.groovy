@@ -13,27 +13,29 @@ class Job {
 	Supplier contractor
 	Person reportedBy
 	Boolean requiresSV = false
-	SiteVisit siteVisit
+	//SiteVisit siteVisit
+	SupplierType category
+	
 	Date dateCreated
 	Date lastUpdated
 	
 	static hasMany = [notes: Note, issues: Issue]
 		
     static constraints = {
-		status inList: ["New", "Assigned", "Declined","In Progress","Work Complete", "Invoice Received", "Awaiting Payment","Closed","Awaiting Further Info"] 
+		status inList: ["New", "Allocated", "Declined","In Progress","Work Complete", "Invoice Received", "Awaiting Payment","Closed","Awaiting Further Info"] 
 		repoFolderId nullable: true, blank: false, display: false
 		contractor nullable: true, blank: true
-		siteVisit nullable: true
+		//siteVisit nullable: true
 		priority inList: ["Emergency","High","Normal","Low"]
 		
     }
 	
 	def beforeInsert() {
 		if (status == "New" && contractor)
-		status = "Assigned"
+		status = "Allocated"
 	}
 	def beforeUpdate() {
 		if (status == "New" && contractor)
-		status = "Assigned"
+		status = "Allocated"
 	}
 }

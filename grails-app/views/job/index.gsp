@@ -55,7 +55,7 @@
 				<tbody>
 				<g:each in="${jobInstanceList}" status="i" var="jobInstance">
 					<tr>
-						<td class="text-center"><g:link action="show" id="${jobInstance.id}">${jobInstance.id }</g:link></td>
+						<td><g:link action="show" class="btn btn-xs btn-default" id="${jobInstance.id}"><i class="fa fa-fw fa-eye"></i></g:link><span class="text-center">${jobInstance.id }</span></td>
 						<td class="text-center">${fieldValue(bean: jobInstance, field: "client")}</td>
 						<td class="text-center"><span class="label status-${jobInstance.status.replace(' ','-').toLowerCase() }">${jobInstance.status }</span></td>
 						<td>${fieldValue(bean: jobInstance, field: "faultDetails")} - ${fieldValue(bean: jobInstance, field: "faultLocation")}</td>

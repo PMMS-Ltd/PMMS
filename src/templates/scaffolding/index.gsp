@@ -10,7 +10,7 @@
 	<body>
 		<div class="row">
 			<div class="col-xs-2">
-			<h1 class="page-header">\${domainClass.propertyName }
+			<h1 class="page-header"><g:message code="default.list.label" args="[entityName]" />
 				<div class="btn-group">
   <a href="#" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>

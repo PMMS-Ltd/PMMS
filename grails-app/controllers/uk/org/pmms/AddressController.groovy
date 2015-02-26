@@ -13,11 +13,10 @@ class AddressController extends RestfulController{
 	}
 	
 	def show(Address addressInstance){
-		request.withFormat {
-			json {render addressInstance as JSON}
-			"*" { respond addressInstance}
-		}
+		JSON.use('api')
+		respond addressInstance
 	}
+	
 	def addressFinder() {
 		def address = Address.findByUnitNoAndPostCode(params.unitNo, params.postCode)
 		if(address){

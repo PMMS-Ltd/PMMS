@@ -147,7 +147,7 @@ h1, h2, h3{
 	background: #553982;
 	font-size: 85%;
 }
-.status-awaiting-approval, .status-assigned, .status-awaiting-further-info{
+.status-awaiting-approval, .status-assigned, .status-awaiting-further-info, .status-allocated{
 	background: #f4d03f;
 	font-size: 85%;
 }

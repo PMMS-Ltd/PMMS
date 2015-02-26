@@ -12,20 +12,12 @@ class UrlMappings {
 		"/login/$action?"	(controller: "login")
 		"/logout/$action?"	(controller: "logout")
 		
-		//"/api/transfer/$id" (controller: "transfer", action:"show", parseRequest: true)
-		//"/api/supplier/$id" (controller: "supplier", action: "show", parseRequest: true)
 		
-		"/api/transfer" (resources: "transfer") {
-			"/vSolicitor" (resources: "supplier")
-		}
-		/*"/api/supplier" (resources: "supplier") {
-			"/address" (resource: "address")
-			"/employees" (resources: "person")
-		}*/
-		"/api/supplier" (resources: "supplier") {
-			"/address" (controller: "supplier", method:"GET")
-		}
-		"/api/clients" (uri: "/client/index")
+		"/api/transfer" (resources: "transfer")
+		"/api/supplier" (resources: "supplier") 
+		"/api/client" (resources: "client")
+		"/api/person" (resources: "person")
+		"/api/address" (reources: "address")
 		
 	}
 }

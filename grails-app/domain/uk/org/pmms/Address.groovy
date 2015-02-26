@@ -1,7 +1,7 @@
 package uk.org.pmms
 
 class Address {
-	static searchable = true
+	
 	String unitNo
 	String address1
 	String address2

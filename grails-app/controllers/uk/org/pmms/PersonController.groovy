@@ -19,6 +19,7 @@ class PersonController {
     }
 
     def show(Person personInstance) {
+		JSON.use('api')
         respond personInstance
     }
 

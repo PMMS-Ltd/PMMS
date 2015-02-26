@@ -125,10 +125,10 @@
 			<div class="col-lg-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Open Issues</h3>
+						<h3 class="panel-title">Recent Issues</h3>
 					</div>
 					<div class="panel-body">
-						<table class="table table-bordered">
+						<table class="table table-bordered table-condensed">
 							<thead>
 								<tr>
 									<th>ID</th>
@@ -186,13 +186,13 @@
 							<tr>
 								<th>Current Service Charge</th>
 								<td><g:formatNumber
-										number="${propertyInstance?.serviceChargeType?.currentCharge().serviceCharge}"
+										number="${propertyInstance?.serviceChargeType?.currentCharge()?.serviceCharge}"
 										type="currency" currencyCode="GBP" currencySymbol="£" /></td>
 							</tr>
 							<tr>
 								<th>Current Ground Rent</th>
 								<td><g:formatNumber
-										number="${propertyInstance?.serviceChargeType?.currentCharge().groundRent}"
+										number="${propertyInstance?.serviceChargeType?.currentCharge()?.groundRent}"
 										type="currency" currencyCode="GBP" currencySymbol="£" /></td>
 							</tr>
 							<tr>

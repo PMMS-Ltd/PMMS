@@ -103,8 +103,8 @@ class UtilsController {
 		 response.outputStream << output
 		}
 	}
-	def getGroupMemberEmails() {
-		if (params.name){
+	def getEmails() {
+		/*if (params.name){
 			def approvers = directoryService.findGroupWhere('cn': params.name)
 			def output = []
 			approvers.uniqueMemberValues().each(){
@@ -118,8 +118,11 @@ class UtilsController {
 				output.add(arr)
 			}
 			render output as JSON
-		}
+		}*/
+		render NotificationService.getGroupMemberEmails("APPROVERS")
 	}
-	
+	def getUrl() {
+		render NotificationService.getServerUrl()
+	}
 	
 }

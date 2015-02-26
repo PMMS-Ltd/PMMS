@@ -48,7 +48,7 @@
 		</div>
 		<g:if test="${clientInstance.calendarId != null}">
 		<div class="col-xs-2 col-lg-1">
-			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-rebecca-purple',value: eventCount, name: 'Upcoming Events', icon: 'fa-calendar', link: '/calendar/show/', id: clientInstance.calendarId]"/>
+			<g:render template="/dashboard/smallBox" model="[boxclass: 'bg-rebecca-purple',value: eventCount, name: 'Future Events', icon: 'fa-calendar', link: '/calendar/show/', id: clientInstance.calendarId]"/>
 		</div>
 		</g:if>
 		<div class="col-xs-2 col-lg-1">

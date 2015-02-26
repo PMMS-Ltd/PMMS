@@ -8,7 +8,7 @@ class Issue {
 	String issueDescription
 	String status
 	String assignedTo
-	Job jobId
+	Job job
 	
 	Date dateCreated
 	Date lastUpdated
@@ -19,7 +19,7 @@ class Issue {
     static constraints = {
 		issueDescription maxSize: 300
 		status inList:["New","Open","AFI","Closed"]
-		jobId nullable: true
+		job nullable: true
 		assignedTo nullable: true
 		reporterEmail email: true
 		closedDate nullable: true

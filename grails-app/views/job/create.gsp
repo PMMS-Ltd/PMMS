@@ -18,6 +18,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
+			
 			<div class="col-lg-6">
 			<g:form url="[resource:jobInstance, action:'save']" class="form form-horizontal">
 				<fieldset class="form">

@@ -47,6 +47,8 @@ grails.databinding.dateFormats = ['dd/MM/yyyy HH:mm','dd/MM/yyyy', 'yyyy-MM-dd H
 // If unspecified, controllers are prototype scoped.
 grails.controllers.defaultScope = 'singleton'
 
+//grails.converters.json.default.deep = true
+
 // GSP settings
 grails {
     views {
@@ -68,7 +70,6 @@ grails {
     	port = 587
     	username = "noreply@pmms.org.uk"
     	password = "Jonlee2001"
-    	default.from = "noreply@pmms.org.uk",
     	props = ["mail.smtp.auth":"true",
     		 "mail.smtp.transport":"smtps",
     		 "mail.smtp.socketFactory.port":"587",
@@ -77,7 +78,7 @@ grails {
     	}
 }
 
-
+grails.mail.default.from = "noreply@pmms.org.uk"
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
 grails.scaffolding.templates.domainSuffix = 'Instance'
@@ -110,6 +111,7 @@ environments {
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		grails.alfresco.repo.contractfolder = 'b07d6c04-693a-4fb7-9bf8-c7efd51ba6f5'
 		
+		grails.serverURL ="http://localhost:8080/PMMS"
 		grails.docServer.url = "http://localhost:9090/DocServer"
 		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
 		grails.camunda.url = "http://localhost:8090"
@@ -120,7 +122,7 @@ environments {
 		grails.alfresco.repo.transferfolder = '0279bee2-e5cd-43d9-b4aa-49c65ae77905'
 		grails.alfresco.repo.contractfolder = 'b07d6c04-693a-4fb7-9bf8-c7efd51ba6f5'
 		
-		//grails.serverURL ="http://192.168.10.200/PMMS"
+		grails.serverURL ="http://uat.pmms.org.uk/PMMS"
 		grails.docServer.url = "http://192.168.10.200/DocServer"
 		//grails.docServer.url = "http://apps2.pmms.org.uk/DocServer"
 		grails.camunda.url = "http://localhost:8090"
@@ -209,11 +211,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/lettersAndMailings/**':		  ['permitAll'],
 	'/utils/**':		 			  ['permitAll'],
 	'/Pdf/**':				  		  ['permitAll'],
-	'/task*/**':				  	  ['permitAll'],
-	'/calendar*/**':				  ['permitAll'],
-	'/event*/**':				  	  ['permitAll'],
 	'/notification/**':			  	  ['permitAll'],
-	'/siteVisit/**':			  	  ['permitAll'],
+	'/meta/**':			  	 		  ['permitAll'],
 	'/api/**':				  		  ['permitAll']
 
 ]

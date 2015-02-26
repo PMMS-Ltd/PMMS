@@ -40,6 +40,7 @@ class NoteController {
 			}
 		}
 		noteInstance.save flush:true
+		NotificationService.noteNotification()
 		
        request.withFormat {
 			 form multipartForm {redirect controller: params.objectType, action: 'addNote', id: params.objectId, params:[noteId: noteInstance.id] }

@@ -59,6 +59,8 @@
 			<g:render template="clientList" model="['clientInstanceList': clientInstanceList]"/>
 		</div>
 	</div>
+	<filterpane:filterPane domain="uk.org.pmms.Client" />
+	<filterpane:filterButton text="Whatever You Wish" />
 	</body>
 	<g:javascript>
 			$("#clientSearchForm").submit(function(event){

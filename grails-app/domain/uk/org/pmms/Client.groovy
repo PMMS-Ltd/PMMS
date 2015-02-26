@@ -2,8 +2,7 @@ package uk.org.pmms
 
 import uk.org.pmms.accounts.BankAccount;
 
-class Client {
-	static searchable = true
+class Client implements Comparable{
 	static auditable = true
 	String name
 	String clientId
@@ -32,5 +31,9 @@ class Client {
 	
 	String toString(){
 		return clientId
+	}
+	
+	int compareTo(obj){
+		clientId.compareTo(obj.clientId)
 	}
 }

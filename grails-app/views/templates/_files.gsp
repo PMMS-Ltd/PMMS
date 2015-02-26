@@ -1,5 +1,5 @@
 <g:if test="${files.size() > 0}">
-	<table class="table table-bordered table-striped" style="margin-top: 15px;">
+	<table class="table table-bordered table-condensed" style="margin-top: 15px;">
 		<thead>
 			<tr>
 				<th>Name</th>

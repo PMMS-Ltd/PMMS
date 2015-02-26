@@ -30,6 +30,19 @@ class JobController {
 	   }
 		//respond job, [status: OK, users: users]
 	}
+	
+	def convert() {
+		def username = springSecurityService.principal.username
+		params.enteredBy = username
+		def job = new Job(params)
+		def issue = Issue.get(params.id)
+		def users = directoryService.findPeopleWhere(objectClass:'inetOrgPerson')
+		request.withFormat {
+			html { render(view:'convert', model:[jobInstance: job, users: users, issueInstance: issue])} 
+		   json{ respond job, [status: OK]}
+	   }
+		//respond job, [status: OK, users: users]
+	}
 	def show(Job jobInstance) {
 		respond jobInstance, [status: OK]
 	}
@@ -98,9 +111,10 @@ class JobController {
 	@Transactional
 	def accept() {
 		def jobInstance = Job.get(params.id)
-		if (jobInstance && jobInstance.status=="Assigned") {
+		if (jobInstance && jobInstance.status=="Allocated") {
 			jobInstance.status = "In Progress"
 			jobInstance.save(flush:true)
+			
 			//TODO Send notification to assignee
 			render jobInstance 
 		}
@@ -108,7 +122,7 @@ class JobController {
 	@Transactional
 	def decline() {
 		def jobInstance = Job.get(params.id)
-		if (jobInstance && jobInstance.status=="Assigned") {
+		if (jobInstance && jobInstance.status=="Allocated") {
 			jobInstance.status = "Declined"
 			jobInstance.save(flush:true)
 			//TODO Send notification to assignee

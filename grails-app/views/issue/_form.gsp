@@ -1,9 +1,10 @@
 <%@ page import="uk.org.pmms.Issue" %>
+<%@ page import="uk.org.pmms.LdapUserService" %>
 
-
+<g:set var="ldapUser" bean="ldapUserService"/>
 <div class="form-group ${hasErrors(bean: issueInstance, field: 'clientId', 'has-error')} required">
 	<label for="clientId" class="control-label col-xs-3">
-		<g:message code="issue.clientId.label" default="Client Id" />
+		<g:message code="issue.clientId.label" default="Client Name" />
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-xs-6">
@@ -76,30 +77,15 @@
 	</div>
 </div>
 </g:if>
+
 <div class="form-group ${hasErrors(bean: issueInstance, field: 'assignedTo', 'has-error')} ">
 	<label for="assignedTo" class="control-label col-xs-3">
 		<g:message code="issue.assignedTo.label" default="Assigned To" />
-		
 	</label>
 	<div class="col-xs-8">
-		<g:textField class="form-control" name="assignedTo" value="${issueInstance?.assignedTo}"/>
+		<!--<g:textField class="form-control" name="assignedTo" value="${issueInstance?.assignedTo}"/>-->
+		<g:select name="assignedTo" from="${ldapUser.getUsersByGroup('USER')}" value="${issueInstance?.assignedTo}" class="many-to-one form-control" noSelection="['null': '']"/>
 
 	</div>
 </div>
-
-
-
-<g:if test="${issueInstance?.notes }">
-<div class="form-group ${hasErrors(bean: issueInstance, field: 'notes', 'has-error')} ">
-	<label for="notes" class="control-label col-xs-3">
-		<g:message code="issue.notes.label" default="Notes" />
-		
-	</label>
-	<div class="col-xs-8">
-		<g:select name="notes" from="${uk.org.pmms.Note.list()}" multiple="multiple" optionKey="id" size="5" value="${issueInstance?.notes*.id}" class="many-to-many form-control"/>
-
-	</div>
-</div>
-</g:if>
-<input type="hidden" name="status" value="${issueInstance?.status ? issueInstance?.status : 'New' }"/>
 

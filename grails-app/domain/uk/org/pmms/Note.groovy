@@ -13,6 +13,6 @@ class Note implements Comparable{
     }
 	
 	int compareTo(obj){
-		dateCreated.compareTo(obj.dateCreated)
+		id.compareTo(obj.id)
 	}
 }

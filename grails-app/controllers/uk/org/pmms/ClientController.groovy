@@ -22,6 +22,12 @@ class ClientController {
 	@Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+		if (!params.sort){
+			params.sort = 'clientId'
+		}
+		if (!params.order){
+			params.order = 'asc'
+		}
         respond Client.list(params), model:[clientInstanceCount: Client.count()]
     }
 	@Secured(['ROLE_USER'])
@@ -32,7 +38,9 @@ class ClientController {
 			eventCount = Event.findAllByCalendarAndStartDateGreaterThanAndEndDateLessThan(Calendar.get(clientInstance.calendarId), new Date().minus(1), new Date().plus(30)).size()
 		}
 		withFormat {
-			json { render clientInstance as JSON}
+			json { JSON.use("api")
+					respond clientInstance
+				}
 			'*' {
 				String query = "select cmis:name, cmis:objectId, cmis:contentStreamLength, cmis:contentStreamMimeType from cmis:document where in_folder('" + clientInstance.repoFolderId + "')"
 				
