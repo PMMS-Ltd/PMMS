@@ -119,7 +119,7 @@ grails.project.dependency.resolution = {
 		compile ":mail:1.0.7"
 		compile ":task-manager:0.1"
 		compile ":calendar-manager:0.5"
-		compile ":filterpane:2.4.0"
+		
 		
 		
         // plugins needed at runtime but not for compilation
